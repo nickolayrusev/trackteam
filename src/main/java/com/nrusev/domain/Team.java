@@ -15,7 +15,7 @@ import java.util.StringJoiner;
 @Table(name= "teams", uniqueConstraints=
     @UniqueConstraint(columnNames = {"code"}) )
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Team {
+public class Team extends AbstractAuditableEntity{
 
     private Long id;
     private String key;
@@ -31,8 +31,6 @@ public class Team {
     private String web;
     private Long assocId;
     private Boolean national;
-    private Date createdAt;
-    private Date updatedAt;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -174,26 +172,6 @@ public class Team {
         this.national = national;
     }
 
-    @Basic
-    @Column(name = "created_at", nullable = true)
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    @Basic
-    @Column(name = "updated_at", nullable = true)
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -215,8 +193,6 @@ public class Team {
         if (web != null ? !web.equals(team.web) : team.web != null) return false;
         if (assocId != null ? !assocId.equals(team.assocId) : team.assocId != null) return false;
         if (national != null ? !national.equals(team.national) : team.national != null) return false;
-        if (createdAt != null ? !createdAt.equals(team.createdAt) : team.createdAt != null) return false;
-        if (updatedAt != null ? !updatedAt.equals(team.updatedAt) : team.updatedAt != null) return false;
 
         return true;
     }
@@ -237,8 +213,6 @@ public class Team {
         result = 31 * result + (web != null ? web.hashCode() : 0);
         result = 31 * result + (assocId != null ? assocId.hashCode() : 0);
         result = 31 * result + (national != null ? national.hashCode() : 0);
-        result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
-        result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         return result;
     }
 }
