@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url" >jdbc:postgresql://localhost:5432/open-football-data</property>
+    <property name="connection.driver_class">org.postgresql.Driver</property>
+    <mapping class="com.nrusev.domain.AlltimeStandingEntry"/>
+    <mapping class="com.nrusev.domain.AlltimeStanding"/>
+    <mapping class="com.nrusev.domain.Assoc"/>
+    <mapping class="com.nrusev.domain.AssocAssoc"/>
+    <mapping class="com.nrusev.domain.Badge"/>
+    <mapping class="com.nrusev.domain.City"/>
+    <mapping class="com.nrusev.domain.Continent"/>
+    <mapping class="com.nrusev.domain.County"/>
+    <mapping class="com.nrusev.domain.Country"/>
+    <mapping class="com.nrusev.domain.CountryCode"/>
+    <mapping class="com.nrusev.domain.District"/>
+    <mapping class="com.nrusev.domain.EventStandingEntry"/>
+    <mapping class="com.nrusev.domain.EventStanding"/>
+    <mapping class="com.nrusev.domain.Event"/>
+    <mapping class="com.nrusev.domain.EventGround"/>
+    <mapping class="com.nrusev.domain.EventTeam"/>
+    <mapping class="com.nrusev.domain.Game"/>
+    <mapping class="com.nrusev.domain.Goal"/>
+    <mapping class="com.nrusev.domain.Ground"/>
+    <mapping class="com.nrusev.domain.GroupStandingEntry"/>
+    <mapping class="com.nrusev.domain.GroupStanding"/>
+    <mapping class="com.nrusev.domain.Group"/>
+    <mapping class="com.nrusev.domain.GroupTeam"/>
+    <mapping class="com.nrusev.domain.Lang"/>
+    <mapping class="com.nrusev.domain.League"/>
+    <mapping class="com.nrusev.domain.Log"/>
+    <mapping class="com.nrusev.domain.Metro"/>
+    <mapping class="com.nrusev.domain.Muni"/>
+    <mapping class="com.nrusev.domain.Name"/>
+    <mapping class="com.nrusev.domain.Part"/>
+    <mapping class="com.nrusev.domain.Person"/>
+    <mapping class="com.nrusev.domain.Place"/>
+    <mapping class="com.nrusev.domain.Prop"/>
+    <mapping class="com.nrusev.domain.Roster"/>
+    <mapping class="com.nrusev.domain.Round"/>
+    <mapping class="com.nrusev.domain.Season"/>
+    <mapping class="com.nrusev.domain.State"/>
+    <mapping class="com.nrusev.domain.Tagging"/>
+    <mapping class="com.nrusev.domain.Tag"/>
+    <mapping class="com.nrusev.domain.Team"/>
+    <mapping class="com.nrusev.domain.Usage"/>
+    <mapping class="com.nrusev.domain.Zone"/>
+    <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>

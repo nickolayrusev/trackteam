@@ -9,6 +9,6 @@ import java.util.List;
  * Created by nikolayrusev on 2/22/16.
  */
 public interface TeamRepository  extends CrudRepository<Team,Long>{
-    List<Team> findByName(String name);
+    List<Team> findByTitle(String title);
     List<Team> findAll();
 }

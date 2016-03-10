@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Created by nikolayrusev on 2/29/16.
  */
-@SpringUI
+//@SpringUI
 @Theme("valo")
 public class VaadinUI extends UI {
     @Autowired

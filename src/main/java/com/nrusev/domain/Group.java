@@ -1,22 +1,18 @@
 package com.nrusev.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
- * Created by nikolayrusev on 2/22/16.
+ * Created by nikolayrusev on 3/10/16.
  */
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
-@Table(name = "seasons")
-public class Season {
+@Table(name = "groups")
+public class Group {
     private Long id;
-    private String key;
+    private Long eventId;
     private String title;
+    private Long pos;
     private Date createdAt;
     private Date updatedAt;
 
@@ -31,13 +27,13 @@ public class Season {
     }
 
     @Basic
-    @Column(name = "key", nullable = false, length = -1)
-    public String getKey() {
-        return key;
+    @Column(name = "event_id", nullable = false)
+    public Long getEventId() {
+        return eventId;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setEventId(Long eventId) {
+        this.eventId = eventId;
     }
 
     @Basic
@@ -48,6 +44,16 @@ public class Season {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Basic
+    @Column(name = "pos", nullable = false)
+    public Long getPos() {
+        return pos;
+    }
+
+    public void setPos(Long pos) {
+        this.pos = pos;
     }
 
     @Basic
@@ -75,13 +81,14 @@ public class Season {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Season season = (Season) o;
+        Group group = (Group) o;
 
-        if (id != null ? !id.equals(season.id) : season.id != null) return false;
-        if (key != null ? !key.equals(season.key) : season.key != null) return false;
-        if (title != null ? !title.equals(season.title) : season.title != null) return false;
-        if (createdAt != null ? !createdAt.equals(season.createdAt) : season.createdAt != null) return false;
-        if (updatedAt != null ? !updatedAt.equals(season.updatedAt) : season.updatedAt != null) return false;
+        if (id != null ? !id.equals(group.id) : group.id != null) return false;
+        if (eventId != null ? !eventId.equals(group.eventId) : group.eventId != null) return false;
+        if (title != null ? !title.equals(group.title) : group.title != null) return false;
+        if (pos != null ? !pos.equals(group.pos) : group.pos != null) return false;
+        if (createdAt != null ? !createdAt.equals(group.createdAt) : group.createdAt != null) return false;
+        if (updatedAt != null ? !updatedAt.equals(group.updatedAt) : group.updatedAt != null) return false;
 
         return true;
     }
@@ -89,8 +96,9 @@ public class Season {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (key != null ? key.hashCode() : 0);
+        result = 31 * result + (eventId != null ? eventId.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (pos != null ? pos.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         return result;
