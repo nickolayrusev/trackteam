@@ -10,4 +10,5 @@ import java.util.List;
  */
 public interface TeamRepository  extends CrudRepository<Team,Long>{
     List<Team> findByName(String name);
+    List<Team> findAll();
 }

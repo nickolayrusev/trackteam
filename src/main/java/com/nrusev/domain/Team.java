@@ -29,11 +29,11 @@ public class Team {
 
     private String squadMarketValue;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "teams")
-    private Set<Pool> pools;
+//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "teams")
+//    private Set<Pool> pools;
 
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "teams")
-    private Set<Season> seasons;
+//    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "teams")
+//    private Set<Season> seasons;
 
     public String getName() {
         return name;
@@ -51,13 +51,13 @@ public class Team {
         this.id = id;
     }
 
-    public Set<Pool> getPools() {
-        return pools;
-    }
-
-    public void setPools(Set<Pool> pools) {
-        this.pools = pools;
-    }
+//    public Set<Pool> getPools() {
+//        return pools;
+//    }
+//
+//    public void setPools(Set<Pool> pools) {
+//        this.pools = pools;
+//    }
 
     public String getCode() {
         return code;
@@ -91,11 +91,11 @@ public class Team {
         this.squadMarketValue = squadMarketValue;
     }
 
-    public Set<Season> getSeasons() {
-        return seasons;
-    }
-
-    public void setSeasons(Set<Season> seasons) {
-        this.seasons = seasons;
-    }
+//    public Set<Season> getSeasons() {
+//        return seasons;
+//    }
+//
+//    public void setSeasons(Set<Season> seasons) {
+//        this.seasons = seasons;
+//    }
 }

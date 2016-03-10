@@ -31,6 +31,9 @@ public class VaadinUI extends UI {
         navigationBar.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         navigationBar.addComponent(createNavigationButton("View Scoped View", "view-scoped"));
         navigationBar.addComponent(createNavigationButton("UI scoped view", "ui-scoped"));
+        navigationBar.addComponent(createNavigationButton("Premier Ship", "season"));
+        navigationBar.addComponent(createNavigationButton("My Pools", "my-pools"));
+
         root.addComponent(navigationBar);
 
         final Panel viewContainer = new Panel();
