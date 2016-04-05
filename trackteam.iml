@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
+  <component name="AutoImportedSourceRoots">
+    <option name="directories">
+      <list>
+        <option value="src/main/java" />
+        <option value="src/test/java" />
+      </list>
+    </option>
+  </component>
   <component name="FacetManager">
     <facet type="Spring" name="Spring">
       <configuration>
@@ -21,10 +29,10 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
+          <unit-entry name="hibernate.cfg.xml" value="f895cef6-b2e2-4f56-81d9-0a8004d30253" />
           <unit-entry name="sql:hibernate.cfg.xml" value="f895cef6-b2e2-4f56-81d9-0a8004d30253" />
         </datasource-map>
         <naming-strategy-map />
-        <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/main/resources/sql/hibernate.cfg.xml" />
       </configuration>
     </facet>
   </component>
@@ -144,5 +152,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-core:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest-library:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:4.2.5.RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-stdlib:1.0.1-1" level="project" />
+    <orderEntry type="library" name="Maven: org.jetbrains.kotlin:kotlin-runtime:1.0.1-1" level="project" />
   </component>
 </module>

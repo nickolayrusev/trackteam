@@ -3,8 +3,11 @@ package com.nrusev.service;
 import com.nrusev.domain.Team;
 import com.nrusev.repository.TeamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
@@ -13,14 +16,20 @@ import java.util.List;
 @Service
 public class TeamService {
     private final TeamRepository teamRepository;
+    private final EntityManager em;
 
     @Autowired
-    public TeamService(TeamRepository teamRepository) {
+    public TeamService(TeamRepository teamRepository, JpaContext jpaContext) {
         this.teamRepository = teamRepository;
+        this.em = jpaContext.getEntityManagerByManagedType(Team.class);
     }
 
     public List<Team> findAll() {
         return teamRepository.findAll();
+    }
+
+    public List<Team> findAllClubTeams(){
+        return teamRepository.findAllClubTeams();
     }
 
 }

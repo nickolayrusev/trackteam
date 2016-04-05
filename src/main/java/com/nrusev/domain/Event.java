@@ -1,7 +1,7 @@
 package com.nrusev.domain;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by nikolayrusev on 3/10/16.
@@ -18,8 +18,8 @@ public class Event {
     private Boolean team3;
     private String sources;
     private String config;
-    private java.util.Date createdAt;
-    private java.util.Date updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
 
     @Id
     @Column(name = "id", nullable = false)

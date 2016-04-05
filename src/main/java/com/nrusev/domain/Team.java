@@ -14,7 +14,9 @@ import java.util.StringJoiner;
 @Entity
 @Table(name= "teams", uniqueConstraints=
     @UniqueConstraint(columnNames = {"code"}) )
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = true, value = "country")
+@NamedEntityGraph(name = "team.country",
+        attributeNodes = @NamedAttributeNode("country"))
 public class Team extends AbstractAuditableEntity{
 
     private Long id;
@@ -23,7 +25,7 @@ public class Team extends AbstractAuditableEntity{
     private String title2;
     private String code;
     private String synonyms;
-    private Long countryId;
+    private Country country;
     private Long cityId;
     private Boolean club;
     private Long since;
@@ -92,14 +94,15 @@ public class Team extends AbstractAuditableEntity{
         this.synonyms = synonyms;
     }
 
-    @Basic
-    @Column(name = "country_id", nullable = false)
-    public Long getCountryId() {
-        return countryId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id", nullable = false)
+    public Country getCountry() {
+        return country;
     }
 
-    public void setCountryId(Long countryId) {
-        this.countryId = countryId;
+    public void setCountry(Country country) {
+        this.country = country;
     }
 
     @Basic
@@ -185,7 +188,7 @@ public class Team extends AbstractAuditableEntity{
         if (title2 != null ? !title2.equals(team.title2) : team.title2 != null) return false;
         if (code != null ? !code.equals(team.code) : team.code != null) return false;
         if (synonyms != null ? !synonyms.equals(team.synonyms) : team.synonyms != null) return false;
-        if (countryId != null ? !countryId.equals(team.countryId) : team.countryId != null) return false;
+        if (country != null ? !country.equals(team.country) : team.country != null) return false;
         if (cityId != null ? !cityId.equals(team.cityId) : team.cityId != null) return false;
         if (club != null ? !club.equals(team.club) : team.club != null) return false;
         if (since != null ? !since.equals(team.since) : team.since != null) return false;
@@ -205,7 +208,7 @@ public class Team extends AbstractAuditableEntity{
         result = 31 * result + (title2 != null ? title2.hashCode() : 0);
         result = 31 * result + (code != null ? code.hashCode() : 0);
         result = 31 * result + (synonyms != null ? synonyms.hashCode() : 0);
-        result = 31 * result + (countryId != null ? countryId.hashCode() : 0);
+//        result = 31 * result + (country != null ? country.hashCode() : 0);
         result = 31 * result + (cityId != null ? cityId.hashCode() : 0);
         result = 31 * result + (club != null ? club.hashCode() : 0);
         result = 31 * result + (since != null ? since.hashCode() : 0);

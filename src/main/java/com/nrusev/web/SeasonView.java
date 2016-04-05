@@ -12,10 +12,12 @@ import com.vaadin.ui.Grid;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.renderers.NumberRenderer;
+import com.vaadin.ui.renderers.Renderer;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -30,7 +32,6 @@ public class SeasonView extends VerticalLayout implements View {
     public SeasonView(TeamService teamService){
         System.out.println("constructor...");
         this.teamService = teamService;
-        this.grid = new Grid();
     }
 
     @PostConstruct
@@ -39,12 +40,18 @@ public class SeasonView extends VerticalLayout implements View {
         setSpacing(true);
         setMargin(true);
         addComponent(new Label("Teams"));
+
+        List<Team> allClubTeams = teamService.findAll();
+        BeanItemContainer<Team> beanItemContainer = new BeanItemContainer<>(Team.class, allClubTeams);
+        beanItemContainer.addNestedContainerProperty("country.name");
+
+        this.grid = new Grid();
         grid.setSizeFull();
-        grid.setContainerDataSource(new BeanItemContainer<>(Team.class,teamService.findAll()));
+        grid.setContainerDataSource(beanItemContainer);
         grid.removeAllColumns();
         grid.addColumn("id").setRenderer(new NumberRenderer("%d%n"));
-        grid.addColumn("shortName");
-        grid.addColumn("name");
+        grid.addColumn("title");
+        grid.addColumn("country.name");
         grid.setHeightMode(HeightMode.ROW);
         grid.setHeight("10");
         addComponent(grid);

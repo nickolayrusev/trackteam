@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Created by nikolayrusev on 2/29/16.
  */
-//@SpringUI
+@SpringUI(path ="/app")
 @Theme("valo")
 public class VaadinUI extends UI {
     @Autowired
@@ -31,7 +31,7 @@ public class VaadinUI extends UI {
         navigationBar.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         navigationBar.addComponent(createNavigationButton("View Scoped View", "view-scoped"));
         navigationBar.addComponent(createNavigationButton("UI scoped view", "ui-scoped"));
-        navigationBar.addComponent(createNavigationButton("Premier Ship", "season"));
+        navigationBar.addComponent(createNavigationButton("Teams", "season"));
         navigationBar.addComponent(createNavigationButton("My Pools", "my-pools"));
 
         root.addComponent(navigationBar);

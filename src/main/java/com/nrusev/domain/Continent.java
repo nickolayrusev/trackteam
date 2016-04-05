@@ -2,6 +2,7 @@ package com.nrusev.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by nikolayrusev on 3/10/16.
@@ -17,6 +18,7 @@ public class Continent {
     private String altNames;
     private Date createdAt;
     private Date updatedAt;
+    private Set<Country> countries;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -96,6 +98,15 @@ public class Continent {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "continent")
+    public Set<Country> getCountries() {
+        return countries;
+    }
+
+    public void setCountries(Set<Country> countries) {
+        this.countries = countries;
     }
 
     @Override

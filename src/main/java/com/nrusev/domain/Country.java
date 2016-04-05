@@ -1,20 +1,49 @@
 package com.nrusev.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+
+import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by nikolayrusev on 3/10/16.
  */
 @Entity
-@javax.persistence.Table(name = "countries", schema = "public", catalog = "open-football-data")
+@Table(name = "countries")
 public class Country {
     private Long id;
+    private String name;
+    private String slug;
+    private String key;
+    private Long placeId;
+    private String code;
+    private String altNames;
+    private String histNames;
+    private Long pop;
+    private Long area;
+    private Continent continent;
+    private Long countryId;
+    private Boolean s;
+    private Boolean c;
+    private Boolean d;
+    private Boolean m;
+    private String motor;
+    private String alpha2;
+    private String alpha3;
+    private String num;
+    private String fifa;
+    private String ioc;
+    private String fips;
+    private String wikipedia;
+    private String net;
+    private Date createdAt;
+    private Date updatedAt;
+    private Set<Team> teams = new HashSet<Team>(0);
+
 
     @Id
-    @javax.persistence.Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false)
     public Long getId() {
         return id;
     }
@@ -23,10 +52,8 @@ public class Country {
         this.id = id;
     }
 
-    private String name;
-
     @Basic
-    @javax.persistence.Column(name = "name", nullable = false, length = -1)
+    @Column(name = "name", nullable = false, length = -1)
     public String getName() {
         return name;
     }
@@ -35,10 +62,9 @@ public class Country {
         this.name = name;
     }
 
-    private String slug;
 
     @Basic
-    @javax.persistence.Column(name = "slug", nullable = false, length = -1)
+    @Column(name = "slug", nullable = false, length = -1)
     public String getSlug() {
         return slug;
     }
@@ -47,10 +73,8 @@ public class Country {
         this.slug = slug;
     }
 
-    private String key;
-
     @Basic
-    @javax.persistence.Column(name = "key", nullable = false, length = -1)
+    @Column(name = "key", nullable = false, length = -1)
     public String getKey() {
         return key;
     }
@@ -59,10 +83,8 @@ public class Country {
         this.key = key;
     }
 
-    private Long placeId;
-
     @Basic
-    @javax.persistence.Column(name = "place_id", nullable = false)
+    @Column(name = "place_id", nullable = false)
     public Long getPlaceId() {
         return placeId;
     }
@@ -71,10 +93,9 @@ public class Country {
         this.placeId = placeId;
     }
 
-    private String code;
 
     @Basic
-    @javax.persistence.Column(name = "code", nullable = false, length = -1)
+    @Column(name = "code", nullable = false, length = -1)
     public String getCode() {
         return code;
     }
@@ -83,10 +104,8 @@ public class Country {
         this.code = code;
     }
 
-    private String altNames;
-
     @Basic
-    @javax.persistence.Column(name = "alt_names", nullable = true, length = -1)
+    @Column(name = "alt_names", nullable = true, length = -1)
     public String getAltNames() {
         return altNames;
     }
@@ -95,10 +114,8 @@ public class Country {
         this.altNames = altNames;
     }
 
-    private String histNames;
-
     @Basic
-    @javax.persistence.Column(name = "hist_names", nullable = true, length = -1)
+    @Column(name = "hist_names", nullable = true, length = -1)
     public String getHistNames() {
         return histNames;
     }
@@ -107,10 +124,8 @@ public class Country {
         this.histNames = histNames;
     }
 
-    private Long pop;
-
     @Basic
-    @javax.persistence.Column(name = "pop", nullable = false)
+    @Column(name = "pop", nullable = false)
     public Long getPop() {
         return pop;
     }
@@ -119,10 +134,9 @@ public class Country {
         this.pop = pop;
     }
 
-    private Long area;
 
     @Basic
-    @javax.persistence.Column(name = "area", nullable = false)
+    @Column(name = "area", nullable = false)
     public Long getArea() {
         return area;
     }
@@ -131,22 +145,20 @@ public class Country {
         this.area = area;
     }
 
-    private Long continentId;
 
-    @Basic
-    @javax.persistence.Column(name = "continent_id", nullable = true)
-    public Long getContinentId() {
-        return continentId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "continent_id", nullable = false)
+    public Continent getContinent() {
+        return continent;
     }
 
-    public void setContinentId(Long continentId) {
-        this.continentId = continentId;
+    public void setContinent(Continent continent) {
+        this.continent = continent;
     }
 
-    private Long countryId;
 
     @Basic
-    @javax.persistence.Column(name = "country_id", nullable = true)
+    @Column(name = "country_id", nullable = true)
     public Long getCountryId() {
         return countryId;
     }
@@ -155,10 +167,8 @@ public class Country {
         this.countryId = countryId;
     }
 
-    private Boolean s;
-
     @Basic
-    @javax.persistence.Column(name = "s", nullable = false)
+    @Column(name = "s", nullable = false)
     public Boolean getS() {
         return s;
     }
@@ -167,10 +177,8 @@ public class Country {
         this.s = s;
     }
 
-    private Boolean c;
-
     @Basic
-    @javax.persistence.Column(name = "c", nullable = false)
+    @Column(name = "c", nullable = false)
     public Boolean getC() {
         return c;
     }
@@ -179,10 +187,8 @@ public class Country {
         this.c = c;
     }
 
-    private Boolean d;
-
     @Basic
-    @javax.persistence.Column(name = "d", nullable = false)
+    @Column(name = "d", nullable = false)
     public Boolean getD() {
         return d;
     }
@@ -191,10 +197,8 @@ public class Country {
         this.d = d;
     }
 
-    private Boolean m;
-
     @Basic
-    @javax.persistence.Column(name = "m", nullable = false)
+    @Column(name = "m", nullable = false)
     public Boolean getM() {
         return m;
     }
@@ -203,10 +207,8 @@ public class Country {
         this.m = m;
     }
 
-    private String motor;
-
     @Basic
-    @javax.persistence.Column(name = "motor", nullable = true, length = -1)
+    @Column(name = "motor", nullable = true, length = -1)
     public String getMotor() {
         return motor;
     }
@@ -215,10 +217,8 @@ public class Country {
         this.motor = motor;
     }
 
-    private String alpha2;
-
     @Basic
-    @javax.persistence.Column(name = "alpha2", nullable = true, length = -1)
+    @Column(name = "alpha2", nullable = true, length = -1)
     public String getAlpha2() {
         return alpha2;
     }
@@ -227,10 +227,8 @@ public class Country {
         this.alpha2 = alpha2;
     }
 
-    private String alpha3;
-
     @Basic
-    @javax.persistence.Column(name = "alpha3", nullable = true, length = -1)
+    @Column(name = "alpha3", nullable = true, length = -1)
     public String getAlpha3() {
         return alpha3;
     }
@@ -239,10 +237,8 @@ public class Country {
         this.alpha3 = alpha3;
     }
 
-    private String num;
-
     @Basic
-    @javax.persistence.Column(name = "num", nullable = true, length = -1)
+    @Column(name = "num", nullable = true, length = -1)
     public String getNum() {
         return num;
     }
@@ -251,10 +247,8 @@ public class Country {
         this.num = num;
     }
 
-    private String fifa;
-
     @Basic
-    @javax.persistence.Column(name = "fifa", nullable = true, length = -1)
+    @Column(name = "fifa", nullable = true, length = -1)
     public String getFifa() {
         return fifa;
     }
@@ -263,10 +257,8 @@ public class Country {
         this.fifa = fifa;
     }
 
-    private String ioc;
-
     @Basic
-    @javax.persistence.Column(name = "ioc", nullable = true, length = -1)
+    @Column(name = "ioc", nullable = true, length = -1)
     public String getIoc() {
         return ioc;
     }
@@ -275,10 +267,8 @@ public class Country {
         this.ioc = ioc;
     }
 
-    private String fips;
-
     @Basic
-    @javax.persistence.Column(name = "fips", nullable = true, length = -1)
+    @Column(name = "fips", nullable = true, length = -1)
     public String getFips() {
         return fips;
     }
@@ -287,10 +277,8 @@ public class Country {
         this.fips = fips;
     }
 
-    private String net;
-
     @Basic
-    @javax.persistence.Column(name = "net", nullable = true, length = -1)
+    @Column(name = "net", nullable = true, length = -1)
     public String getNet() {
         return net;
     }
@@ -299,10 +287,8 @@ public class Country {
         this.net = net;
     }
 
-    private String wikipedia;
-
     @Basic
-    @javax.persistence.Column(name = "wikipedia", nullable = true, length = -1)
+    @Column(name = "wikipedia", nullable = true, length = -1)
     public String getWikipedia() {
         return wikipedia;
     }
@@ -311,10 +297,8 @@ public class Country {
         this.wikipedia = wikipedia;
     }
 
-    private Date createdAt;
-
     @Basic
-    @javax.persistence.Column(name = "created_at", nullable = true)
+    @Column(name = "created_at", nullable = true)
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -323,16 +307,24 @@ public class Country {
         this.createdAt = createdAt;
     }
 
-    private Date updatedAt;
-
     @Basic
-    @javax.persistence.Column(name = "updated_at", nullable = true)
+    @Column(name = "updated_at", nullable = true)
     public Date getUpdatedAt() {
         return updatedAt;
     }
 
     public void setUpdatedAt(Date updatedAt) {
+
         this.updatedAt = updatedAt;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "country")
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
     }
 
     @Override
@@ -352,7 +344,7 @@ public class Country {
         if (histNames != null ? !histNames.equals(country.histNames) : country.histNames != null) return false;
         if (pop != null ? !pop.equals(country.pop) : country.pop != null) return false;
         if (area != null ? !area.equals(country.area) : country.area != null) return false;
-        if (continentId != null ? !continentId.equals(country.continentId) : country.continentId != null) return false;
+        if (continent != null ? !continent.equals(country.continent) : country.continent != null) return false;
         if (countryId != null ? !countryId.equals(country.countryId) : country.countryId != null) return false;
         if (s != null ? !s.equals(country.s) : country.s != null) return false;
         if (c != null ? !c.equals(country.c) : country.c != null) return false;
@@ -385,7 +377,7 @@ public class Country {
         result = 31 * result + (histNames != null ? histNames.hashCode() : 0);
         result = 31 * result + (pop != null ? pop.hashCode() : 0);
         result = 31 * result + (area != null ? area.hashCode() : 0);
-        result = 31 * result + (continentId != null ? continentId.hashCode() : 0);
+        result = 31 * result + (continent != null ? continent.hashCode() : 0);
         result = 31 * result + (countryId != null ? countryId.hashCode() : 0);
         result = 31 * result + (s != null ? s.hashCode() : 0);
         result = 31 * result + (c != null ? c.hashCode() : 0);
