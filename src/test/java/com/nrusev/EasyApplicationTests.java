@@ -29,10 +29,6 @@ public class EasyApplicationTests {
 
 
 	@Test
-	public void intTest(){
-		System.out.println( 1 << 30);
-	}
-	@Test
 	public void testGetTeam(){
 		List<Team> chelsea = teamRepository.findByTitle("Chelsea");
 		System.out.println(chelsea.size());
@@ -51,33 +47,9 @@ public class EasyApplicationTests {
 	}
 
 	@Test
-	public void testToBinary(){
-		System.out.println("binary is " + toBinary(529));
-		String binary = toBinary(529);
-		int gap = 0,maxGapSize = 0;
-		boolean isInGap = false;
-		for(int i = 0;i<binary.length();i++){
-			char c = binary.charAt(i);
-			if(c=='1') {
-				isInGap = true;
-				if(gap > maxGapSize)
-					maxGapSize = gap;
-				gap = 0;
-				continue;
-			}
-			if(isInGap && c == '0')
-				gap++;
-		}
-
-		System.out.println("max gap size is "+ maxGapSize);
+	public void testAllTeams(){
+//		teamRepository.findByCountryContinentNameAndNationalIsFalseAndClubIsFalse("Europe");
+		List<Team> all = teamRepository.findAll();
+		System.out.println(all.size());
 	}
-
-	public String toBinary(int n){
-		if(n==0)
-			return "0";
-		if(n==1)
-			return "1";
-		return toBinary(n/2) + n%2;
-	}
-
 }
