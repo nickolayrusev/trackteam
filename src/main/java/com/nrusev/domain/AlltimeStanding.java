@@ -1,19 +1,15 @@
 package com.nrusev.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
- * Created by nikolayrusev on 2/22/16.
+ * Created by nikolayrusev on 3/10/16.
  */
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
-@Table(name = "seasons")
-public class Season {
+@Table(name = "alltime_standings")
+public class AlltimeStanding {
     private Long id;
     private String key;
     private String title;
@@ -75,13 +71,13 @@ public class Season {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Season season = (Season) o;
+        AlltimeStanding that = (AlltimeStanding) o;
 
-        if (id != null ? !id.equals(season.id) : season.id != null) return false;
-        if (key != null ? !key.equals(season.key) : season.key != null) return false;
-        if (title != null ? !title.equals(season.title) : season.title != null) return false;
-        if (createdAt != null ? !createdAt.equals(season.createdAt) : season.createdAt != null) return false;
-        if (updatedAt != null ? !updatedAt.equals(season.updatedAt) : season.updatedAt != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (key != null ? !key.equals(that.key) : that.key != null) return false;
+        if (title != null ? !title.equals(that.title) : that.title != null) return false;
+        if (createdAt != null ? !createdAt.equals(that.createdAt) : that.createdAt != null) return false;
+        if (updatedAt != null ? !updatedAt.equals(that.updatedAt) : that.updatedAt != null) return false;
 
         return true;
     }

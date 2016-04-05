@@ -1,22 +1,17 @@
 package com.nrusev.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import javax.persistence.*;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
- * Created by nikolayrusev on 2/22/16.
+ * Created by nikolayrusev on 3/10/16.
  */
 @Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
-@Table(name = "seasons")
-public class Season {
+@Table(name = "langs")
+public class Lang {
     private Long id;
     private String key;
-    private String title;
+    private String name;
     private Date createdAt;
     private Date updatedAt;
 
@@ -41,13 +36,13 @@ public class Season {
     }
 
     @Basic
-    @Column(name = "title", nullable = false, length = -1)
-    public String getTitle() {
-        return title;
+    @Column(name = "name", nullable = false, length = -1)
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
@@ -75,13 +70,13 @@ public class Season {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Season season = (Season) o;
+        Lang lang = (Lang) o;
 
-        if (id != null ? !id.equals(season.id) : season.id != null) return false;
-        if (key != null ? !key.equals(season.key) : season.key != null) return false;
-        if (title != null ? !title.equals(season.title) : season.title != null) return false;
-        if (createdAt != null ? !createdAt.equals(season.createdAt) : season.createdAt != null) return false;
-        if (updatedAt != null ? !updatedAt.equals(season.updatedAt) : season.updatedAt != null) return false;
+        if (id != null ? !id.equals(lang.id) : lang.id != null) return false;
+        if (key != null ? !key.equals(lang.key) : lang.key != null) return false;
+        if (name != null ? !name.equals(lang.name) : lang.name != null) return false;
+        if (createdAt != null ? !createdAt.equals(lang.createdAt) : lang.createdAt != null) return false;
+        if (updatedAt != null ? !updatedAt.equals(lang.updatedAt) : lang.updatedAt != null) return false;
 
         return true;
     }
@@ -90,7 +85,7 @@ public class Season {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (key != null ? key.hashCode() : 0);
-        result = 31 * result + (title != null ? title.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         return result;
