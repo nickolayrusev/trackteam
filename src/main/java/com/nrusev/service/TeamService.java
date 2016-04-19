@@ -1,14 +1,15 @@
 package com.nrusev.service;
 
-import com.nrusev.domain.Team;
-import com.nrusev.repository.TeamRepository;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.util.List;
+import com.nrusev.domain.Team;
+import com.nrusev.repository.TeamRepository;
 
 /**
  * Created by nikolayrusev on 2/24/16.

@@ -11,6 +11,8 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "countries")
+@NamedEntityGraph(name = "country.leagues",
+attributeNodes = @NamedAttributeNode("leagues"))
 public class Country {
     private Long id;
     private String name;
@@ -40,6 +42,7 @@ public class Country {
     private Date createdAt;
     private Date updatedAt;
     private Set<Team> teams = new HashSet<Team>(0);
+    private Set<League> leagues = new HashSet<League>(0);
 
 
     @Id
@@ -327,6 +330,15 @@ public class Country {
         this.teams = teams;
     }
 
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "country")
+	public Set<League> getLeagues() {
+		return leagues;
+	}
+
+	public void setLeagues(Set<League> leagues) {
+		this.leagues = leagues;
+	}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -344,7 +356,7 @@ public class Country {
         if (histNames != null ? !histNames.equals(country.histNames) : country.histNames != null) return false;
         if (pop != null ? !pop.equals(country.pop) : country.pop != null) return false;
         if (area != null ? !area.equals(country.area) : country.area != null) return false;
-        if (continent != null ? !continent.equals(country.continent) : country.continent != null) return false;
+//        if (continent != null ? !continent.equals(country.continent) : country.continent != null) return false;
         if (countryId != null ? !countryId.equals(country.countryId) : country.countryId != null) return false;
         if (s != null ? !s.equals(country.s) : country.s != null) return false;
         if (c != null ? !c.equals(country.c) : country.c != null) return false;
@@ -377,7 +389,7 @@ public class Country {
         result = 31 * result + (histNames != null ? histNames.hashCode() : 0);
         result = 31 * result + (pop != null ? pop.hashCode() : 0);
         result = 31 * result + (area != null ? area.hashCode() : 0);
-        result = 31 * result + (continent != null ? continent.hashCode() : 0);
+//        result = 31 * result + (continent != null ? continent.hashCode() : 0);
         result = 31 * result + (countryId != null ? countryId.hashCode() : 0);
         result = 31 * result + (s != null ? s.hashCode() : 0);
         result = 31 * result + (c != null ? c.hashCode() : 0);
@@ -396,4 +408,10 @@ public class Country {
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         return result;
     }
+
+	@Override
+	public String toString() {
+		return "Country [id=" + id + ", name=" + name + ", key=" + key + ", code=" + code + "]";
+	}
+
 }

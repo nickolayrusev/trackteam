@@ -32,8 +32,12 @@ public interface TeamRepository  extends CrudRepository<Team,Long>{
     @Query("select t from Team t join fetch t.country where t.club = true and t.national = false order by t.title")
     List<Team> findAllClubTeams();
 
-    @Query("select t from Team t join fetch t.country country " +
-            "join fetch country.continent cn " +
+    @Query("select t from Team t " +
+    		"join fetch t.country cou " +
+            "join fetch cou.continent cn " +
             "where cn.name = :name and t.national = :isNational and t.club = :isClub")
     List<Team> findByContinentName(@Param("name") String name,@Param("isNational") boolean isNational,@Param("isClub") boolean isClub);
+    
+    @Query("select t from Team t join t.events e join e.league l join e.season s where s.key = :seasonKey and l.key = :leagueKey")
+    List<Team> findBySeasonKeyAndLeagueKey(@Param("seasonKey")String seasonKey, @Param("leagueKey")String leagueKey);
 }

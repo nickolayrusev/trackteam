@@ -1,13 +1,11 @@
 package com.nrusev.support;
 
+import java.io.IOException;
+
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.http.client.support.HttpRequestWrapper;
-import org.springframework.web.util.UriUtils;
-
-import java.io.IOException;
 
 /**
  * Created by nikolayrusev on 2/22/16.

@@ -1,6 +1,9 @@
 package com.nrusev;
 
+import com.nrusev.domain.Country;
 import com.nrusev.domain.Team;
+import com.nrusev.repository.CountryRepository;
+import com.nrusev.repository.LeagueRepository;
 import com.nrusev.repository.TeamRepository;
 import com.nrusev.service.TeamService;
 import org.junit.Test;
@@ -22,7 +25,12 @@ public class EasyApplicationTests {
 	@Autowired
 	TeamService teamService;
 
-
+	@Autowired
+	LeagueRepository leagueRepository;
+	
+	@Autowired
+	CountryRepository countryRepository;
+	
 	@Test
 	public void contextLoads() {
 	}
@@ -51,5 +59,27 @@ public class EasyApplicationTests {
 //		teamRepository.findByCountryContinentNameAndNationalIsFalseAndClubIsFalse("Europe");
 		List<Team> all = teamRepository.findAll();
 		System.out.println(all.size());
+	}
+	
+	@Test
+	public void testFindBySeason(){
+		System.out.println("season 1");
+		teamRepository.findBySeasonKeyAndLeagueKey("2014/15","en").forEach(t->{System.out.println(t.getTitle());});
+		System.out.println("season 2");
+		teamRepository.findBySeasonKeyAndLeagueKey("2013/14","en").forEach(t->{System.out.println(t.getTitle());});
+	}
+
+	@Test
+	public void testFindAllLeagues(){
+		leagueRepository.findByClubTrue().forEach(System.out::println);
+	}
+	
+	@Test
+	public void testFindByDistinctCountries(){
+		List<Country> findAvailableCountries = countryRepository.findAvailableCountries();
+		findAvailableCountries.forEach(System.out::println);
+		for (Country country : findAvailableCountries) {
+			System.out.println(country.getLeagues().size());
+		}
 	}
 }

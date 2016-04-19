@@ -2,6 +2,8 @@ package com.nrusev.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by nikolayrusev on 3/10/16.
@@ -11,8 +13,10 @@ import java.util.Date;
 public class Event {
     private Long id;
     private String key;
-    private Long leagueId;
-    private Long seasonId;
+    private League league;
+//    private Long leagueId;
+//    private Long seasonId;
+    private Season season;
     private Date startAt;
     private Date endAt;
     private Boolean team3;
@@ -20,6 +24,7 @@ public class Event {
     private String config;
     private Date createdAt;
     private Date updatedAt;
+    private Set<Team> teams = new HashSet<>(0);
 
     @Id
     @Column(name = "id", nullable = false)
@@ -41,25 +46,25 @@ public class Event {
         this.key = key;
     }
 
-    @Basic
-    @Column(name = "league_id", nullable = false)
-    public Long getLeagueId() {
-        return leagueId;
-    }
+//    @Basic
+//    @Column(name = "league_id", nullable = false)
+//    public Long getLeagueId() {
+//        return leagueId;
+//    }
+//
+//    public void setLeagueId(Long leagueId) {
+//        this.leagueId = leagueId;
+//    }
 
-    public void setLeagueId(Long leagueId) {
-        this.leagueId = leagueId;
-    }
-
-    @Basic
-    @Column(name = "season_id", nullable = false)
-    public Long getSeasonId() {
-        return seasonId;
-    }
-
-    public void setSeasonId(Long seasonId) {
-        this.seasonId = seasonId;
-    }
+//    @Basic
+//    @Column(name = "season_id", nullable = false)
+//    public Long getSeasonId() {
+//        return seasonId;
+//    }
+//
+//    public void setSeasonId(Long seasonId) {
+//        this.seasonId = seasonId;
+//    }
 
     @Basic
     @Column(name = "start_at", nullable = false)
@@ -123,15 +128,45 @@ public class Event {
 
     @Basic
     @Column(name = "updated_at", nullable = true)
-    public java.util.Date getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(java.util.Date updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+    
+    @ManyToMany(mappedBy="events")
+    public Set<Team> getTeams() {
+		return teams;
+	}
 
-    @Override
+	public void setTeams(Set<Team> teams) {
+		this.teams = teams;
+	}
+
+
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "league_id", nullable = false)
+	public League getLeague() {
+		return league;
+	}
+
+	public void setLeague(League league) {
+		this.league = league;
+	}
+  
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "season_id", nullable = false)
+	public Season getSeason() {
+		return season;
+	}
+
+	public void setSeason(Season season) {
+		this.season = season;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -140,8 +175,8 @@ public class Event {
 
         if (id != null ? !id.equals(event.id) : event.id != null) return false;
         if (key != null ? !key.equals(event.key) : event.key != null) return false;
-        if (leagueId != null ? !leagueId.equals(event.leagueId) : event.leagueId != null) return false;
-        if (seasonId != null ? !seasonId.equals(event.seasonId) : event.seasonId != null) return false;
+//        if (leagueId != null ? !leagueId.equals(event.leagueId) : event.leagueId != null) return false;
+//        if (seasonId != null ? !seasonId.equals(event.seasonId) : event.seasonId != null) return false;
         if (startAt != null ? !startAt.equals(event.startAt) : event.startAt != null) return false;
         if (endAt != null ? !endAt.equals(event.endAt) : event.endAt != null) return false;
         if (team3 != null ? !team3.equals(event.team3) : event.team3 != null) return false;
@@ -157,8 +192,8 @@ public class Event {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (key != null ? key.hashCode() : 0);
-        result = 31 * result + (leagueId != null ? leagueId.hashCode() : 0);
-        result = 31 * result + (seasonId != null ? seasonId.hashCode() : 0);
+//        result = 31 * result + (leagueId != null ? leagueId.hashCode() : 0);
+//        result = 31 * result + (seasonId != null ? seasonId.hashCode() : 0);
         result = 31 * result + (startAt != null ? startAt.hashCode() : 0);
         result = 31 * result + (endAt != null ? endAt.hashCode() : 0);
         result = 31 * result + (team3 != null ? team3.hashCode() : 0);

@@ -1,11 +1,18 @@
 package com.nrusev.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Created by nikolayrusev on 2/22/16.
@@ -19,6 +26,7 @@ public class Season {
     private String title;
     private Date createdAt;
     private Date updatedAt;
+    private Set<Event> events = new HashSet<>(0);
 
     @Id
     @Column(name = "id", nullable = false)
@@ -69,6 +77,15 @@ public class Season {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "season")
+	public Set<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(Set<Event> events) {
+		this.events = events;
+	}
 
     @Override
     public boolean equals(Object o) {

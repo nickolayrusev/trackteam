@@ -1,8 +1,12 @@
 package com.nrusev.domain;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Created by nikolayrusev on 3/10/16.

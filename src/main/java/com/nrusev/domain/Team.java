@@ -1,12 +1,23 @@
 package com.nrusev.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.StringJoiner;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * Created by nikolayrusev on 2/22/16.
@@ -33,6 +44,7 @@ public class Team extends AbstractAuditableEntity{
     private String web;
     private Long assocId;
     private Boolean national;
+    private Set<Event> events = new HashSet<>(0);
 
     @Id
     @Column(name = "id", nullable = false)
@@ -174,6 +186,19 @@ public class Team extends AbstractAuditableEntity{
     public void setNational(Boolean national) {
         this.national = national;
     }
+    
+    @ManyToMany
+    @JoinTable(
+    	      name="events_teams",
+    	      joinColumns=@JoinColumn(name="team_id", referencedColumnName="id"),
+    	      inverseJoinColumns=@JoinColumn(name="event_id", referencedColumnName="id"))
+	public Set<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(Set<Event> events) {
+		this.events = events;
+	}
 
     @Override
     public boolean equals(Object o) {
@@ -200,6 +225,7 @@ public class Team extends AbstractAuditableEntity{
         return true;
     }
 
+
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
@@ -218,4 +244,5 @@ public class Team extends AbstractAuditableEntity{
         result = 31 * result + (national != null ? national.hashCode() : 0);
         return result;
     }
+
 }
