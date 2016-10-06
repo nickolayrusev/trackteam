@@ -22,38 +22,12 @@ import java.util.Map;
  * Created by nikolayrusev on 10/6/16.
  */
 @Configuration
-@EnableJpaRepositories(transactionManagerRef = "testTransactionManager", basePackages = "com.nrusev.repository.migration",
-        entityManagerFactoryRef = "testEntityManagerFactory")
 public class SecondaryDatabaseConfig {
 
     @Bean
+    @ConfigurationProperties(prefix = "datasource.secondary")
     DataSource secondaryDataSource() {
-        return DataSourceBuilder.create().driverClassName("org.sqlite.JDBC").url("jdbc:sqlite:C:\\Users\\Nikolay Rusev\\Desktop\\all.db").build();
+        return DataSourceBuilder.create().build();
     }
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean testEntityManagerFactory() {
-        HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setGenerateDdl(true);
-
-        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-
-        factoryBean.setDataSource(secondaryDataSource());
-        factoryBean.setJpaVendorAdapter(vendorAdapter);
-        factoryBean.setPackagesToScan("com.nrusev.domain.migration");
-        factoryBean.setJpaPropertyMap(jpaProperties());
-        factoryBean.setPersistenceUnitName("second");
-        return factoryBean;
-    }
-
-    @Bean
-    PlatformTransactionManager testTransactionManager() {
-        return new JpaTransactionManager(testEntityManagerFactory().getObject());
-    }
-
-    private Map<String, Object> jpaProperties() {
-        Map<String, Object> props = new HashMap<>();
-        props.put("hibernate.dialect","com.nrusev.config.SQLiteDialect");
-        return props;
-    }
 }

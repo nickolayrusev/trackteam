@@ -26,17 +26,20 @@ public class RepositoryApplicationTests {
 	@Test
 	public void contextLoads() {
 		List<Team> allClubTeams = teamRepository.findAllClubTeams();
-		System.out.println(allClubTeams.size());
         Assert.isTrue(allClubTeams.size() > 1000);
     }
 
 
 	@Test
-	@Transactional(transactionManager = "testTransactionManager")
 	public void matchesCount() {
-        System.out.println(matchesRepository.findAll());
+        System.out.println(matchesRepository.countAll());
 	}
 
+
+	@Test
+	public void testFindAllMatches(){
+		matchesRepository.findAll().forEach(System.out::println);
+	}
 
 
 }
