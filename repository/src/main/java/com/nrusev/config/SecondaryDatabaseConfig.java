@@ -22,13 +22,13 @@ import java.util.Map;
  * Created by nikolayrusev on 10/6/16.
  */
 @Configuration
-@EnableJpaRepositories(transactionManagerRef = "testTransactionManager",
+@EnableJpaRepositories(transactionManagerRef = "testTransactionManager", basePackages = "com.nrusev.repository.migration",
         entityManagerFactoryRef = "testEntityManagerFactory")
 public class SecondaryDatabaseConfig {
 
     @Bean
     DataSource secondaryDataSource() {
-        return DataSourceBuilder.create().driverClassName("org.sqlite.JDBC").url("jdbc:sqlite:all.db").build();
+        return DataSourceBuilder.create().driverClassName("org.sqlite.JDBC").url("jdbc:sqlite:C:\\Users\\Nikolay Rusev\\Desktop\\all.db").build();
     }
 
     @Bean
@@ -40,8 +40,9 @@ public class SecondaryDatabaseConfig {
 
         factoryBean.setDataSource(secondaryDataSource());
         factoryBean.setJpaVendorAdapter(vendorAdapter);
-        factoryBean.setPackagesToScan("com.nrusev.domain");
+        factoryBean.setPackagesToScan("com.nrusev.domain.migration");
         factoryBean.setJpaPropertyMap(jpaProperties());
+        factoryBean.setPersistenceUnitName("second");
         return factoryBean;
     }
 
