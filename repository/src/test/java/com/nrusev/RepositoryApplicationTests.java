@@ -41,5 +41,10 @@ public class RepositoryApplicationTests {
 		matchesRepository.findAll().forEach(System.out::println);
 	}
 
+	@Test
+	public void testFindAllMatchesForCountry(){
+		matchesRepository.findAll("italy").forEach(System.out::println);
+	}
+
 
 }

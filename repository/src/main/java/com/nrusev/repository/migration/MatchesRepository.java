@@ -33,17 +33,22 @@ public class MatchesRepository {
 
     public List<Match> findAll(){
         List<Match> matches = this.jdbcTemplate.query(
-                "select id,Name1,Name2 from Matches",
-                new RowMapper<Match>() {
-                    public Match mapRow(ResultSet rs, int rowNum) throws SQLException {
-                        Match match = new Match();
-                        match.setId(rs.getLong("id"));
-                        match.setName1(rs.getString("Name1"));
-                        match.setName2(rs.getString("Name2"));
-                        return match;
-                    }
-                });
+                "select id,Name1,Name2 from Matches", new MatchMapper());
         return matches;
+    }
+    private static final class MatchMapper implements RowMapper<Match>{
+
+        @Override
+        public Match mapRow(ResultSet rs, int i) throws SQLException {
+            Match match = new Match();
+            match.setId(rs.getLong("id"));
+            match.setName1(rs.getString("Name1"));
+            match.setName2(rs.getString("Name2"));
+            return match;
+        }
+    }
+    public List<Match> findAll(String country){
+        return this.jdbcTemplate.query("select id,Name1,Name2 from Matches m where m.country = ?", new Object[]{country}, new MatchMapper());
     }
 
 }
