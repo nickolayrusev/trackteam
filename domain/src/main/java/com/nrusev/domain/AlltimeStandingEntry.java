@@ -146,7 +146,7 @@ public class AlltimeStandingEntry {
     }
 
     @Basic
-    @Column(name = "comments", nullable = true, length = -1)
+    @Column(name = "comments", nullable = true, length = 1000)
     public String getComments() {
         return comments;
     }

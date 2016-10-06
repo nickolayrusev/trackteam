@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by nikolayrusev on 3/10/16.
  */
 @Entity
-@Table(name = "country_codes", schema = "public", catalog = "open-football-data")
+@Table(name = "country_codes")
 public class CountryCode {
     private Long id;
     private String name;
