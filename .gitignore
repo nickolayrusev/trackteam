@@ -61,3 +61,11 @@ crashlytics-build.properties
 fabric.properties
 .mvn/
 .idea/
+
+### Common ###
+.nb-gradle/
+.README.md.un~
+.metadata/
+.settings/
+RemoteSystemsTempFiles/
+

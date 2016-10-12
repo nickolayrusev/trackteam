@@ -54,32 +54,33 @@ public class RepositoryApplicationTests {
         System.out.println(italy.size());
         System.out.println(italyOriginalDatabase.size());
 
-        Map<Team, String> collect = italyOriginalDatabase.stream().collect(toMap(Function.identity(), team -> {
-            if (team.getSynonyms() == null) return "";
-            else return team.getSynonyms();
-        }));
+//        Map<Team, String> collect = italyOriginalDatabase.stream().collect(toMap(Function.identity(), team -> {
+//            if (team.getSynonyms() == null) return "";
+//            else return team.getSynonyms();
+//        }));
+//
+//
+//        italy.forEach(t -> {
+//            List<Team> byTitleIgnoreCase = teamRepository.findByTitleIgnoreCase(t);
+//            if (byTitleIgnoreCase.size() == 0) {
+//                italyOriginalDatabase.forEach(team -> {
+//                    String synonyms = team.getSynonyms();
+//                    if (team.getSynonyms() != null) {
+//                        String[] strings = synonyms.split("\\|");
+//                        if (strings.length > 0) {
+//                            System.out.println(t + " synonyms are " + Arrays.toString(strings));
+//                        }
+//                    }
+//                });
+//                System.out.println("team " + t + " is not found");
+//            }
+////			if(byTitleIgnoreCase.size()==1)
+////				System.out.println("team "+t + " is found exactly the same");
+//            if (byTitleIgnoreCase.size() > 1)
+//                System.out.println("team " + t + " is found more than once");
+//        });
+//    }
 
-
-        italy.forEach(t -> {
-            List<Team> byTitleIgnoreCase = teamRepository.findByTitleIgnoreCase(t);
-            if (byTitleIgnoreCase.size() == 0) {
-                italyOriginalDatabase.forEach(team -> {
-                    String synonyms = team.getSynonyms();
-                    if (team.getSynonyms() != null) {
-                        String[] strings = synonyms.split("\\|");
-                        if (strings.length > 0) {
-                            System.out.println(t + " synonyms are " + Arrays.toString(strings));
-                        }
-                    }
-                });
-                System.out.println("team " + t + " is not found");
-            }
-//			if(byTitleIgnoreCase.size()==1)
-//				System.out.println("team "+t + " is found exactly the same");
-            if (byTitleIgnoreCase.size() > 1)
-                System.out.println("team " + t + " is found more than once");
-        });
     }
-
 
 }

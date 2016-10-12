@@ -32,9 +32,8 @@ public class MatchesRepository {
     }
 
     public List<Match> findAll(){
-        List<Match> matches = this.jdbcTemplate.query(
+        return this.jdbcTemplate.query(
                 "select id,Name1,Name2,Score1, Score2 from Matches", new MatchMapper());
-        return matches;
     }
     private static final class MatchMapper implements RowMapper<Match>{
 
@@ -53,4 +52,7 @@ public class MatchesRepository {
         return this.jdbcTemplate.query("select id, Name1, Name2,Score1, Score2 from Matches m where m.country = ?", new Object[]{country}, new MatchMapper());
     }
 
+    public List<String> findAllTeams(String country){
+        return this.jdbcTemplate.queryForList("select distinct(Name1) from Matches m where m.country = ? union select distinct(Name2) from Matches m where m.country = ?", new Object[]{country.toLowerCase(),country.toLowerCase()}, String.class);
+    }
 }

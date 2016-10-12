@@ -1,23 +1,14 @@
 package com.nrusev.domain;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.nrusev.support.ListToStringConveter;
 
 /**
  * Created by nikolayrusev on 2/22/16.
@@ -28,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true, value = "country")
 @NamedEntityGraph(name = "team.country",
         attributeNodes = @NamedAttributeNode("country"))
+@TableGenerator(name="seq", initialValue=1434, allocationSize=1)
 public class Team extends AbstractAuditableEntity{
 
     private Long id;
@@ -35,7 +27,7 @@ public class Team extends AbstractAuditableEntity{
     private String title;
     private String title2;
     private String code;
-    private String synonyms;
+    private List<String> synonyms = new ArrayList<String>();
     private Country country;
     private Long cityId;
     private Boolean club;
@@ -47,6 +39,7 @@ public class Team extends AbstractAuditableEntity{
     private Set<Event> events = new HashSet<>(0);
 
     @Id
+    @GeneratedValue(generator = "seq")
     @Column(name = "id", nullable = false)
     public Long getId() {
         return id;
@@ -77,7 +70,7 @@ public class Team extends AbstractAuditableEntity{
     }
 
     @Basic
-    @Column(name = "title2", nullable = true, length = -1)
+    @Column(name = "title2", length = -1)
     public String getTitle2() {
         return title2;
     }
@@ -87,7 +80,7 @@ public class Team extends AbstractAuditableEntity{
     }
 
     @Basic
-    @Column(name = "code", nullable = true, length = -1)
+    @Column(name = "code", length = -1)
     public String getCode() {
         return code;
     }
@@ -97,12 +90,13 @@ public class Team extends AbstractAuditableEntity{
     }
 
     @Basic
-    @Column(name = "synonyms", nullable = true, length = -1)
-    public String getSynonyms() {
+    @Column(name = "synonyms")
+    @Convert(converter = ListToStringConveter.class)
+    public List<String> getSynonyms() {
         return synonyms;
     }
 
-    public void setSynonyms(String synonyms) {
+    public void setSynonyms(List<String> synonyms) {
         this.synonyms = synonyms;
     }
 

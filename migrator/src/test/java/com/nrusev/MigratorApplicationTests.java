@@ -1,6 +1,5 @@
 package com.nrusev;
 
-import com.nrusev.repository.MatchesRepository;
 import com.nrusev.repository.TeamRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,9 +10,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MigratorApplication.class)
 public class MigratorApplicationTests {
-
-	@Autowired
-	MatchesRepository matchesRepository;
 
 
 	@Autowired
