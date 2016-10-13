@@ -14,7 +14,7 @@ import java.util.List;
 public interface TeamRepository  extends CrudRepository<Team,Long>{
     List<Team> findByTitle(String title);
     List<Team> findByTitleIgnoreCase(String title);
-    List<Team> findByCountryName(String name);
+    List<Team> findByCountryNameAndClubIsTrueOrderByTitle(String name);
 //    SELECT t.*
 //    FROM   teams t
 //    INNER JOIN events_teams et

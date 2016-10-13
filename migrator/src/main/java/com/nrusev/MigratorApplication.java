@@ -14,9 +14,11 @@ public class MigratorApplication {
 		ApplicationContext ctx = SpringApplication.run(MigratorApplication.class, args);
 		printBeans(ctx);
 
-		Processor italyProcessor = (Processor) ctx.getBean("italyProcessor");
-		italyProcessor.process();
+//		Processor italyProcessor = (Processor) ctx.getBean("italyProcessor");
+//		italyProcessor.process();
 
+        Processor englandProcessor = (Processor) ctx.getBean("englandProcessor");
+		englandProcessor.process();
 	}
 
 	private static void printBeans(ApplicationContext ctx){

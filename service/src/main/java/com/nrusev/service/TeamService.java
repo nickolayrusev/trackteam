@@ -2,13 +2,17 @@ package com.nrusev.service;
 
 import com.nrusev.domain.Team;
 import com.nrusev.repository.TeamRepository;
+import info.debatty.java.stringsimilarity.JaroWinkler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by nikolayrusev on 2/24/16.
@@ -36,12 +40,16 @@ public class TeamService {
         return teamRepository.findByTitleIgnoreCase(title);
     }
 
+    public List<Team> findByCountryName(String countryName){
+        return teamRepository.findByCountryNameAndClubIsTrueOrderByTitle(countryName);
+    }
+
     public Team save(Team team){
-        return this.teamRepository.save(team);
+        return teamRepository.save(team);
     }
 
     public Optional<Team> findTeam(String name, String country){
-        List<Team> byCountryName = teamRepository.findByCountryName(country);
+        List<Team> byCountryName =  findByCountryName(country);
 
         //exact match by tittle and country
         Optional<Team> teamByName = byCountryName.stream().filter(t -> t.getTitle().equalsIgnoreCase(name)).findAny();
@@ -58,6 +66,18 @@ public class TeamService {
         if(teamByKey.isPresent())
             return teamByKey;
 
+        return Optional.empty();
+    }
+
+    public Optional<Team> fuzzyMatch(List<Team> byCountryName, String candidate){
+        JaroWinkler d = new JaroWinkler();
+
+        List<Team> collect = byCountryName.stream().filter(t -> d.distance(t.getTitle(), candidate) < .15).collect(toList());
+        if(collect.size() > 1)
+            return collect.stream().sorted((t,q)-> Double.compare(d.distance(t.getTitle(), candidate),  d.distance(q.getTitle(),candidate) )).findFirst();
+
+        if(collect.size() == 1)
+            return Optional.of(collect.get(0));
         return Optional.empty();
     }
 }

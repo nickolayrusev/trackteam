@@ -5,6 +5,8 @@ import com.nrusev.migration.Match;
 import com.nrusev.repository.migration.MatchesRepository;
 import com.nrusev.service.MatchesService;
 import com.nrusev.service.TeamService;
+import info.debatty.java.stringsimilarity.Damerau;
+import info.debatty.java.stringsimilarity.NormalizedLevenshtein;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +48,12 @@ public class ServiceApplicationTests {
 				System.out.println(t + " not exists");
 			}
 		});
+	}
+
+	@Test
+	public void testSimilar(){
+		NormalizedLevenshtein d = new NormalizedLevenshtein();
+		System.out.println(d.distance("SheffieldUtd","Sheffield United"));
+		System.out.println(d.distance("SheffieldWed","Sheffield Wednesday"));
 	}
 }

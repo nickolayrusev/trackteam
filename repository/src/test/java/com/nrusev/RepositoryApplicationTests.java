@@ -10,10 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.Assert;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
@@ -50,7 +47,7 @@ public class RepositoryApplicationTests {
     @Test
     public void testFindAllMatchesForCountry() {
         List<String> italy = matchesRepository.findAll("italy").stream().map(t -> t.getName1()).distinct().sorted().collect(toList());
-        List<Team> italyOriginalDatabase = teamRepository.findByCountryName("Italy");
+        List<Team> italyOriginalDatabase = teamRepository.findByCountryNameAndClubIsTrueOrderByTitle("Italy");
         System.out.println(italy.size());
         System.out.println(italyOriginalDatabase.size());
 

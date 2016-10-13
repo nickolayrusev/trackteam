@@ -14,4 +14,5 @@ public interface CountryRepository extends CrudRepository<Country,Long>{
 	List<Country> findAvailableCountries();
 
 	List<Country> findByName(String name);
+
 }
