@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,41 +31,48 @@ public class TeamService {
         return teamRepository.findAll();
     }
 
-    public List<Team> findAllClubTeams(){
+    public List<Team> findAllClubTeams() {
         return teamRepository.findAllClubTeams();
     }
 
-    public List<Team> findByTitleIgnoreCase(String title){
+    public List<Team> findByTitleIgnoreCase(String title) {
         return teamRepository.findByTitleIgnoreCase(title);
     }
 
-    public List<Team> findByCountryName(String countryName){
+    public List<Team> findByCountryName(String countryName) {
         return teamRepository.findByCountryNameAndClubIsTrueOrderByTitle(countryName);
     }
 
-    public Team save(Team team){
+    public Team save(Team team) {
         return teamRepository.save(team);
     }
 
-    public Optional<Team> findTeam(String name, String country){
-        List<Team> byCountryName =  findByCountryName(country);
+    public Optional<Team> findTeam(String name, String... countries) {
+        List<Team> byCountryName = findByCountries(countries);
 
-        //exact match by tittle and country
-        Optional<Team> teamByName = byCountryName.stream().filter(t -> t.getTitle().equalsIgnoreCase(name)).findAny();
-        if(teamByName.isPresent())
+        Optional<Team> teamByName = byCountryName.stream().filter(t -> isTeamSame(name,t)).findAny();
+        if (teamByName.isPresent())
             return teamByName;
 
-        //match by synonym
-        Optional<Team> teamBySynonym = byCountryName.stream().filter(t -> t.getSynonyms().contains(name)).findAny();
-        if(teamBySynonym.isPresent())
-            return teamBySynonym;
-
-        //match by key
-        Optional<Team> teamByKey = byCountryName.stream().filter(t -> name.equalsIgnoreCase(t.getKey())).findAny();
-        if(teamByKey.isPresent())
-            return teamByKey;
-
         return Optional.empty();
+    }
+
+    public boolean isTeamSame(String candidate, Team original) {
+        if(original.getTitle().equalsIgnoreCase(candidate))
+            return true;
+        if(original.getSynonyms().contains(candidate))
+            return true;
+        if(original.getKey().equalsIgnoreCase(candidate))
+            return true;
+        return false;
+    }
+
+    public List<Team> findUKTeams(){
+        return findByCountries("England","Wales");
+    }
+
+    public List<Team> findByCountries(String ... names){
+        return teamRepository.findByCountriesNames(names);
     }
 
     public Optional<Team> fuzzyMatch(List<Team> byCountryName, String candidate){

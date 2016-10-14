@@ -27,7 +27,7 @@ public class ItalyProcessor  extends AbstractProcessor{
 
     @Override
     public void process() {
-        List<String> missingTeams = findMissingTeams();
+        List<String> missingTeams = findSQLiteTeams();
         printTeams(missingTeams);
 
         Country italy = this.countryService.findByName(COUNTRY).get(0);
@@ -44,7 +44,7 @@ public class ItalyProcessor  extends AbstractProcessor{
 
     }
 
-    public List<String> findMissingTeams(){
+    public List<String> findSQLiteTeams(){
         List<String> allTeams = matchesService.findAllTeams(COUNTRY);
         return allTeams.stream().filter(t-> !teamService.findTeam(t,COUNTRY).isPresent()).collect(toList());
     }

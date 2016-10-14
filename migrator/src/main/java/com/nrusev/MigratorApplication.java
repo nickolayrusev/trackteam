@@ -17,8 +17,12 @@ public class MigratorApplication {
 //		Processor italyProcessor = (Processor) ctx.getBean("italyProcessor");
 //		italyProcessor.process();
 
-        Processor englandProcessor = (Processor) ctx.getBean("englandProcessor");
-		englandProcessor.process();
+//        Processor englandProcessor = (Processor) ctx.getBean("englandProcessor");
+//		englandProcessor.process();
+
+		Processor spainProcessor = (Processor) ctx.getBean("spainProcessor");
+		spainProcessor.process();
+
 	}
 
 	private static void printBeans(ApplicationContext ctx){

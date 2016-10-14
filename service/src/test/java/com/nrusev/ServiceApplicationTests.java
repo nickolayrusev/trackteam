@@ -51,6 +51,16 @@ public class ServiceApplicationTests {
 	}
 
 	@Test
+	public void findUKTeams(){
+		List<Team> ukTeams = teamService.findUKTeams();
+		ukTeams.forEach(System.out::println);
+	}
+
+	@Test
+	public void findByCountries(){
+	    teamService.findByCountries("Wales","Scotland").forEach(System.out::println);
+	}
+	@Test
 	public void testSimilar(){
 		NormalizedLevenshtein d = new NormalizedLevenshtein();
 		System.out.println(d.distance("SheffieldUtd","Sheffield United"));

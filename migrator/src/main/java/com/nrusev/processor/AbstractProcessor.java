@@ -1,10 +1,11 @@
 package com.nrusev.processor;
 
+import com.nrusev.domain.Team;
 import com.nrusev.service.CountryService;
 import com.nrusev.service.MatchesService;
 import com.nrusev.service.TeamService;
-import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,10 +24,28 @@ public abstract class AbstractProcessor implements Processor {
         this.countryService = countryService;
     }
 
-    public static void printTeams(List<String> missingTeams){
-        System.out.println("---Teams---");
+    abstract List<String> findSQLiteTeams();
+
+
+    public static void printTeams(List<?> missingTeams){
         missingTeams.forEach(System.out::println);
     }
 
+    public List<Team> removeFoundTeams(List<String> candidates, List<Team> originalTeams){
+        List<Team> result = new ArrayList<>();
+        for (Team originalTeam : originalTeams) {
+            boolean isFound = false;
+            for (String candidate : candidates) {
+                if (teamService.isTeamSame(candidate, originalTeam)) {
+                    isFound = true;
+                    break;
+                }
 
+            }
+            if (!isFound) {
+                result.add(originalTeam);
+            }
+        }
+        return  result;
+    }
 }
