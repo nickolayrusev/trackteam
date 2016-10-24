@@ -1,10 +1,13 @@
 package com.nrusev;
 
 import com.nrusev.domain.Team;
+import com.nrusev.domain.TeamSet;
+import com.nrusev.domain.User;
 import com.nrusev.migration.Match;
 import com.nrusev.repository.migration.MatchesRepository;
 import com.nrusev.service.MatchesService;
 import com.nrusev.service.TeamService;
+import com.nrusev.service.UserService;
 import info.debatty.java.stringsimilarity.Damerau;
 import info.debatty.java.stringsimilarity.NormalizedLevenshtein;
 import org.junit.Test;
@@ -12,10 +15,12 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ServiceApplication.class)
@@ -26,6 +31,9 @@ public class ServiceApplicationTests {
 
 	@Autowired
 	TeamService teamService;
+
+	@Autowired
+	UserService userService;
 
 	@Test
 	public void findItalianTeams() {
@@ -65,5 +73,14 @@ public class ServiceApplicationTests {
 		NormalizedLevenshtein d = new NormalizedLevenshtein();
 		System.out.println(d.distance("SheffieldUtd","Sheffield United"));
 		System.out.println(d.distance("SheffieldWed","Sheffield Wednesday"));
+	}
+
+	@Test
+	@Transactional
+	public void testGetUser(){
+		User nrusev = this.userService.findByUserName("nrusev");
+		Set<TeamSet> teamSets = nrusev.getTeamSets();
+		teamSets.forEach(System.out::println);
+		teamSets.forEach(t->t.getTeams().forEach(System.out::println));
 	}
 }
