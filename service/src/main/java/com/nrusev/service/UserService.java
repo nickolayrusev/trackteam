@@ -4,6 +4,7 @@ import com.nrusev.domain.User;
 import com.nrusev.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by Nikolay Rusev on 24.10.2016 г..
@@ -23,5 +24,9 @@ public class UserService {
 
     public User findByUserName(String userName){
         return this.userRepository.findByUserName(userName);
+    }
+
+    public User save(User user){
+        return this.userRepository.save(user);
     }
 }

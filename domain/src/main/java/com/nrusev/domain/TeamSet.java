@@ -17,10 +17,14 @@ public class TeamSet {
 
    private String description;
 
+   private Boolean closed;
+
    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-   @JoinTable(name = "team_set_teams",  joinColumns = {
+   @JoinTable(name = "team_set_teams",
+           joinColumns = {
            @JoinColumn(name = "team_set_id", nullable = false, updatable = false) },
-           inverseJoinColumns = { @JoinColumn(name = "team_id",
+           inverseJoinColumns = {
+              @JoinColumn(name = "team_id",
                    nullable = false, updatable = false) })
    private Set<Team> teams = new HashSet<Team>(0);
 
@@ -56,6 +60,13 @@ public class TeamSet {
       this.teams = teams;
    }
 
+   public Boolean getClosed() {
+      return closed;
+   }
+
+   public void setClosed(Boolean closed) {
+      this.closed = closed;
+   }
    @Override
    public String toString() {
       return "TeamSet{" +

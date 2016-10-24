@@ -3,10 +3,9 @@ package com.nrusev;
 import com.nrusev.domain.Team;
 import com.nrusev.domain.TeamSet;
 import com.nrusev.domain.User;
-import com.nrusev.migration.Match;
-import com.nrusev.repository.migration.MatchesRepository;
 import com.nrusev.service.MatchesService;
 import com.nrusev.service.TeamService;
+import com.nrusev.service.TeamSetService;
 import com.nrusev.service.UserService;
 import info.debatty.java.stringsimilarity.Damerau;
 import info.debatty.java.stringsimilarity.NormalizedLevenshtein;
@@ -14,16 +13,19 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = ServiceApplication.class)
+@Transactional
 public class ServiceApplicationTests {
 
 	@Autowired
@@ -34,6 +36,9 @@ public class ServiceApplicationTests {
 
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	TeamSetService teamSetService;
 
 	@Test
 	public void findItalianTeams() {
@@ -83,4 +88,29 @@ public class ServiceApplicationTests {
 		teamSets.forEach(System.out::println);
 		teamSets.forEach(t->t.getTeams().forEach(System.out::println));
 	}
+
+	@Test
+	@Rollback(false)
+	public void testSaveUser(){
+		Team leeds = teamService.findByTitleIgnoreCase("Leeds United").get(0);
+		User nrusev = this.userService.findByUserName("nrusev");
+		Set<TeamSet> teamSets = new HashSet<>(nrusev.getTeamSets());
+
+		teamSets.stream().filter(t -> t.getName().equalsIgnoreCase("under 2.5")).findFirst().ifPresent(q->{
+			q.getTeams().add(leeds);
+            teamSetService.save(q);
+		});
+		System.out.println("out");
+	}
+
+	@Test
+	@Rollback(false)
+	public void testSimpleSave(){
+		User ivan = new User();
+		ivan.setFirstName("ivan");
+		ivan.setLastName("ivanov");
+		ivan.setUserName("io");
+		userService.save(ivan);
+	}
+
 }
