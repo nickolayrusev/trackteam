@@ -5,6 +5,8 @@ import com.nrusev.repository.TeamPoolRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Nikolay Rusev on 24.10.2016 г..
  */
@@ -21,4 +23,7 @@ public class TeamPoolService {
         return this.teamPoolRepository.save(teamPool);
     }
 
+    public List<TeamPool> findAllByUserName(String userName){
+        return this.teamPoolRepository.findAllByUserName(userName);
+    }
 }

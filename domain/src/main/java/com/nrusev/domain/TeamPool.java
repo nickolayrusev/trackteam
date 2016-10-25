@@ -19,6 +19,10 @@ public class TeamPool {
 
    private Boolean closed;
 
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "user_id", nullable = false)
+   private User user;
+
    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
    @JoinTable(name = "team_pool_teams",
            joinColumns = {
@@ -27,6 +31,7 @@ public class TeamPool {
               @JoinColumn(name = "team_id",
                    nullable = false, updatable = false) })
    private Set<Team> teams = new HashSet<Team>(0);
+
 
    public Long getId() {
       return id;
@@ -67,6 +72,7 @@ public class TeamPool {
    public void setClosed(Boolean closed) {
       this.closed = closed;
    }
+
    @Override
    public String toString() {
       return "TeamPool{" +

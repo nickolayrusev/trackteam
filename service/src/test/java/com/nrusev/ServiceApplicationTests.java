@@ -112,4 +112,9 @@ public class ServiceApplicationTests {
 		userService.save(ivan);
 	}
 
+	@Test
+	public void testFindPoolsByUserName(){
+		teamPoolService.findAllByUserName("nrusev");
+	}
+
 }

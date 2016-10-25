@@ -21,8 +21,7 @@ public class User {
     @Column(unique = true)
     private String userName;
 
-    @OneToMany
-    @JoinColumn(name="user_id") // join column is in table for Order
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<TeamPool> teamPools = new HashSet<>(0);
 
     public Long getId() {
