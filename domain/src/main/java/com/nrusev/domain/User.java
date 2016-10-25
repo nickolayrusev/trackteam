@@ -23,7 +23,7 @@ public class User {
 
     @OneToMany
     @JoinColumn(name="user_id") // join column is in table for Order
-    private Set<TeamSet> teamSets = new HashSet<>(0);
+    private Set<TeamPool> teamPools = new HashSet<>(0);
 
     public Long getId() {
         return id;
@@ -57,11 +57,11 @@ public class User {
         this.userName = userName;
     }
 
-    public Set<TeamSet> getTeamSets() {
-        return teamSets;
+    public Set<TeamPool> getTeamPools() {
+        return teamPools;
     }
 
-    public void setTeamSets(Set<TeamSet> teamSets) {
-        this.teamSets = teamSets;
+    public void setTeamPools(Set<TeamPool> teamPools) {
+        this.teamPools = teamPools;
     }
 }

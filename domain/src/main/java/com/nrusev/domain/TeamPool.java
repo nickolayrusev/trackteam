@@ -8,7 +8,7 @@ import java.util.Set;
  * Created by Nikolay Rusev on 24.10.2016 г..
  */
 @Entity
-public class TeamSet {
+public class TeamPool {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;
@@ -20,9 +20,9 @@ public class TeamSet {
    private Boolean closed;
 
    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-   @JoinTable(name = "team_set_teams",
+   @JoinTable(name = "team_pool_teams",
            joinColumns = {
-           @JoinColumn(name = "team_set_id", nullable = false, updatable = false) },
+           @JoinColumn(name = "team_pool_id", nullable = false, updatable = false) },
            inverseJoinColumns = {
               @JoinColumn(name = "team_id",
                    nullable = false, updatable = false) })
@@ -69,7 +69,7 @@ public class TeamSet {
    }
    @Override
    public String toString() {
-      return "TeamSet{" +
+      return "TeamPool{" +
               "id=" + id +
               ", name='" + name + '\'' +
               ", description='" + description + '\'' +

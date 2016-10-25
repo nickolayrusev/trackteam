@@ -1,13 +1,12 @@
 package com.nrusev;
 
 import com.nrusev.domain.Team;
-import com.nrusev.domain.TeamSet;
+import com.nrusev.domain.TeamPool;
 import com.nrusev.domain.User;
 import com.nrusev.service.MatchesService;
 import com.nrusev.service.TeamService;
-import com.nrusev.service.TeamSetService;
+import com.nrusev.service.TeamPoolService;
 import com.nrusev.service.UserService;
-import info.debatty.java.stringsimilarity.Damerau;
 import info.debatty.java.stringsimilarity.NormalizedLevenshtein;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +37,7 @@ public class ServiceApplicationTests {
 	UserService userService;
 
 	@Autowired
-	TeamSetService teamSetService;
+	TeamPoolService teamPoolService;
 
 	@Test
 	public void findItalianTeams() {
@@ -84,9 +83,9 @@ public class ServiceApplicationTests {
 	@Transactional
 	public void testGetUser(){
 		User nrusev = this.userService.findByUserName("nrusev");
-		Set<TeamSet> teamSets = nrusev.getTeamSets();
-		teamSets.forEach(System.out::println);
-		teamSets.forEach(t->t.getTeams().forEach(System.out::println));
+		Set<TeamPool> teamPools = nrusev.getTeamPools();
+		teamPools.forEach(System.out::println);
+		teamPools.forEach(t->t.getTeams().forEach(System.out::println));
 	}
 
 	@Test
@@ -94,11 +93,11 @@ public class ServiceApplicationTests {
 	public void testSaveUser(){
 		Team leeds = teamService.findByTitleIgnoreCase("Leeds United").get(0);
 		User nrusev = this.userService.findByUserName("nrusev");
-		Set<TeamSet> teamSets = new HashSet<>(nrusev.getTeamSets());
+		Set<TeamPool> teamPools = new HashSet<>(nrusev.getTeamPools());
 
-		teamSets.stream().filter(t -> t.getName().equalsIgnoreCase("under 2.5")).findFirst().ifPresent(q->{
+		teamPools.stream().filter(t -> t.getName().equalsIgnoreCase("under 2.5")).findFirst().ifPresent(q->{
 			q.getTeams().add(leeds);
-            teamSetService.save(q);
+            teamPoolService.save(q);
 		});
 		System.out.println("out");
 	}
