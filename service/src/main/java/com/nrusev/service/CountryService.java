@@ -23,5 +23,8 @@ public class CountryService {
         return this.countryRepository.findByName(name);
     }
 
+    public List<Country> findAll(){
+        return this.countryRepository.findAvailableCountries();
+    }
 
 }
