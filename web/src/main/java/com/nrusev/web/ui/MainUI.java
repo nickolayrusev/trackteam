@@ -1,5 +1,7 @@
 package com.nrusev.web.ui;
 
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.nrusev.web.ui.mvp.MvpPresenter;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -43,6 +45,9 @@ public class MainUI extends UI {
 
 	@Autowired
 	private SpringViewProvider viewProvider;
+
+	@Autowired
+	private EventBus eventBus;
 	
 	/*
 	 * Handle View changing
@@ -68,7 +73,8 @@ public class MainUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
-		
+
+
 		Responsive.makeResponsive(this);
 		this.getPage().setTitle("Valo Theme Test");
 		this.setContent(root);
@@ -82,6 +88,7 @@ public class MainUI extends UI {
 		menuItemsLayout.setPrimaryStyleName("valo-menuitems");
 		buildSidebarMenu();
 
+		eventBus.register(this);
 //		boolean loggedIn = UI.getCurrent().getSession().getAttribute("IS_LOGGED_IN") != null ? true : false;
 //		if (!loggedIn) {
 //			getPage().setLocation("/login");
@@ -165,6 +172,7 @@ public class MainUI extends UI {
 		editView.setIcon(FontAwesome.EDIT);
 		menuItemsLayout.addComponent(editView);
 
+		//
 		// Shutdown application
 		Button shutdown = new Button("Shutdown", event -> {
 			getUI().getSession().close();
@@ -177,4 +185,17 @@ public class MainUI extends UI {
 
 	}
 
+
+	@Subscribe
+	public void recordCustomerChange(String e) {
+		System.out.println("recorded event " + e);
+		// Home View Button
+		Button homeButton = new Button(e, event -> {
+			navigator.navigateTo("home");
+		});
+		homeButton.setHtmlContentAllowed(true);
+		homeButton.setPrimaryStyleName(ValoTheme.MENU_ITEM);
+		homeButton.setIcon(FontAwesome.HOME);
+		menuItemsLayout.addComponent(homeButton);
+	}
 }

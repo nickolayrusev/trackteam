@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+import com.google.common.eventbus.EventBus;
 import com.nrusev.domain.Country;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,7 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @SuppressWarnings("serial")
 @SpringComponent
@@ -28,7 +30,9 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 	
 	private VerticalLayout layout;
-	
+
+	private List<Button> countries;
+
 	@PostConstruct
 	public void postContruct() {
 		LOG.info("Creating new MainView");
@@ -46,6 +50,7 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 	}
 	
 	private void buildLayout() {
+		countries = new ArrayList<>();
 		layout = new VerticalLayout();
 		layout.setWidth("100%");
 		layout.setMargin(true);
@@ -62,19 +67,6 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 		
 	}
 
-	@Override
-	public void displayFriends(List<String> friends) {
-		friends.forEach( friend -> {
-			
-			final Button btnFriend = new Button(friend, event -> {
-//				executeEditEventListeners(event.getButton().getCaption());
-				executeEditEventListeners((String) event.getButton().getData());
-			});
-			btnFriend.setData(friend.toUpperCase());
-			layout.addComponent(btnFriend);
-			
-		});
-	}
 
 	@Override
 	public void displayCountries(List<Country> countries) {
@@ -84,37 +76,15 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 //				executeEditEventListeners((String) event.getButton().getData());
 			});
 			btnFriend.setData(country.getName().toUpperCase());
+			this.countries.add(btnFriend);
 			layout.addComponent(btnFriend);
 
 		});
 	}
 
-
-	/*
-	 * Listeners ==================================================
-	 */
-	private List<EditFriendListener> editFriendListeners = new ArrayList<>();
-	
-	
-	/*
-	 * Utility method
-	 */
-	private void executeEditEventListeners(String friend) {
-		this.editFriendListeners.forEach(listener -> listener.editFriend(friend));
-	}
-	
 	@Override
-	public void addEditFriendListener(EditFriendListener editFriendListener) {
-		this.editFriendListeners.add(editFriendListener);
+	public List<Button> getCountriesButtons() {
+		return this.countries;
 	}
-
-	@Override
-	public void removeEditFriendListener(EditFriendListener editFriendListener) {
-		this.editFriendListeners.remove(editFriendListener);
-	}
-	
-	
-
-	
 
 }
