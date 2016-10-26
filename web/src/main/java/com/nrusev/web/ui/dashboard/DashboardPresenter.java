@@ -2,7 +2,7 @@ package com.nrusev.web.ui.dashboard;
 
 import com.google.common.eventbus.EventBus;
 import com.nrusev.web.ui.mvp.MvpPresenter;
-import com.vaadin.navigator.ViewChangeListener;
+import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 
 /**
  * Created by Nikolay Rusev on 26.10.2016 г..
@@ -14,7 +14,7 @@ public class DashboardPresenter extends MvpPresenter<DashboardView> {
     }
 
     @Override
-    public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
+    public void enter(ViewChangeEvent viewChangeEvent) {
 
     }
 }
