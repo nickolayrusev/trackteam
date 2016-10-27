@@ -65,20 +65,17 @@
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-rest-webmvc</artifactId>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.vaadin/vaadin-spring-boot -->
 		<dependency>
 			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-spring-boot-starter</artifactId>
+			<artifactId>vaadin-spring-boot</artifactId>
 			<version>1.0.2</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.vaadin.spring</groupId>
-			<artifactId>spring-vaadin-mvp</artifactId>
 		</dependency>
 
 		<dependency>
