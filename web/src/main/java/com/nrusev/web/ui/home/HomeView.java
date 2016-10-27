@@ -13,6 +13,7 @@ public interface HomeView extends MvpView {
 
 	void displayCountries(List<Country> countries);
 
+	void displayTodaysGames();
 	/**
 	 * get buttons to register click handlers
 	 * @return

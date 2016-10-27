@@ -80,6 +80,7 @@ public class MainUI extends UI {
 		this.setContent(root);
 		root.setWidth("100%");
 
+
 		MvpViewDisplay mvpViewDisplay = new MvpViewDisplay(root.getContentContainer());
 		navigator = new Navigator(this, mvpViewDisplay);
 		navigator.addProvider(viewProvider);

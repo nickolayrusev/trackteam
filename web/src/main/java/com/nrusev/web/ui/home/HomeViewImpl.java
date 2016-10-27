@@ -72,14 +72,17 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 	public void displayCountries(List<Country> countries) {
 		countries.forEach(country -> {
 			final Button btnFriend = new Button(country.getName(), event -> {
-//				executeEditEventListeners(event.getButton().getCaption());
-//				executeEditEventListeners((String) event.getButton().getData());
 			});
 			btnFriend.setData(country.getName().toUpperCase());
 			this.countries.add(btnFriend);
 			layout.addComponent(btnFriend);
 
 		});
+	}
+
+	@Override
+	public void displayTodaysGames() {
+
 	}
 
 	@Override

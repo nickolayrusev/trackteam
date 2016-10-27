@@ -1,9 +1,6 @@
 package com.nrusev.domain;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -13,9 +10,39 @@ import java.util.Date;
 @Table(name = "games")
 public class Game {
     private Long id;
+    private String key;
+    private Long roundId;
+    private Long pos;
+    private Long groupId;
+    private Long team1Id;
+    private Long team2Id;
+    private Date playAt;
+    private Boolean postponed;
+    private Date playAtV2;
+    private Date playAtV3;
+    private Long groundId;
+    private Long cityId;
+    private Boolean knockout;
+    private Boolean home;
+    private Long score1;
+    private Long score2;
+    private Long score1Et;
+    private Long score2Et;
+    private Long score1P;
+    private Long score2P;
+    private Long score1I;
+    private Long score2I;
+    private Long score1Ii;
+    private Long score2Ii;
+    private Long nextGameId;
+    private Long prevGameId;
+    private Long winner;
+    private Long winner90;
+    private Date createdAt;
+    private Date updatedAt;
 
     @Id
-    @javax.persistence.Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false)
     public Long getId() {
         return id;
     }
@@ -24,10 +51,8 @@ public class Game {
         this.id = id;
     }
 
-    private String key;
-
     @Basic
-    @javax.persistence.Column(name = "key", nullable = true, length = -1)
+    @Column(name = "key", nullable = true, length = -1)
     public String getKey() {
         return key;
     }
@@ -36,10 +61,8 @@ public class Game {
         this.key = key;
     }
 
-    private Long roundId;
-
     @Basic
-    @javax.persistence.Column(name = "round_id", nullable = false)
+    @Column(name = "round_id", nullable = false)
     public Long getRoundId() {
         return roundId;
     }
@@ -48,10 +71,8 @@ public class Game {
         this.roundId = roundId;
     }
 
-    private Long pos;
-
     @Basic
-    @javax.persistence.Column(name = "pos", nullable = false)
+    @Column(name = "pos", nullable = false)
     public Long getPos() {
         return pos;
     }
@@ -60,10 +81,8 @@ public class Game {
         this.pos = pos;
     }
 
-    private Long groupId;
-
     @Basic
-    @javax.persistence.Column(name = "group_id", nullable = true)
+    @Column(name = "group_id", nullable = true)
     public Long getGroupId() {
         return groupId;
     }
@@ -72,10 +91,8 @@ public class Game {
         this.groupId = groupId;
     }
 
-    private Long team1Id;
-
     @Basic
-    @javax.persistence.Column(name = "team1_id", nullable = false)
+    @Column(name = "team1_id", nullable = false)
     public Long getTeam1Id() {
         return team1Id;
     }
@@ -84,10 +101,8 @@ public class Game {
         this.team1Id = team1Id;
     }
 
-    private Long team2Id;
-
     @Basic
-    @javax.persistence.Column(name = "team2_id", nullable = false)
+    @Column(name = "team2_id", nullable = false)
     public Long getTeam2Id() {
         return team2Id;
     }
@@ -96,10 +111,8 @@ public class Game {
         this.team2Id = team2Id;
     }
 
-    private Date playAt;
-
     @Basic
-    @javax.persistence.Column(name = "play_at", nullable = false)
+    @Column(name = "play_at", nullable = false)
     public Date getPlayAt() {
         return playAt;
     }
@@ -108,10 +121,8 @@ public class Game {
         this.playAt = playAt;
     }
 
-    private Boolean postponed;
-
     @Basic
-    @javax.persistence.Column(name = "postponed", nullable = false)
+    @Column(name = "postponed", nullable = false)
     public Boolean getPostponed() {
         return postponed;
     }
@@ -120,10 +131,8 @@ public class Game {
         this.postponed = postponed;
     }
 
-    private Date playAtV2;
-
     @Basic
-    @javax.persistence.Column(name = "play_at_v2", nullable = true)
+    @Column(name = "play_at_v2", nullable = true)
     public Date getPlayAtV2() {
         return playAtV2;
     }
@@ -132,10 +141,8 @@ public class Game {
         this.playAtV2 = playAtV2;
     }
 
-    private Date playAtV3;
-
     @Basic
-    @javax.persistence.Column(name = "play_at_v3", nullable = true)
+    @Column(name = "play_at_v3", nullable = true)
     public Date getPlayAtV3() {
         return playAtV3;
     }
@@ -144,10 +151,8 @@ public class Game {
         this.playAtV3 = playAtV3;
     }
 
-    private Long groundId;
-
     @Basic
-    @javax.persistence.Column(name = "ground_id", nullable = true)
+    @Column(name = "ground_id", nullable = true)
     public Long getGroundId() {
         return groundId;
     }
@@ -156,10 +161,8 @@ public class Game {
         this.groundId = groundId;
     }
 
-    private Long cityId;
-
     @Basic
-    @javax.persistence.Column(name = "city_id", nullable = true)
+    @Column(name = "city_id", nullable = true)
     public Long getCityId() {
         return cityId;
     }
@@ -168,10 +171,8 @@ public class Game {
         this.cityId = cityId;
     }
 
-    private Boolean knockout;
-
     @Basic
-    @javax.persistence.Column(name = "knockout", nullable = false)
+    @Column(name = "knockout", nullable = false)
     public Boolean getKnockout() {
         return knockout;
     }
@@ -180,10 +181,8 @@ public class Game {
         this.knockout = knockout;
     }
 
-    private Boolean home;
-
     @Basic
-    @javax.persistence.Column(name = "home", nullable = false)
+    @Column(name = "home", nullable = false)
     public Boolean getHome() {
         return home;
     }
@@ -192,10 +191,8 @@ public class Game {
         this.home = home;
     }
 
-    private Long score1;
-
     @Basic
-    @javax.persistence.Column(name = "score1", nullable = true)
+    @Column(name = "score1", nullable = true)
     public Long getScore1() {
         return score1;
     }
@@ -204,10 +201,8 @@ public class Game {
         this.score1 = score1;
     }
 
-    private Long score2;
-
     @Basic
-    @javax.persistence.Column(name = "score2", nullable = true)
+    @Column(name = "score2", nullable = true)
     public Long getScore2() {
         return score2;
     }
@@ -216,10 +211,8 @@ public class Game {
         this.score2 = score2;
     }
 
-    private Long score1Et;
-
     @Basic
-    @javax.persistence.Column(name = "score1et", nullable = true)
+    @Column(name = "score1et", nullable = true)
     public Long getScore1Et() {
         return score1Et;
     }
@@ -228,10 +221,8 @@ public class Game {
         this.score1Et = score1Et;
     }
 
-    private Long score2Et;
-
     @Basic
-    @javax.persistence.Column(name = "score2et", nullable = true)
+    @Column(name = "score2et", nullable = true)
     public Long getScore2Et() {
         return score2Et;
     }
@@ -240,10 +231,8 @@ public class Game {
         this.score2Et = score2Et;
     }
 
-    private Long score1P;
-
     @Basic
-    @javax.persistence.Column(name = "score1p", nullable = true)
+    @Column(name = "score1p", nullable = true)
     public Long getScore1P() {
         return score1P;
     }
@@ -252,10 +241,8 @@ public class Game {
         this.score1P = score1P;
     }
 
-    private Long score2P;
-
     @Basic
-    @javax.persistence.Column(name = "score2p", nullable = true)
+    @Column(name = "score2p", nullable = true)
     public Long getScore2P() {
         return score2P;
     }
@@ -264,10 +251,8 @@ public class Game {
         this.score2P = score2P;
     }
 
-    private Long score1I;
-
     @Basic
-    @javax.persistence.Column(name = "score1i", nullable = true)
+    @Column(name = "score1i", nullable = true)
     public Long getScore1I() {
         return score1I;
     }
@@ -276,10 +261,8 @@ public class Game {
         this.score1I = score1I;
     }
 
-    private Long score2I;
-
     @Basic
-    @javax.persistence.Column(name = "score2i", nullable = true)
+    @Column(name = "score2i", nullable = true)
     public Long getScore2I() {
         return score2I;
     }
@@ -288,10 +271,8 @@ public class Game {
         this.score2I = score2I;
     }
 
-    private Long score1Ii;
-
     @Basic
-    @javax.persistence.Column(name = "score1ii", nullable = true)
+    @Column(name = "score1ii", nullable = true)
     public Long getScore1Ii() {
         return score1Ii;
     }
@@ -300,10 +281,8 @@ public class Game {
         this.score1Ii = score1Ii;
     }
 
-    private Long score2Ii;
-
     @Basic
-    @javax.persistence.Column(name = "score2ii", nullable = true)
+    @Column(name = "score2ii", nullable = true)
     public Long getScore2Ii() {
         return score2Ii;
     }
@@ -312,10 +291,8 @@ public class Game {
         this.score2Ii = score2Ii;
     }
 
-    private Long nextGameId;
-
     @Basic
-    @javax.persistence.Column(name = "next_game_id", nullable = true)
+    @Column(name = "next_game_id", nullable = true)
     public Long getNextGameId() {
         return nextGameId;
     }
@@ -324,10 +301,8 @@ public class Game {
         this.nextGameId = nextGameId;
     }
 
-    private Long prevGameId;
-
     @Basic
-    @javax.persistence.Column(name = "prev_game_id", nullable = true)
+    @Column(name = "prev_game_id", nullable = true)
     public Long getPrevGameId() {
         return prevGameId;
     }
@@ -336,10 +311,8 @@ public class Game {
         this.prevGameId = prevGameId;
     }
 
-    private Long winner;
-
     @Basic
-    @javax.persistence.Column(name = "winner", nullable = true)
+    @Column(name = "winner", nullable = true)
     public Long getWinner() {
         return winner;
     }
@@ -348,10 +321,8 @@ public class Game {
         this.winner = winner;
     }
 
-    private Long winner90;
-
     @Basic
-    @javax.persistence.Column(name = "winner90", nullable = true)
+    @Column(name = "winner90", nullable = true)
     public Long getWinner90() {
         return winner90;
     }
@@ -360,10 +331,8 @@ public class Game {
         this.winner90 = winner90;
     }
 
-    private Date createdAt;
-
     @Basic
-    @javax.persistence.Column(name = "created_at", nullable = true)
+    @Column(name = "created_at", nullable = true)
     public Date getCreatedAt() {
         return createdAt;
     }
@@ -372,10 +341,8 @@ public class Game {
         this.createdAt = createdAt;
     }
 
-    private Date updatedAt;
-
     @Basic
-    @javax.persistence.Column(name = "updated_at", nullable = true)
+    @Column(name = "updated_at", nullable = true)
     public Date getUpdatedAt() {
         return updatedAt;
     }
