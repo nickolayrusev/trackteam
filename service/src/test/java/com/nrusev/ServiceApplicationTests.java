@@ -1,12 +1,10 @@
 package com.nrusev;
 
+import com.nrusev.domain.Game;
 import com.nrusev.domain.Team;
 import com.nrusev.domain.TeamPool;
 import com.nrusev.domain.User;
-import com.nrusev.service.MatchesService;
-import com.nrusev.service.TeamService;
-import com.nrusev.service.TeamPoolService;
-import com.nrusev.service.UserService;
+import com.nrusev.service.*;
 import info.debatty.java.stringsimilarity.NormalizedLevenshtein;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,6 +36,9 @@ public class ServiceApplicationTests {
 
 	@Autowired
 	TeamPoolService teamPoolService;
+
+	@Autowired
+	GameService gameService;
 
 	@Test
 	public void findItalianTeams() {
@@ -115,6 +116,13 @@ public class ServiceApplicationTests {
 	@Test
 	public void testFindPoolsByUserName(){
 		teamPoolService.findAllByUserName("nrusev");
+	}
+
+	@Test
+	@Transactional
+	public void testFindGameById(){
+		Game byId = gameService.findById(4775L);
+		System.out.println(byId.getHomeTeam() + " " + byId.getVisitorTeam());
 	}
 
 }

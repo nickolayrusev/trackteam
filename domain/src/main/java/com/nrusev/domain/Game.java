@@ -14,8 +14,8 @@ public class Game {
     private Long roundId;
     private Long pos;
     private Long groupId;
-    private Long team1Id;
-    private Long team2Id;
+    private Team homeTeam;
+    private Team visitorTeam;
     private Date playAt;
     private Boolean postponed;
     private Date playAtV2;
@@ -89,26 +89,6 @@ public class Game {
 
     public void setGroupId(Long groupId) {
         this.groupId = groupId;
-    }
-
-    @Basic
-    @Column(name = "team1_id", nullable = false)
-    public Long getTeam1Id() {
-        return team1Id;
-    }
-
-    public void setTeam1Id(Long team1Id) {
-        this.team1Id = team1Id;
-    }
-
-    @Basic
-    @Column(name = "team2_id", nullable = false)
-    public Long getTeam2Id() {
-        return team2Id;
-    }
-
-    public void setTeam2Id(Long team2Id) {
-        this.team2Id = team2Id;
     }
 
     @Basic
@@ -351,6 +331,26 @@ public class Game {
         this.updatedAt = updatedAt;
     }
 
+    @OneToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="team1_id")
+    public Team getHomeTeam() {
+        return homeTeam;
+    }
+
+    public void setHomeTeam(Team homeTeam) {
+        this.homeTeam = homeTeam;
+    }
+
+    @OneToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="team2_id")
+    public Team getVisitorTeam() {
+        return visitorTeam;
+    }
+
+    public void setVisitorTeam(Team visitorTeam) {
+        this.visitorTeam = visitorTeam;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -363,8 +363,8 @@ public class Game {
         if (roundId != null ? !roundId.equals(game.roundId) : game.roundId != null) return false;
         if (pos != null ? !pos.equals(game.pos) : game.pos != null) return false;
         if (groupId != null ? !groupId.equals(game.groupId) : game.groupId != null) return false;
-        if (team1Id != null ? !team1Id.equals(game.team1Id) : game.team1Id != null) return false;
-        if (team2Id != null ? !team2Id.equals(game.team2Id) : game.team2Id != null) return false;
+//        if (team1Id != null ? !team1Id.equals(game.team1Id) : game.team1Id != null) return false;
+//        if (team2Id != null ? !team2Id.equals(game.team2Id) : game.team2Id != null) return false;
         if (playAt != null ? !playAt.equals(game.playAt) : game.playAt != null) return false;
         if (postponed != null ? !postponed.equals(game.postponed) : game.postponed != null) return false;
         if (playAtV2 != null ? !playAtV2.equals(game.playAtV2) : game.playAtV2 != null) return false;
@@ -400,8 +400,8 @@ public class Game {
         result = 31 * result + (roundId != null ? roundId.hashCode() : 0);
         result = 31 * result + (pos != null ? pos.hashCode() : 0);
         result = 31 * result + (groupId != null ? groupId.hashCode() : 0);
-        result = 31 * result + (team1Id != null ? team1Id.hashCode() : 0);
-        result = 31 * result + (team2Id != null ? team2Id.hashCode() : 0);
+//        result = 31 * result + (team1Id != null ? team1Id.hashCode() : 0);
+//        result = 31 * result + (team2Id != null ? team2Id.hashCode() : 0);
         result = 31 * result + (playAt != null ? playAt.hashCode() : 0);
         result = 31 * result + (postponed != null ? postponed.hashCode() : 0);
         result = 31 * result + (playAtV2 != null ? playAtV2.hashCode() : 0);
@@ -428,4 +428,5 @@ public class Game {
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         return result;
     }
+
 }
