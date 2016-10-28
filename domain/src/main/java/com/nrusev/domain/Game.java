@@ -11,7 +11,7 @@ import java.util.Date;
 public class Game {
     private Long id;
     private String key;
-    private Long roundId;
+    private Round round;
     private Long pos;
     private Long groupId;
     private Team homeTeam;
@@ -61,14 +61,14 @@ public class Game {
         this.key = key;
     }
 
-    @Basic
-    @Column(name = "round_id", nullable = false)
-    public Long getRoundId() {
-        return roundId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "round_id")
+    public Round getRound() {
+        return round;
     }
 
-    public void setRoundId(Long roundId) {
-        this.roundId = roundId;
+    public void setRound(Round round) {
+        this.round = round;
     }
 
     @Basic
@@ -331,7 +331,7 @@ public class Game {
         this.updatedAt = updatedAt;
     }
 
-    @OneToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="team1_id")
     public Team getHomeTeam() {
         return homeTeam;
@@ -341,7 +341,7 @@ public class Game {
         this.homeTeam = homeTeam;
     }
 
-    @OneToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="team2_id")
     public Team getVisitorTeam() {
         return visitorTeam;
@@ -360,11 +360,8 @@ public class Game {
 
         if (id != null ? !id.equals(game.id) : game.id != null) return false;
         if (key != null ? !key.equals(game.key) : game.key != null) return false;
-        if (roundId != null ? !roundId.equals(game.roundId) : game.roundId != null) return false;
         if (pos != null ? !pos.equals(game.pos) : game.pos != null) return false;
         if (groupId != null ? !groupId.equals(game.groupId) : game.groupId != null) return false;
-//        if (team1Id != null ? !team1Id.equals(game.team1Id) : game.team1Id != null) return false;
-//        if (team2Id != null ? !team2Id.equals(game.team2Id) : game.team2Id != null) return false;
         if (playAt != null ? !playAt.equals(game.playAt) : game.playAt != null) return false;
         if (postponed != null ? !postponed.equals(game.postponed) : game.postponed != null) return false;
         if (playAtV2 != null ? !playAtV2.equals(game.playAtV2) : game.playAtV2 != null) return false;
@@ -397,11 +394,8 @@ public class Game {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (key != null ? key.hashCode() : 0);
-        result = 31 * result + (roundId != null ? roundId.hashCode() : 0);
         result = 31 * result + (pos != null ? pos.hashCode() : 0);
         result = 31 * result + (groupId != null ? groupId.hashCode() : 0);
-//        result = 31 * result + (team1Id != null ? team1Id.hashCode() : 0);
-//        result = 31 * result + (team2Id != null ? team2Id.hashCode() : 0);
         result = 31 * result + (playAt != null ? playAt.hashCode() : 0);
         result = 31 * result + (postponed != null ? postponed.hashCode() : 0);
         result = 31 * result + (playAtV2 != null ? playAtV2.hashCode() : 0);
@@ -429,4 +423,16 @@ public class Game {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Game{" +
+                "id=" + id +
+                ", key='" + key + '\'' +
+                ", homeTeam=" + homeTeam +
+                ", visitorTeam=" + visitorTeam +
+                ", playAt=" + playAt +
+                ", score1=" + score1 +
+                ", score2=" + score2 +
+                '}';
+    }
 }

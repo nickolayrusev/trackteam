@@ -14,8 +14,6 @@ public class Event {
     private Long id;
     private String key;
     private League league;
-//    private Long leagueId;
-//    private Long seasonId;
     private Season season;
     private Date startAt;
     private Date endAt;
@@ -45,26 +43,6 @@ public class Event {
     public void setKey(String key) {
         this.key = key;
     }
-
-//    @Basic
-//    @Column(name = "league_id", nullable = false)
-//    public Long getLeagueId() {
-//        return leagueId;
-//    }
-//
-//    public void setLeagueId(Long leagueId) {
-//        this.leagueId = leagueId;
-//    }
-
-//    @Basic
-//    @Column(name = "season_id", nullable = false)
-//    public Long getSeasonId() {
-//        return seasonId;
-//    }
-//
-//    public void setSeasonId(Long seasonId) {
-//        this.seasonId = seasonId;
-//    }
 
     @Basic
     @Column(name = "start_at", nullable = false)
@@ -175,8 +153,6 @@ public class Event {
 
         if (id != null ? !id.equals(event.id) : event.id != null) return false;
         if (key != null ? !key.equals(event.key) : event.key != null) return false;
-//        if (leagueId != null ? !leagueId.equals(event.leagueId) : event.leagueId != null) return false;
-//        if (seasonId != null ? !seasonId.equals(event.seasonId) : event.seasonId != null) return false;
         if (startAt != null ? !startAt.equals(event.startAt) : event.startAt != null) return false;
         if (endAt != null ? !endAt.equals(event.endAt) : event.endAt != null) return false;
         if (team3 != null ? !team3.equals(event.team3) : event.team3 != null) return false;
@@ -192,8 +168,6 @@ public class Event {
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (key != null ? key.hashCode() : 0);
-//        result = 31 * result + (leagueId != null ? leagueId.hashCode() : 0);
-//        result = 31 * result + (seasonId != null ? seasonId.hashCode() : 0);
         result = 31 * result + (startAt != null ? startAt.hashCode() : 0);
         result = 31 * result + (endAt != null ? endAt.hashCode() : 0);
         result = 31 * result + (team3 != null ? team3.hashCode() : 0);

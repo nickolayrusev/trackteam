@@ -14,7 +14,6 @@ public class League {
     private Long id;
     private String key;
     private String title;
-//    private Long countryId;
     private Country country;
     private Boolean club;
     private Date createdAt;

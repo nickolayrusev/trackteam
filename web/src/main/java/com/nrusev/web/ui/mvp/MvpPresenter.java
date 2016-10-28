@@ -1,6 +1,7 @@
 package com.nrusev.web.ui.mvp;
 
 import com.google.common.eventbus.EventBus;
+import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 
 @SuppressWarnings("serial")

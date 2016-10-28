@@ -1,7 +1,7 @@
 package com.nrusev.domain;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * Created by nikolayrusev on 3/10/16.
@@ -10,7 +10,8 @@ import java.sql.Date;
 @Table(name = "rounds")
 public class Round {
     private Long id;
-    private Long eventId;
+//    private Long eventId;
+    private Event event;
     private String title;
     private String title2;
     private Long pos;
@@ -18,8 +19,8 @@ public class Round {
     private Date startAt;
     private Date endAt;
     private Boolean auto;
-    private java.util.Date createdAt;
-    private java.util.Date updatedAt;
+    private Date createdAt;
+    private Date updatedAt;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -31,14 +32,24 @@ public class Round {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "event_id", nullable = false)
-    public Long getEventId() {
-        return eventId;
+//    @Basic
+//    @Column(name = "event_id", nullable = false)
+//    public Long getEventId() {
+//        return eventId;
+//    }
+//
+//    public void setEventId(Long eventId) {
+//        this.eventId = eventId;
+//    }
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="event_id")
+    public Event getEvent() {
+        return event;
     }
 
-    public void setEventId(Long eventId) {
-        this.eventId = eventId;
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
     @Basic
@@ -139,7 +150,7 @@ public class Round {
         Round round = (Round) o;
 
         if (id != null ? !id.equals(round.id) : round.id != null) return false;
-        if (eventId != null ? !eventId.equals(round.eventId) : round.eventId != null) return false;
+//        if (eventId != null ? !eventId.equals(round.eventId) : round.eventId != null) return false;
         if (title != null ? !title.equals(round.title) : round.title != null) return false;
         if (title2 != null ? !title2.equals(round.title2) : round.title2 != null) return false;
         if (pos != null ? !pos.equals(round.pos) : round.pos != null) return false;
@@ -156,7 +167,7 @@ public class Round {
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (eventId != null ? eventId.hashCode() : 0);
+//        result = 31 * result + (eventId != null ? eventId.hashCode() : 0);
         result = 31 * result + (title != null ? title.hashCode() : 0);
         result = 31 * result + (title2 != null ? title2.hashCode() : 0);
         result = 31 * result + (pos != null ? pos.hashCode() : 0);

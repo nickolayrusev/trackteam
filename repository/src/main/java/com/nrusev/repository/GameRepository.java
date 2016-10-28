@@ -1,7 +1,11 @@
 package com.nrusev.repository;
 
 import com.nrusev.domain.Game;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 /**
  * Created by Nikolay Rusev on 27.10.2016 г..
@@ -26,5 +30,16 @@ public interface GameRepository extends CrudRepository<Game, Long> {
 //    INNER JOIN leagues l ON l.id = e.league_id
 //    inner join countries c on c.id = l.country_id
 //    where l.club = 't' and c.name ='England' and s.title='2015/16';
+
+    @Query("select g from Game g " +
+            "join fetch g.homeTeam " +
+            "join fetch g.visitorTeam " +
+            "join fetch g.round r " +
+            "join r.event e " +
+            "join e.season s " +
+            "join e.league l " +
+            "join l.country c " +
+            "where l.club='t' and  s.key = :seasonKey and l.key = :leagueKey and c.name=:country")
+    List<Game> findAllClub(@Param("seasonKey") String seasonKey,@Param("leagueKey") String leagueKey, @Param("country") String country);
 }
 

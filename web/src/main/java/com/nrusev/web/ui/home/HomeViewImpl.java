@@ -6,8 +6,8 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import com.google.common.eventbus.EventBus;
 import com.nrusev.domain.Country;
+import com.nrusev.domain.Game;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,7 +20,6 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
-import org.springframework.beans.factory.annotation.Autowired;
 
 @SuppressWarnings("serial")
 @SpringComponent
@@ -31,11 +30,12 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 	
 	private VerticalLayout layout;
 
-	private List<Button> countries;
+    private List<Button>  matchButtons;
 
 	@PostConstruct
 	public void postContruct() {
 		LOG.info("Creating new MainView");
+        matchButtons = new ArrayList<>();
 		setSizeFull();
 	}
 
@@ -50,7 +50,6 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 	}
 	
 	private void buildLayout() {
-		countries = new ArrayList<>();
 		layout = new VerticalLayout();
 		layout.setWidth("100%");
 		layout.setMargin(true);
@@ -69,25 +68,35 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 
 
 	@Override
-	public void displayCountries(List<Country> countries) {
-		countries.forEach(country -> {
-			final Button btnFriend = new Button(country.getName(), event -> {
-			});
-			btnFriend.setData(country.getName().toUpperCase());
-			this.countries.add(btnFriend);
-			layout.addComponent(btnFriend);
-
+	public void displayTodaysGames(List<Game> todaysGames) {
+		todaysGames.forEach(game->{
+			final Button btnGame = new Button();
+			btnGame.addStyleName(ValoTheme.BUTTON_LINK);
+			btnGame.setData(game);
+			btnGame.setCaption(getGameCaption(game));
+			layout.addComponent(btnGame);
+			matchButtons.add(btnGame);
 		});
 	}
 
 	@Override
-	public void displayTodaysGames() {
-
+	public List<Button> getMatchButtons() {
+		return this.matchButtons;
 	}
 
-	@Override
-	public List<Button> getCountriesButtons() {
-		return this.countries;
+	private String getGameCaption(Game game){
+		StringBuilder builder = new StringBuilder();
+		builder.append(game.getPlayAt())
+				.append(" ")
+				.append(game.getHomeTeam().getTitle())
+				.append(" vs. ")
+				.append(game.getVisitorTeam().getTitle())
+				.append(" ")
+				.append(game.getRound().getTitle() )
+				.append(" ")
+				.append(game.getScore1())
+				.append(":")
+				.append(game.getScore2());
+		return builder.toString();
 	}
-
 }

@@ -122,7 +122,13 @@ public class ServiceApplicationTests {
 	@Transactional
 	public void testFindGameById(){
 		Game byId = gameService.findById(4775L);
-		System.out.println(byId.getHomeTeam() + " " + byId.getVisitorTeam());
+		System.out.println(byId.getHomeTeam() + " " + byId.getVisitorTeam() + " " + byId.getRound().getTitle());
 	}
 
+	@Test
+	public void testFindAll(){
+		gameService.findAllClub("2014/15","en","England").forEach(g-> {
+			System.out.println( g.getPlayAt() + " " + g.getHomeTeam().getTitle() + " vs. " + g.getVisitorTeam().getTitle() + " " + g.getRound().getTitle() + g.getScore1() + ":" + g.getScore2());
+		});
+	}
 }
