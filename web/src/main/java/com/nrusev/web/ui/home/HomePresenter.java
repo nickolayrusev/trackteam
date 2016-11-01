@@ -9,6 +9,7 @@ import com.nrusev.service.CountryService;
 import com.nrusev.service.GameService;
 import com.nrusev.web.ui.mvp.MvpPresenter;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.ui.UI;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -31,10 +32,11 @@ public class HomePresenter extends MvpPresenter<HomeView> {
 	}
 	
 	@PostConstruct
-	public void postContruct() {
+	public void postConstruct() {
 		initLayout();
         loadTodaysGames();
         attachEventHandlers();
+
 	}
 
 	@PreDestroy
@@ -43,7 +45,7 @@ public class HomePresenter extends MvpPresenter<HomeView> {
 
 	@Override
 	public void enter(ViewChangeEvent event) {
-        navigator = event.getNavigator();
+        navigator = UI.getCurrent().getNavigator();
 	}
 
 	private void initLayout(){
@@ -63,8 +65,4 @@ public class HomePresenter extends MvpPresenter<HomeView> {
 			});
 		});
 	}
-
-
-
-
 }

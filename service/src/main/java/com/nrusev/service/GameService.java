@@ -29,6 +29,10 @@ public class GameService {
         return this.gameRepository.findAllClub(seasonKey,leagueKey,country);
     }
 
+    public List<Game> findAllHeadToHead(String firstTeam, String secondTeam){
+        return this.gameRepository.findAllHeadToHead(firstTeam,secondTeam);
+    }
+
     public List<Game> findTodaysGames(){
         return this.gameRepository.findAllClub("2014/15","en","England").stream().filter(g->g.getRound().getTitle().equalsIgnoreCase("Matchday 38")).collect(toList());
     }

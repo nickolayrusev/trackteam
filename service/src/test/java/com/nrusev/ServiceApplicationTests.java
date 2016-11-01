@@ -128,7 +128,12 @@ public class ServiceApplicationTests {
 	@Test
 	public void testFindAll(){
 		gameService.findAllClub("2014/15","en","England").forEach(g-> {
-			System.out.println( g.getPlayAt() + " " + g.getHomeTeam().getTitle() + " vs. " + g.getVisitorTeam().getTitle() + " " + g.getRound().getTitle() + g.getScore1() + ":" + g.getScore2());
+			System.out.println( g.getPlayAt() + " " + g.getHomeTeam().getTitle() + " vs. " + g.getVisitorTeam().getTitle() + " " + g.getRound().getTitle() +" " + g.getScore1() + ":" + g.getScore2());
 		});
+	}
+
+	@Test
+	public void testFindHeadToHead(){
+		gameService.findAllHeadToHead("Manchester United","Manchester City").forEach(System.out::println);
 	}
 }

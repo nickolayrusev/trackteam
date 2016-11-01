@@ -1,6 +1,9 @@
 package com.nrusev.web.ui.match;
 
 import com.google.common.eventbus.EventBus;
+import com.nrusev.domain.Game;
+import com.nrusev.domain.Log;
+import com.nrusev.domain.Team;
 import com.nrusev.service.GameService;
 import com.nrusev.web.ui.mvp.MvpPresenter;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
@@ -22,10 +25,11 @@ public class MatchPresenter extends MvpPresenter<MatchView>{
 
     private final GameService gameService;
 
+    private Game game;
+
     @PostConstruct
     public void postContruct() {
         getView().initLayout();
-        getView().loadInitialData();
     }
 
     @Autowired
@@ -36,6 +40,17 @@ public class MatchPresenter extends MvpPresenter<MatchView>{
 
     @Override
     public void enter(ViewChangeEvent viewChangeEvent) {
-        System.out.println(viewChangeEvent.getParameters());
+        LOG.debug("params are ", viewChangeEvent.getParameters());
+        game = gameService.findById(Long.valueOf(viewChangeEvent.getParameters()));
+        getView().loadInitialData(game);
+        getView().displayPreviousMeetings(gameService.findAllHeadToHead(getHomeTeam().getTitle(),getVisitorTeam().getTitle()));
+    }
+
+    private Team getHomeTeam(){
+        return game.getHomeTeam();
+    }
+
+    private Team getVisitorTeam(){
+        return game.getVisitorTeam();
     }
 }

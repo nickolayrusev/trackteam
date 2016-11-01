@@ -3,16 +3,13 @@ package com.nrusev.web.ui;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.nrusev.web.ui.mvp.MvpPresenter;
+import com.vaadin.server.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewDisplay;
-import com.vaadin.server.ExternalResource;
-import com.vaadin.server.FontAwesome;
-import com.vaadin.server.Responsive;
-import com.vaadin.server.VaadinRequest;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.navigator.SpringViewProvider;
@@ -28,6 +25,8 @@ import com.vaadin.ui.MenuBar;
 import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
+
+import java.util.Locale;
 
 
 @SpringUI(path = "")
@@ -64,8 +63,11 @@ public class MainUI extends UI {
 		@Override
 		public void showView(View view) {
 			root.removeAllComponents();
+
 			if (view instanceof MvpPresenter) {
-				root.addComponent((Component) ((MvpPresenter) view).getView());
+				Component component = (Component) ((MvpPresenter) view).getView();
+				root.setLocale(Locale.ENGLISH);
+				root.addComponent(component);
 			}
 		}
 		
@@ -80,6 +82,9 @@ public class MainUI extends UI {
 		this.setContent(root);
 		root.setWidth("100%");
 
+        Locale locale = Locale.ENGLISH;
+        this.setLocale( locale ); // Call to affect this current UI. Workaround for bug: http://dev.vaadin.com/ticket/12350
+        this.getSession().setLocale( locale ); // Affects only future UI instances, not current one because of bug. See workaround in line above.
 
 		MvpViewDisplay mvpViewDisplay = new MvpViewDisplay(root.getContentContainer());
 		navigator = new Navigator(this, mvpViewDisplay);

@@ -1,5 +1,6 @@
 package com.nrusev.web.ui.home;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import javax.annotation.PreDestroy;
 
 import com.nrusev.domain.Country;
 import com.nrusev.domain.Game;
+import com.vaadin.ui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,11 +17,9 @@ import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
-import com.vaadin.ui.Button;
-import com.vaadin.ui.CssLayout;
-import com.vaadin.ui.Label;
-import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.themes.ValoTheme;
+
+import static com.nrusev.support.TextUtils.getGameCaption;
 
 @SuppressWarnings("serial")
 @SpringComponent
@@ -63,7 +63,6 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 		Label subCaption = new Label("These are my friends: ", ContentMode.HTML);
 		subCaption.addStyleName(ValoTheme.LABEL_LIGHT);
 		layout.addComponent(subCaption);
-		
 	}
 
 
@@ -73,7 +72,7 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 			final Button btnGame = new Button();
 			btnGame.addStyleName(ValoTheme.BUTTON_LINK);
 			btnGame.setData(game);
-			btnGame.setCaption(getGameCaption(game));
+			btnGame.setCaption(getGameCaption(game, UI.getCurrent().getLocale()));
 			layout.addComponent(btnGame);
 			matchButtons.add(btnGame);
 		});
@@ -84,19 +83,4 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 		return this.matchButtons;
 	}
 
-	private String getGameCaption(Game game){
-		StringBuilder builder = new StringBuilder();
-		builder.append(game.getPlayAt())
-				.append(" ")
-				.append(game.getHomeTeam().getTitle())
-				.append(" vs. ")
-				.append(game.getVisitorTeam().getTitle())
-				.append(" ")
-				.append(game.getRound().getTitle() )
-				.append(" ")
-				.append(game.getScore1())
-				.append(":")
-				.append(game.getScore2());
-		return builder.toString();
-	}
 }

@@ -35,11 +35,16 @@ public interface GameRepository extends CrudRepository<Game, Long> {
             "join fetch g.homeTeam " +
             "join fetch g.visitorTeam " +
             "join fetch g.round r " +
-            "join r.event e " +
-            "join e.season s " +
-            "join e.league l " +
-            "join l.country c " +
+            "join fetch r.event e " +
+            "join fetch e.season s " +
+            "join fetch e.league l " +
+            "join fetch l.country c " +
             "where l.club='t' and  s.key = :seasonKey and l.key = :leagueKey and c.name=:country")
     List<Game> findAllClub(@Param("seasonKey") String seasonKey,@Param("leagueKey") String leagueKey, @Param("country") String country);
+
+    @Query("select g from Game g join fetch g.homeTeam join fetch g.visitorTeam join fetch g.round r  " +
+            "where (g.homeTeam.title =:firstTeam AND g.visitorTeam.title =:secondTeam) " +
+            "or g.visitorTeam.title =:firstTeam AND g.homeTeam.title =:secondTeam order by g.playAt desc" )
+    List<Game> findAllHeadToHead(@Param("firstTeam") String firstTeam, @Param("secondTeam") String secondTeam);
 }
 
