@@ -33,7 +33,7 @@ public class HomeViewImpl extends CssLayout implements HomeView {
     private List<Button>  matchButtons;
 
 	@PostConstruct
-	public void postContruct() {
+	public void postConstruct() {
 		LOG.info("Creating new MainView");
         matchButtons = new ArrayList<>();
 		setSizeFull();

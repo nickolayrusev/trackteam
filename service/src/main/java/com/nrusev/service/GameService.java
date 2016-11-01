@@ -33,6 +33,10 @@ public class GameService {
         return this.gameRepository.findAllHeadToHead(firstTeam,secondTeam);
     }
 
+    public List<Game> findGamesByTeam(Long id){
+        return this.gameRepository.findAllGamesByTeam(id);
+    }
+
     public List<Game> findTodaysGames(){
         return this.gameRepository.findAllClub("2014/15","en","England").stream().filter(g->g.getRound().getTitle().equalsIgnoreCase("Matchday 38")).collect(toList());
     }

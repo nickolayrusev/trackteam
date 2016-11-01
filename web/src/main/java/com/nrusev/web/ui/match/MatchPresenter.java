@@ -8,6 +8,7 @@ import com.nrusev.service.GameService;
 import com.nrusev.web.ui.mvp.MvpPresenter;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,10 +28,6 @@ public class MatchPresenter extends MvpPresenter<MatchView>{
 
     private Game game;
 
-    @PostConstruct
-    public void postContruct() {
-        getView().initLayout();
-    }
 
     @Autowired
     public MatchPresenter(MatchView view, EventBus eventBus, GameService gameService) {
@@ -38,12 +35,23 @@ public class MatchPresenter extends MvpPresenter<MatchView>{
         this.gameService = gameService;
     }
 
+    @PostConstruct
+    public void postConstruct() {
+        getView().initLayout();
+    }
+
     @Override
     public void enter(ViewChangeEvent viewChangeEvent) {
         LOG.debug("params are ", viewChangeEvent.getParameters());
         game = gameService.findById(Long.valueOf(viewChangeEvent.getParameters()));
         getView().loadInitialData(game);
-        getView().displayPreviousMeetings(gameService.findAllHeadToHead(getHomeTeam().getTitle(),getVisitorTeam().getTitle()));
+        getView().displayPreviousMeetings(gameService.findAllHeadToHead(getHomeTeam().getTitle(), getVisitorTeam().getTitle()));
+        getView().getHomeTeamButton().addClickListener(l -> {
+            UI.getCurrent().getNavigator().navigateTo("team" + "/" + ((Team)l.getButton().getData()).getId());
+        });
+        getView().getVisitorTeamButton().addClickListener(l->{
+            UI.getCurrent().getNavigator().navigateTo("team" + "/" + ((Team)l.getButton().getData()).getId());
+        });
     }
 
     private Team getHomeTeam(){

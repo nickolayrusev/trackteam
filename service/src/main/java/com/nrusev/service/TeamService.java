@@ -43,6 +43,10 @@ public class TeamService {
         return teamRepository.findByCountryNameAndClubIsTrueOrderByTitle(countryName);
     }
 
+    public Team findById(Long id){
+        return teamRepository.findOne(id);
+    }
+
     public Team save(Team team) {
         return teamRepository.save(team);
     }

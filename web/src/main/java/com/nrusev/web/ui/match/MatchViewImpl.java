@@ -8,6 +8,7 @@ import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,18 +23,37 @@ public class MatchViewImpl  extends CssLayout implements MatchView {
 
     private VerticalLayout layout;
 
+    private List<Button> previousGamesButtons;
+
+    private Button homeTeamButton;
+
+    private Button visitorTeamButton;
+
+    @PostConstruct
+    public void postConstruct() {
+        previousGamesButtons = new ArrayList<>();
+        setSizeFull();
+    }
+
     @Override
     public void initLayout() {
         buildLayout();
-
     }
 
     @Override
     public void loadInitialData(Game g) {
-        Label game = new Label(g.getHomeTeam().getTitle() + " vs. " + g.getVisitorTeam().getTitle(), ContentMode.HTML);
-        game.addStyleName(ValoTheme.LABEL_H2);
-        layout.addComponent(game);
+        homeTeamButton = new Button();
+        homeTeamButton.setCaption(g.getHomeTeam().getTitle());
+        homeTeamButton.setData(g.getHomeTeam());
+        homeTeamButton.setStyleName(ValoTheme.BUTTON_LINK);
 
+        visitorTeamButton = new Button();
+        visitorTeamButton.setCaption(g.getVisitorTeam().getTitle());
+        visitorTeamButton.setData(g.getVisitorTeam());
+        visitorTeamButton.setStyleName(ValoTheme.BUTTON_LINK);
+
+        layout.addComponent(homeTeamButton);
+        layout.addComponent(visitorTeamButton);
     }
 
     @Override
@@ -46,6 +66,8 @@ public class MatchViewImpl  extends CssLayout implements MatchView {
             final Button button = new Button();
             button.setCaption(getGameCaption(g, UI.getCurrent().getLocale()));
             button.setStyleName(ValoTheme.BUTTON_LINK);
+
+            previousGamesButtons.add(button);
             layout.addComponent(button);
         });
     }
@@ -64,9 +86,21 @@ public class MatchViewImpl  extends CssLayout implements MatchView {
         Label subCaption = new Label("Match detailed view", ContentMode.HTML);
         subCaption.addStyleName(ValoTheme.LABEL_LIGHT);
         layout.addComponent(subCaption);
+    }
 
+    @Override
+    public List<Button> getPreviousGamesButtons() {
+        return previousGamesButtons;
+    }
 
+    @Override
+    public Button getHomeTeamButton() {
+        return homeTeamButton;
+    }
 
+    @Override
+    public Button getVisitorTeamButton() {
+        return visitorTeamButton;
     }
 
 }
