@@ -15,6 +15,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import java.util.List;
+import java.util.stream.Collector;
+
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by Nikolay Rusev on 27.10.2016 г..
@@ -40,8 +45,16 @@ public class MatchPresenter extends MvpPresenter<MatchView>{
         getView().initLayout();
     }
 
+    @PreDestroy
+    public void preDestroy(){
+
+    }
+
     @Override
     public void enter(ViewChangeEvent viewChangeEvent) {
+        if(viewChangeEvent.getOldView().equals(viewChangeEvent.getOldView()))
+            getView().clear();
+
         LOG.debug("params are ", viewChangeEvent.getParameters());
         game = gameService.findById(Long.valueOf(viewChangeEvent.getParameters()));
         getView().loadInitialData(game);
@@ -52,6 +65,13 @@ public class MatchPresenter extends MvpPresenter<MatchView>{
         getView().getVisitorTeamButton().addClickListener(l->{
             UI.getCurrent().getNavigator().navigateTo("team" + "/" + ((Team)l.getButton().getData()).getId());
         });
+
+        getView().getPreviousGamesButtons().forEach(button -> {
+            button.addClickListener(l->{
+                UI.getCurrent().getNavigator().navigateTo("match" + "/" +((Game)button.getData()).getId() );
+            });
+        });
+
     }
 
     private Team getHomeTeam(){
@@ -61,4 +81,6 @@ public class MatchPresenter extends MvpPresenter<MatchView>{
     private Team getVisitorTeam(){
         return game.getVisitorTeam();
     }
+
+
 }

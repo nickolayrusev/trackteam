@@ -60,7 +60,7 @@ public class HomePresenter extends MvpPresenter<HomeView> {
 		getView().getMatchButtons().forEach(button -> {
 			button.addClickListener(l -> {
 				Game data = (Game) l.getButton().getData();
-				System.out.println(" Game is clicked ..." + data);
+
 				navigator.navigateTo("match" + "/" + data.getId());
 			});
 		});

@@ -18,4 +18,6 @@ public interface MatchView extends MvpView {
     List<Button> getPreviousGamesButtons();
     Button getHomeTeamButton();
     Button getVisitorTeamButton();
+
+    void clear();
 }

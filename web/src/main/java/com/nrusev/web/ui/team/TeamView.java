@@ -13,6 +13,8 @@ import java.util.List;
 public interface TeamView extends MvpView {
     void initLayout();
     void loadData(Team team);
-
     void loadPreviousGames(List<Game> games);
+    void loadFormOfLastGames(List<String> formOfLastGames);
+
+    List<Button> getPreviosGamesButtons();
 }

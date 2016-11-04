@@ -19,7 +19,7 @@ import static com.nrusev.support.TextUtils.getGameCaption;
  */
 @SpringComponent
 @ViewScope
-public class MatchViewImpl  extends CssLayout implements MatchView {
+public class MatchViewImpl extends CssLayout implements MatchView {
 
     private VerticalLayout layout;
 
@@ -32,8 +32,9 @@ public class MatchViewImpl  extends CssLayout implements MatchView {
     @PostConstruct
     public void postConstruct() {
         previousGamesButtons = new ArrayList<>();
-        setSizeFull();
+//        setSizeFull();
     }
+
 
     @Override
     public void initLayout() {
@@ -52,6 +53,7 @@ public class MatchViewImpl  extends CssLayout implements MatchView {
         visitorTeamButton.setData(g.getVisitorTeam());
         visitorTeamButton.setStyleName(ValoTheme.BUTTON_LINK);
 
+        layout.addComponent(new Label("play at "+ g.getPlayAt()));
         layout.addComponent(homeTeamButton);
         layout.addComponent(visitorTeamButton);
     }
@@ -66,7 +68,7 @@ public class MatchViewImpl  extends CssLayout implements MatchView {
             final Button button = new Button();
             button.setCaption(getGameCaption(g, UI.getCurrent().getLocale()));
             button.setStyleName(ValoTheme.BUTTON_LINK);
-
+            button.setData(g);
             previousGamesButtons.add(button);
             layout.addComponent(button);
         });
@@ -83,7 +85,7 @@ public class MatchViewImpl  extends CssLayout implements MatchView {
         caption.addStyleName(ValoTheme.LABEL_H1);
         layout.addComponent(caption);
 
-        Label subCaption = new Label("Match detailed view", ContentMode.HTML);
+        Label subCaption = new Label("Match detailed view ", ContentMode.HTML);
         subCaption.addStyleName(ValoTheme.LABEL_LIGHT);
         layout.addComponent(subCaption);
     }
@@ -101,6 +103,12 @@ public class MatchViewImpl  extends CssLayout implements MatchView {
     @Override
     public Button getVisitorTeamButton() {
         return visitorTeamButton;
+    }
+
+    @Override
+    public void clear() {
+        removeAllComponents();
+        initLayout();
     }
 
 }

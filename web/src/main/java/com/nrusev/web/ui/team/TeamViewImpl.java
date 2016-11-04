@@ -13,9 +13,13 @@ import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static com.nrusev.support.TextUtils.getGameCaption;
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 /**
  * Created by Nikolay Rusev on 1.11.2016 г..
@@ -28,9 +32,12 @@ public class TeamViewImpl extends CssLayout implements TeamView {
 
     private VerticalLayout layout;
 
+    private List<Button> previousGamesButtons;
+
     @PostConstruct
     public void postContruct() {
         LOG.info("Creating new TeamView");
+        previousGamesButtons = new ArrayList<>();
 //        setSizeFull();
     }
 
@@ -51,14 +58,6 @@ public class TeamViewImpl extends CssLayout implements TeamView {
         layout.setMargin(true);
         layout.setSpacing(true);
         addComponent(layout);
-
-        Label caption = new Label(FontAwesome.HOME.getHtml() + " Welcome to my awesome App", ContentMode.HTML);
-        caption.addStyleName(ValoTheme.LABEL_H1);
-        layout.addComponent(caption);
-
-        Label subCaption = new Label("These are my friends: ", ContentMode.HTML);
-        subCaption.addStyleName(ValoTheme.LABEL_LIGHT);
-        layout.addComponent(subCaption);
     }
 
     @Override
@@ -78,7 +77,19 @@ public class TeamViewImpl extends CssLayout implements TeamView {
             final Button button = new Button();
             button.setCaption(getGameCaption(g, UI.getCurrent().getLocale()));
             button.setStyleName(ValoTheme.BUTTON_LINK);
+            button.setData(g);
+            previousGamesButtons.add(button);
             layout.addComponent(button);
         });
+    }
+
+    @Override
+    public void loadFormOfLastGames(List<String> formOfLastGames) {
+        layout.addComponent(new Label(formOfLastGames.stream().collect(joining("-"))));
+    }
+
+    @Override
+    public List<Button> getPreviosGamesButtons() {
+        return previousGamesButtons;
     }
 }
