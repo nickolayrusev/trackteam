@@ -9,6 +9,7 @@ import com.nrusev.service.CountryService;
 import com.nrusev.service.GameService;
 import com.nrusev.web.ui.mvp.MvpPresenter;
 import com.vaadin.navigator.Navigator;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.UI;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -57,6 +58,7 @@ public class HomePresenter extends MvpPresenter<HomeView> {
 	}
 
 	private void attachEventHandlers() {
+		VaadinSession session = UI.getCurrent().getSession();
 		getView().getMatchButtons().forEach(button -> {
 			button.addClickListener(l -> {
 				Game data = (Game) l.getButton().getData();

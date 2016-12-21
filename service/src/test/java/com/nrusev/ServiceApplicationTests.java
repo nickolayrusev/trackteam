@@ -15,6 +15,8 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -135,5 +137,13 @@ public class ServiceApplicationTests {
 	@Test
 	public void testFindHeadToHead(){
 		gameService.findAllHeadToHead("Manchester United","Manchester City").forEach(System.out::println);
+	}
+
+	@Test
+	public void testUrl() throws UnsupportedEncodingException {
+		String param = "Ð´Ð¾Ð±ÑÐµ";
+		String japanparam = "æ\u0099\u0082ã\u0081\u0096ã\u0081¡ã\u0082\u0088ã\u0082\u008Bè¶³9ä¸\u0096ã\u0083\u0083ã\u0081\u009Aã\u0081\u008Dé\u009B»";
+		System.out.println(new String(param.getBytes("ISO-8859-1"), "UTF-8"));
+		System.out.println(new String(japanparam.getBytes("ISO-8859-1"), "UTF-8"));
 	}
 }

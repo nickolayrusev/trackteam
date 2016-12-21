@@ -113,16 +113,13 @@ public class MainUI extends UI {
 		/*
 		 * Responsive layout - show hide menu
 		 */
-		Button showMenu = new Button("Menu", new ClickListener() {
-			@Override
-			public void buttonClick(ClickEvent event) {
-				if (menu.getStyleName().contains("valo-menu-visible")) {
-					menu.removeStyleName("valo-menu-visible");
-				} else {
-					menu.addStyleName("valo-menu-visible");
-				}
-			}
-		});
+		Button showMenu = new Button("Menu", (ClickListener) event -> {
+            if (menu.getStyleName().contains("valo-menu-visible")) {
+                menu.removeStyleName("valo-menu-visible");
+            } else {
+                menu.addStyleName("valo-menu-visible");
+            }
+        });
 
 		showMenu.addStyleName(ValoTheme.BUTTON_PRIMARY);
 		showMenu.addStyleName(ValoTheme.BUTTON_SMALL);

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.nrusev.support.TextUtils.getGameCaption;
+import static com.nrusev.support.TextUtils.getGameCaptionSimple;
 
 /**
  * Created by Nikolay Rusev on 27.10.2016 г..
@@ -29,6 +30,7 @@ public class MatchViewImpl extends CssLayout implements MatchView {
 
     private Button visitorTeamButton;
 
+
     @PostConstruct
     public void postConstruct() {
         previousGamesButtons = new ArrayList<>();
@@ -44,12 +46,12 @@ public class MatchViewImpl extends CssLayout implements MatchView {
     @Override
     public void loadInitialData(Game g) {
         homeTeamButton = new Button();
-        homeTeamButton.setCaption(g.getHomeTeam().getTitle());
+        homeTeamButton.setCaption(g.getHomeTeam().getTitle() + " " + g.getScore1());
         homeTeamButton.setData(g.getHomeTeam());
         homeTeamButton.setStyleName(ValoTheme.BUTTON_LINK);
 
         visitorTeamButton = new Button();
-        visitorTeamButton.setCaption(g.getVisitorTeam().getTitle());
+        visitorTeamButton.setCaption(g.getVisitorTeam().getTitle() + " " + g.getScore2());
         visitorTeamButton.setData(g.getVisitorTeam());
         visitorTeamButton.setStyleName(ValoTheme.BUTTON_LINK);
 
@@ -66,7 +68,7 @@ public class MatchViewImpl extends CssLayout implements MatchView {
 
         previousGames.forEach(g->{
             final Button button = new Button();
-            button.setCaption(getGameCaption(g, UI.getCurrent().getLocale()));
+            button.setCaption(getGameCaptionSimple(g));
             button.setStyleName(ValoTheme.BUTTON_LINK);
             button.setData(g);
             previousGamesButtons.add(button);

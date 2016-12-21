@@ -28,4 +28,15 @@ public final class TextUtils {
         return builder.toString();
     }
 
+    public static String getGameCaptionSimple(Game game){
+        StringBuilder builder = new StringBuilder();
+        builder.append(game.getHomeTeam().getTitle())
+                .append(" vs. ")
+                .append(game.getVisitorTeam().getTitle())
+                .append(" ")
+                .append(game.getScore1())
+                .append(":")
+                .append(game.getScore2());
+        return builder.toString();
+    }
 }

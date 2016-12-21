@@ -41,7 +41,7 @@ public class LoginUI extends UI {
 		loginForm.addComponent(password);
 		
 		Button login = new Button("Login", event -> {
-			Page.getCurrent().setLocation("/main");
+			Page.getCurrent().setLocation("/#!home");
 			UI.getCurrent().getSession().setAttribute("IS_LOGGED_IN", true);
 		});
 		login.setIcon(FontAwesome.SIGN_IN);
