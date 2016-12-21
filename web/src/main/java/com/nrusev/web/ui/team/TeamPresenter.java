@@ -56,9 +56,9 @@ public class TeamPresenter extends MvpPresenter<TeamView> {
         team = teamService.findById(Long.valueOf(viewChangeEvent.getParameters()));
         previousGames = gameService.findGamesByTeam(team.getId());
 
-        getView().loadData(team);
+        getView().loadData(getTeam());
         getView().loadFormOfLastGames(getFormOfLastGames(previousGames,team));
-        getView().loadPreviousGames(previousGames);
+        getView().loadPreviousGames(getPreviousGames());
         getView().getPreviosGamesButtons().forEach(button->{
             button.addClickListener(l->{
                 Game game =(Game)button.getData();
@@ -81,9 +81,15 @@ public class TeamPresenter extends MvpPresenter<TeamView> {
                 return "D";
             if (team.getId().equals(g.getVisitorTeam().getId()) && new Long(2L).equals(winner))
                 return "W";
+            if (team.getId().equals(g.getHomeTeam().getId()) && new Long(1L).equals(winner))
+                return "W";
             else
                 return "L";
         }).collect(toList());
+    }
+
+    public List<Game> getPreviousGames() {
+        return previousGames;
     }
 
 }
