@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.nrusev.domain.Game;
 import com.nrusev.service.CountryService;
 import com.nrusev.service.GameService;
@@ -66,5 +67,10 @@ public class HomePresenter extends MvpPresenter<HomeView> {
 				navigator.navigateTo("match" + "/" + data.getId());
 			});
 		});
+	}
+
+	@Subscribe
+	public void handleOkClick(String ok){
+		System.out.println("from parent component ..." + ok);
 	}
 }

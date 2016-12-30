@@ -9,6 +9,8 @@ import javax.annotation.PreDestroy;
 
 import com.nrusev.domain.Country;
 import com.nrusev.domain.Game;
+import com.nrusev.web.ui.components.MyComponent;
+import com.nrusev.web.ui.components.MyNewComponent;
 import com.vaadin.ui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +20,7 @@ import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.themes.ValoTheme;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.nrusev.support.TextUtils.getGameCaption;
 
@@ -63,6 +66,15 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 		Label subCaption = new Label("These are my friends: ", ContentMode.HTML);
 		subCaption.addStyleName(ValoTheme.LABEL_LIGHT);
 		layout.addComponent(subCaption);
+
+		for(int i = 0; i<3;i++) {
+			MyComponent myComponent = new MyComponent("oh my component " + i);
+
+            myComponent.addAllIsOkListener(event ->{
+				System.out.println("really everything is ok...");
+			});
+			layout.addComponent(myComponent);
+		}
 	}
 
 
