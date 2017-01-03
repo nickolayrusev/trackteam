@@ -176,14 +176,29 @@ public class MainUI extends UI {
 		menuItemsLayout.addComponent(editView);
 
 		//
+		// pools view
+		Button pools = new Button("Pools", event -> {
+			navigator.navigateTo("user-pools");
+		});
+
+		pools.setHtmlContentAllowed(true);
+		pools.setPrimaryStyleName(ValoTheme.MENU_ITEM);
+		pools.setIcon(FontAwesome.ARCHIVE);
+
+        menuItemsLayout.addComponent(pools);
+		
+		//
 		// Shutdown application
 		Button shutdown = new Button("Shutdown", event -> {
 			getUI().getSession().close();
 			getPage().setLocation("/login");
 		});
+
 		shutdown.setHtmlContentAllowed(true);
 		shutdown.setPrimaryStyleName(ValoTheme.MENU_ITEM);
 		shutdown.setIcon(FontAwesome.POWER_OFF);
+
+
 		menuItemsLayout.addComponent(shutdown);
 
 	}

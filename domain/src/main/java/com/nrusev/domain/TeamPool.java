@@ -23,7 +23,7 @@ public class TeamPool {
    @JoinColumn(name = "user_id", nullable = false)
    private User user;
 
-   @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
    @JoinTable(name = "team_pool_teams",
            joinColumns = {
            @JoinColumn(name = "team_pool_id", nullable = false, updatable = false) },
@@ -73,6 +73,14 @@ public class TeamPool {
       this.closed = closed;
    }
 
+   public User getUser() {
+      return user;
+   }
+
+   public void setUser(User user) {
+      this.user = user;
+   }
+
    @Override
    public String toString() {
       return "TeamPool{" +
@@ -81,4 +89,5 @@ public class TeamPool {
               ", description='" + description + '\'' +
               '}';
    }
+
 }
