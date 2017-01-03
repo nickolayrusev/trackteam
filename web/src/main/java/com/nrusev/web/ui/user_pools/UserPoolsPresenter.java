@@ -41,8 +41,7 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
 
     private void loadData(){
         this.userService.findByUserName("nrusev").ifPresent(user -> {
-            List<TeamPool> allByUserName = this.teamPoolService.findAllByUserName(user.getUserName());
-            getView().loadData(allByUserName);
+            getView().loadData(this.teamPoolService.findAllByUserName(user.getUserName()));
         });
     }
 

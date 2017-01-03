@@ -186,7 +186,7 @@ public class MainUI extends UI {
 		pools.setIcon(FontAwesome.ARCHIVE);
 
         menuItemsLayout.addComponent(pools);
-		
+
 		//
 		// Shutdown application
 		Button shutdown = new Button("Shutdown", event -> {
