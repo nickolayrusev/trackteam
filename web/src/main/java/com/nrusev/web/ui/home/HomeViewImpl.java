@@ -1,16 +1,14 @@
 package com.nrusev.web.ui.home;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-import com.nrusev.domain.Country;
+import com.google.common.eventbus.EventBus;
 import com.nrusev.domain.Game;
 import com.nrusev.web.ui.components.MyComponent;
-import com.nrusev.web.ui.components.MyNewComponent;
 import com.vaadin.ui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,12 +31,16 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 	
 	private VerticalLayout layout;
 
-    private List<Button>  matchButtons;
+	private final EventBus eventBus;
+
+    @Autowired
+	public HomeViewImpl(EventBus eventBus) {
+		this.eventBus = eventBus;
+	}
 
 	@PostConstruct
 	public void postConstruct() {
 		LOG.info("Creating new MainView");
-        matchButtons = new ArrayList<>();
 		setSizeFull();
 	}
 
@@ -67,14 +69,20 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 		subCaption.addStyleName(ValoTheme.LABEL_LIGHT);
 		layout.addComponent(subCaption);
 
-		for(int i = 0; i<3;i++) {
-			MyComponent myComponent = new MyComponent("oh my component " + i);
+//		Button b = new Button("caption");
+//		b.addClickListener(l->{
+//			this.eventBus.post("caption click listener");
+//		});
+//		layout.addComponent(b);
 
-            myComponent.addAllIsOkListener(event ->{
-				System.out.println("really everything is ok...");
-			});
-			layout.addComponent(myComponent);
-		}
+//		for(int i = 0; i<3;i++) {
+//			MyComponent myComponent = new MyComponent("oh my component " + i);
+//
+//            myComponent.addAllIsOkListener(event ->{
+//				System.out.println("really everything is ok...");
+//			});
+//			layout.addComponent(myComponent);
+//		}
 	}
 
 
@@ -85,14 +93,12 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 			btnGame.addStyleName(ValoTheme.BUTTON_LINK);
 			btnGame.setData(game);
 			btnGame.setCaption(getGameCaption(game, UI.getCurrent().getLocale()));
+			btnGame.addClickListener(l->{
+				this.eventBus.post(new GameClickedEvent((Game) l.getButton().getData()));
+			});
 			layout.addComponent(btnGame);
-			matchButtons.add(btnGame);
 		});
 	}
 
-	@Override
-	public List<Button> getMatchButtons() {
-		return this.matchButtons;
-	}
 
 }

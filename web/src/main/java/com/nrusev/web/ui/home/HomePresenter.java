@@ -37,12 +37,12 @@ public class HomePresenter extends MvpPresenter<HomeView> {
 	public void postConstruct() {
 		initLayout();
         loadTodaysGames();
-        attachEventHandlers();
-
 	}
 
 	@PreDestroy
 	public void preDestroy() {
+		System.out.println("destroying ..." + this.getClass().getSimpleName());
+		this.getEventBus().unregister(this);
 	}
 
 	@Override
@@ -58,15 +58,11 @@ public class HomePresenter extends MvpPresenter<HomeView> {
 		getView().displayTodaysGames(gameService.findTodaysGames());
 	}
 
-	private void attachEventHandlers() {
-		VaadinSession session = UI.getCurrent().getSession();
-		getView().getMatchButtons().forEach(button -> {
-			button.addClickListener(l -> {
-				Game data = (Game) l.getButton().getData();
 
-				navigator.navigateTo("match" + "/" + data.getId());
-			});
-		});
+    @Subscribe
+	public void handleGameChange(HomeView.GameClickedEvent event){
+		System.out.println("navigating...." + event.getGame().getId());
+		navigator.navigateTo("match" + "/" + event.getGame().getId());
 	}
 
 	@Subscribe
