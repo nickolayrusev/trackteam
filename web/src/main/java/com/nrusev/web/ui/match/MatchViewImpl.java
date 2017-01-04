@@ -1,5 +1,6 @@
 package com.nrusev.web.ui.match;
 
+import com.google.common.eventbus.EventBus;
 import com.nrusev.domain.Game;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -7,8 +8,10 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,17 +27,25 @@ public class MatchViewImpl extends CssLayout implements MatchView {
 
     private VerticalLayout layout;
 
-    private List<Button> previousGamesButtons;
 
     private Button homeTeamButton;
 
     private Button visitorTeamButton;
 
+    private final EventBus eventBus;
+
+    @Autowired
+    public MatchViewImpl(EventBus eventBus) {
+        this.eventBus = eventBus;
+    }
+
 
     @PostConstruct
     public void postConstruct() {
-        previousGamesButtons = new ArrayList<>();
-//        setSizeFull();
+    }
+
+    @PreDestroy
+    public void onDestroy(){
     }
 
 
@@ -47,13 +58,18 @@ public class MatchViewImpl extends CssLayout implements MatchView {
     public void loadInitialData(Game g) {
         homeTeamButton = new Button();
         homeTeamButton.setCaption(g.getHomeTeam().getTitle() + " " + g.getScore1());
-        homeTeamButton.setData(g.getHomeTeam());
+//        homeTeamButton.setData(g.getHomeTeam());
         homeTeamButton.setStyleName(ValoTheme.BUTTON_LINK);
+        homeTeamButton.addClickListener(l->{
+            this.eventBus.post(new TeamClickedEvent(g.getHomeTeam()));
+        });
 
         visitorTeamButton = new Button();
         visitorTeamButton.setCaption(g.getVisitorTeam().getTitle() + " " + g.getScore2());
-        visitorTeamButton.setData(g.getVisitorTeam());
         visitorTeamButton.setStyleName(ValoTheme.BUTTON_LINK);
+        visitorTeamButton.addClickListener(l->{
+            this.eventBus.post(new TeamClickedEvent(g.getVisitorTeam()));
+        });
 
         layout.addComponent(new Label("play at "+ g.getPlayAt()));
         layout.addComponent(homeTeamButton);
@@ -70,8 +86,10 @@ public class MatchViewImpl extends CssLayout implements MatchView {
             final Button button = new Button();
             button.setCaption(getGameCaptionSimple(g));
             button.setStyleName(ValoTheme.BUTTON_LINK);
-            button.setData(g);
-            previousGamesButtons.add(button);
+            button.addClickListener(l->{
+                this.eventBus.post(new MatchView.GameClickedEvent(g));
+            });
+
             layout.addComponent(button);
         });
     }
@@ -90,21 +108,6 @@ public class MatchViewImpl extends CssLayout implements MatchView {
         Label subCaption = new Label("Match detailed view ", ContentMode.HTML);
         subCaption.addStyleName(ValoTheme.LABEL_LIGHT);
         layout.addComponent(subCaption);
-    }
-
-    @Override
-    public List<Button> getPreviousGamesButtons() {
-        return previousGamesButtons;
-    }
-
-    @Override
-    public Button getHomeTeamButton() {
-        return homeTeamButton;
-    }
-
-    @Override
-    public Button getVisitorTeamButton() {
-        return visitorTeamButton;
     }
 
     @Override

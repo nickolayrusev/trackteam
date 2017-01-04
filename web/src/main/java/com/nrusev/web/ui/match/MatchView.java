@@ -1,6 +1,7 @@
 package com.nrusev.web.ui.match;
 
 import com.nrusev.domain.Game;
+import com.nrusev.domain.Team;
 import com.nrusev.web.ui.mvp.MvpView;
 import com.vaadin.ui.Button;
 
@@ -13,11 +14,29 @@ public interface MatchView extends MvpView {
     void initLayout();
     void loadInitialData(Game game);
     void displayPreviousMeetings(List<Game> previousGames);
-
-    //Attach event handlers
-    List<Button> getPreviousGamesButtons();
-    Button getHomeTeamButton();
-    Button getVisitorTeamButton();
-
     void clear();
+
+    class TeamClickedEvent{
+        private Team team;
+
+        public TeamClickedEvent(Team team) {
+            this.team = team;
+        }
+
+        public Team getTeam() {
+            return team;
+        }
+    }
+
+    class GameClickedEvent{
+        private Game game;
+
+        public GameClickedEvent(Game game) {
+            this.game = game;
+        }
+
+        public Game getGame() {
+            return game;
+        }
+    }
 }

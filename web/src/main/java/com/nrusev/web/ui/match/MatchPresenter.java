@@ -1,6 +1,7 @@
 package com.nrusev.web.ui.match;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.Log;
 import com.nrusev.domain.Team;
@@ -47,7 +48,7 @@ public class MatchPresenter extends MvpPresenter<MatchView>{
 
     @PreDestroy
     public void preDestroy(){
-
+        getEventBus().unregister(this);
     }
 
     @Override
@@ -59,21 +60,21 @@ public class MatchPresenter extends MvpPresenter<MatchView>{
         game = gameService.findById(Long.valueOf(viewChangeEvent.getParameters()));
         getView().loadInitialData(game);
         getView().displayPreviousMeetings(gameService.findAllHeadToHead(getHomeTeam().getTitle(), getVisitorTeam().getTitle()));
-        getView().getHomeTeamButton().addClickListener(l -> {
-            UI.getCurrent().getNavigator().navigateTo("team" + "/" + ((Team)l.getButton().getData()).getId());
-        });
-        getView().getVisitorTeamButton().addClickListener(l->{
-            UI.getCurrent().getNavigator().navigateTo("team" + "/" + ((Team)l.getButton().getData()).getId());
-        });
-
-        getView().getPreviousGamesButtons().forEach(button -> {
-            button.addClickListener(l->{
-                UI.getCurrent().getNavigator().navigateTo("match" + "/" +((Game)button.getData()).getId() );
-            });
-        });
 
     }
 
+
+    @Subscribe
+    public void handleGameClicked(MatchView.GameClickedEvent event){
+        System.out.println("navigating to game...." +event.getGame());
+        UI.getCurrent().getNavigator().navigateTo("match" + "/" + event.getGame().getId() );
+    }
+
+    @Subscribe
+    public void handleTeamClicked(MatchView.TeamClickedEvent event){
+        System.out.println("navigating to team...." +event.getTeam());
+        UI.getCurrent().getNavigator().navigateTo("team" + "/" + event.getTeam().getId());
+    }
     private Team getHomeTeam(){
         return game.getHomeTeam();
     }
