@@ -27,11 +27,6 @@ public class MatchViewImpl extends CssLayout implements MatchView {
 
     private VerticalLayout layout;
 
-
-    private Button homeTeamButton;
-
-    private Button visitorTeamButton;
-
     private final EventBus eventBus;
 
     @Autowired
@@ -56,15 +51,14 @@ public class MatchViewImpl extends CssLayout implements MatchView {
 
     @Override
     public void loadInitialData(Game g) {
-        homeTeamButton = new Button();
+        Button homeTeamButton = new Button();
         homeTeamButton.setCaption(g.getHomeTeam().getTitle() + " " + g.getScore1());
-//        homeTeamButton.setData(g.getHomeTeam());
         homeTeamButton.setStyleName(ValoTheme.BUTTON_LINK);
         homeTeamButton.addClickListener(l->{
             this.eventBus.post(new TeamClickedEvent(g.getHomeTeam()));
         });
 
-        visitorTeamButton = new Button();
+        Button visitorTeamButton = new Button();
         visitorTeamButton.setCaption(g.getVisitorTeam().getTitle() + " " + g.getScore2());
         visitorTeamButton.setStyleName(ValoTheme.BUTTON_LINK);
         visitorTeamButton.addClickListener(l->{

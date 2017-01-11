@@ -3,6 +3,7 @@ package com.nrusev.web.ui;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.nrusev.web.ui.mvp.MvpPresenter;
+import com.vaadin.annotations.Widgetset;
 import com.vaadin.server.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,7 +16,6 @@ import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
-import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
@@ -32,6 +32,7 @@ import java.util.Locale;
 @SpringUI(path = "")
 @Theme("valo")
 @SuppressWarnings("serial")
+@Widgetset("AppWidgetset")
 public class MainUI extends UI {
 
 	private ValoMenuLayout root = new ValoMenuLayout();

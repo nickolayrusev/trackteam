@@ -40,6 +40,7 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
     }
 
     private void loadData(){
+        //TODO: grab user from session
         this.userService.findByUserName("nrusev").ifPresent(user -> {
             getView().loadData(this.teamPoolService.findAllByUserName(user.getUserName()));
         });
