@@ -68,4 +68,4 @@ fabric.properties
 .metadata/
 .settings/
 RemoteSystemsTempFiles/
-web/src/main/vAADIN
+web/src/main/resources/vAADIN/
