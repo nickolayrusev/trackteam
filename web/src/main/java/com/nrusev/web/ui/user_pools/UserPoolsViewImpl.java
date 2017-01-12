@@ -43,8 +43,6 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
     @Override
     public void initLayout() {
         buildLayout();
-        field.setSuggestionProvider(suggestionProvider);
-        layout.addComponent(field);
     }
 
 
