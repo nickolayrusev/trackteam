@@ -74,29 +74,17 @@
 
 
 		<dependency>
-			<groupId>com.zybnet</groupId>
-			<artifactId>vaadin-autocomplete</artifactId>
-			<version>1.1.1</version>
+			<groupId>eu.maxschuster</groupId>
+			<artifactId>vaadin-autocompletetextfield</artifactId>
+			<version>1.0-alpha-4</version>
 			<exclusions>
-				<exclusion>
-					<groupId>com.vaadin</groupId>
-					<artifactId>vaadin-themes</artifactId>
-				</exclusion>
 				<exclusion>
 					<groupId>com.vaadin</groupId>
 					<artifactId>vaadin-server</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>com.vaadin</groupId>
-					<artifactId>vaadin-client-compiler</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.vaadin</groupId>
 					<artifactId>vaadin-client</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.vaadin</groupId>
-					<artifactId>vaadin-push</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -147,31 +135,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>gwt-maven-plugin</artifactId>
-				<!-- Version 2.1.0-1 works at least with Vaadin 6.5 -->
-				<version>2.1.0-1</version>
-				<configuration>
-					<!-- if you don't specify any modules, the plugin will find them -->
-					<webappDirectory>${project.build.directory}/${project.build.finalName}/VAADIN/widgetsets</webappDirectory>
-					<extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
-					<runTarget>clean</runTarget>
-					<hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp>
-					<noServer>true</noServer>
-					<port>8080</port>
-					<soyc>false</soyc>
-					<!--<sourceLevel>1.7</sourceLevel>-->
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>resources</goal>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<!-- Updates Vaadin 6.2+ widgetset definitions based on project dependencies -->
 			<plugin>

@@ -10,27 +10,41 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.TabSheet;
 import com.vaadin.ui.VerticalLayout;
-import com.zybnet.autocomplete.server.AutocompleteField;
-import com.zybnet.autocomplete.server.AutocompleteQueryListener;
-import com.zybnet.autocomplete.server.AutocompleteSuggestionPickedListener;
+import eu.maxschuster.vaadin.autocompletetextfield.AutocompleteSuggestionProvider;
+import eu.maxschuster.vaadin.autocompletetextfield.AutocompleteTextField;
+import eu.maxschuster.vaadin.autocompletetextfield.provider.CollectionSuggestionProvider;
+import eu.maxschuster.vaadin.autocompletetextfield.provider.MatchMode;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Nikolay Rusev on 26.10.2016 г..
  */
 @SpringComponent
 @ViewScope
-public class UserPoolsViewImpl extends CssLayout implements UserPoolsView{
+public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
     private VerticalLayout layout;
-    private final AutocompleteField<Team> search = new AutocompleteField<Team>();
+    private List<Team> teams;
+
+    AutocompleteTextField field = new AutocompleteTextField();
+
+    Collection<String> theJavas = Arrays.asList("Java",
+            "JavaScript",
+            "Join Java",
+            "JavaFX Script");
+
+    AutocompleteSuggestionProvider suggestionProvider = new
+            CollectionSuggestionProvider(theJavas, MatchMode.CONTAINS, true, Locale.US);
 
     @Override
     public void initLayout() {
         buildLayout();
-        setUpAutocomplete(search);
-        layout.addComponent(search);
+        field.setSuggestionProvider(suggestionProvider);
+        layout.addComponent(field);
     }
 
 
@@ -45,6 +59,11 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView{
         });
     }
 
+    @Override
+    public void setUpSearchQuery(List<Team> teams) {
+        this.teams = teams;
+    }
+
     private void buildLayout() {
         layout = new VerticalLayout();
         layout.setWidth("100%");
@@ -53,19 +72,5 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView{
         addComponent(layout);
     }
 
-    private void setUpAutocomplete(AutocompleteField<Team> search) {
-        search.setQueryListener((field, query) -> handleSearchQuery(field, query));
-        search.setSuggestionPickedListener(page -> handleSuggestionSelection(page));
-    }
-
-    private void handleSuggestionSelection(Team page) {
-        System.out.println("team chosen " + page);
-
-    }
-
-    private void handleSearchQuery(AutocompleteField<Team> field, String query) {
-
-//        field.addSuggestion(,"Arsenal");
-    }
 
 }

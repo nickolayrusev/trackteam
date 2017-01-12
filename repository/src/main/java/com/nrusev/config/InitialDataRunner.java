@@ -39,6 +39,10 @@ public class InitialDataRunner implements ApplicationRunner {
         System.out.println("loading initial data ....");
         User user = userRepository.findByUserName("nrusev").orElse(new User("nickolay", "rusev", "nrusev"));
 
+        if(user.getId()==null){
+            user = this.userRepository.save(user);
+        }
+
         if (user.getTeamPools().isEmpty()) {
             TeamPool pool = new TeamPool();
             pool.setName("over kings !");

@@ -1,8 +1,8 @@
 package com.nrusev.web.ui.user_pools;
 
 import com.google.common.eventbus.EventBus;
-import com.nrusev.domain.TeamPool;
 import com.nrusev.service.TeamPoolService;
+import com.nrusev.service.TeamService;
 import com.nrusev.service.UserService;
 import com.nrusev.web.ui.mvp.MvpPresenter;
 import com.vaadin.navigator.ViewChangeListener;
@@ -10,7 +10,6 @@ import com.vaadin.spring.annotation.SpringView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
-import java.util.List;
 
 /**
  * Created by Nikolay Rusev on 26.10.2016 г..
@@ -21,12 +20,14 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
     private final UserService userService;
 
     private final TeamPoolService teamPoolService;
+    private final TeamService teamService;
 
     @Autowired
-    public UserPoolsPresenter(UserPoolsView view, EventBus eventBus, UserService userService, TeamPoolService teamPoolService) {
+    public UserPoolsPresenter(UserPoolsView view, EventBus eventBus, UserService userService, TeamPoolService teamPoolService, TeamService teamService) {
         super(view, eventBus);
         this.userService = userService;
         this.teamPoolService = teamPoolService;
+        this.teamService = teamService;
     }
 
     @PostConstruct
@@ -44,6 +45,8 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
         this.userService.findByUserName("nrusev").ifPresent(user -> {
             getView().loadData(this.teamPoolService.findAllByUserName(user.getUserName()));
         });
+
+        getView().setUpSearchQuery(this.teamService.findUKTeams());
     }
 
     @Override
