@@ -19,54 +19,54 @@ import com.vaadin.spring.annotation.SpringView;
 
 
 @SuppressWarnings("serial")
-@SpringView(name="home")
+@SpringView(name = "home")
 public class HomePresenter extends MvpPresenter<HomeView> {
 
-	private final CountryService countryService;
-	private final GameService gameService;
-	private Navigator navigator;
+    private final CountryService countryService;
+    private final GameService gameService;
+    private Navigator navigator;
 
-	@Autowired
-	public HomePresenter(HomeView view, EventBus eventBus, CountryService countryService, GameService gameService) {
-		super(view, eventBus);
-		this.countryService = countryService;
-		this.gameService = gameService;
-	}
-	
-	@PostConstruct
-	public void postConstruct() {
-		initLayout();
+    @Autowired
+    public HomePresenter(HomeView view, EventBus eventBus, CountryService countryService, GameService gameService) {
+        super(view, eventBus);
+        this.countryService = countryService;
+        this.gameService = gameService;
+    }
+
+    @PostConstruct
+    public void postConstruct() {
+        initLayout();
         loadTodaysGames();
-	}
+    }
 
-	@PreDestroy
-	public void preDestroy() {
-		System.out.println("destroying ..." + this.getClass().getSimpleName());
-		this.getEventBus().unregister(this);
-	}
+    @PreDestroy
+    public void preDestroy() {
+        System.out.println("destroying ..." + this.getClass().getSimpleName());
+        this.getEventBus().unregister(this);
+    }
 
-	@Override
-	public void enter(ViewChangeEvent event) {
+    @Override
+    public void enter(ViewChangeEvent event) {
         navigator = UI.getCurrent().getNavigator();
-	}
+    }
 
-	private void initLayout(){
-		getView().initLayout();
-	}
+    private void initLayout() {
+        getView().initLayout();
+    }
 
-	private void loadTodaysGames(){
-		getView().displayTodaysGames(gameService.findTodaysGames());
-	}
+    private void loadTodaysGames() {
+        getView().displayTodaysGames(gameService.findTodaysGames());
+    }
 
 
     @Subscribe
-	public void handleGameChange(HomeView.GameClickedEvent event){
-		System.out.println("navigating...." + event.getGame().getId());
-		navigator.navigateTo("match" + "/" + event.getGame().getId());
-	}
+    public void handleGameChange(HomeView.GameClickedEvent event) {
+        System.out.println("navigating...." + event.getGame().getId());
+        navigator.navigateTo("match" + "/" + event.getGame().getId());
+    }
 
-	@Subscribe
-	public void handleOkClick(String ok){
-		System.out.println("from parent component ..." + ok);
-	}
+    @Subscribe
+    public void handleOkClick(String ok) {
+        System.out.println("from parent component ..." + ok);
+    }
 }
