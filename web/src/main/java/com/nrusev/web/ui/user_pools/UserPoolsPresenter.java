@@ -46,7 +46,7 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
             getView().loadData(this.teamPoolService.findAllByUserName(user.getUserName()));
         });
 
-        getView().setUpSearchQuery(this.teamService.findUKTeams());
+        getView().loadDataForAutoComplete(this.teamService.findAllClubTeams());
     }
 
     @Override

@@ -13,5 +13,5 @@ import java.util.List;
 public interface UserPoolsView extends MvpView {
     void initLayout();
     void loadData(List<TeamPool> user);
-    void setUpSearchQuery(List<Team> teams);
+    void loadDataForAutoComplete(List<Team> teams);
 }
