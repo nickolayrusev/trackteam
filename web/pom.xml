@@ -72,23 +72,6 @@
 			<version>1.1.1</version>
 		</dependency>
 
-
-		<dependency>
-			<groupId>eu.maxschuster</groupId>
-			<artifactId>vaadin-autocompletetextfield</artifactId>
-			<version>1.0-alpha-4</version>
-			<exclusions>
-				<exclusion>
-					<groupId>com.vaadin</groupId>
-					<artifactId>vaadin-server</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.vaadin</groupId>
-					<artifactId>vaadin-client</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -115,12 +98,6 @@
 			<!--<scope>provided</scope>-->
 		<!--</dependency>-->
 
-		<dependency>
-			<groupId>com.vaadin</groupId>
-			<artifactId>vaadin-client-compiler</artifactId>
-			<version>7.7.3</version>
-		</dependency>
-
 	</dependencies>
 
 	<repositories>
@@ -137,75 +114,75 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<!-- Updates Vaadin 6.2+ widgetset definitions based on project dependencies -->
-			<plugin>
-				<groupId>com.vaadin</groupId>
-				<artifactId>vaadin-maven-plugin</artifactId>
-				<version>7.2.4</version>
-				<configuration>
-					<extraJvmArgs>-Xmx1g -Xss1024k</extraJvmArgs>
+			<!--<plugin>-->
+				<!--<groupId>com.vaadin</groupId>-->
+				<!--<artifactId>vaadin-maven-plugin</artifactId>-->
+				<!--<version>7.2.4</version>-->
+				<!--<configuration>-->
+					<!--<extraJvmArgs>-Xmx1g -Xss1024k</extraJvmArgs>-->
 
-					<!-- We are doing "inplace" gwt compilation
-                    but into subdir VAADIN/widgetsets -->
-					<webappDirectory>
-						src/main/resources/VAADIN/widgetsets
-					</webappDirectory>
-					<hostedWebapp>
-						src/main/resources/VAADIN/widgetsets
-					</hostedWebapp>
-					<noServer>true</noServer>
-					<!-- Remove draftCompile when project is ready -->
-					<draftCompile>true</draftCompile>
-					<persistentunitcachedir>${project.build.directory}/gwtdirt</persistentunitcachedir>
-					<compileReport>false</compileReport>
-					<style>OBF</style>
-					<strict>true</strict>
-					<!-- Symbol maps etc, not needed in vaadin app, just target them outside war -->
-					<deploy>${project.build.directory}/gwt-deploy</deploy>
-				</configuration>
+					<!--&lt;!&ndash; We are doing "inplace" gwt compilation-->
+                    <!--but into subdir VAADIN/widgetsets &ndash;&gt;-->
+					<!--<webappDirectory>-->
+						<!--src/main/resources/VAADIN/widgetsets-->
+					<!--</webappDirectory>-->
+					<!--<hostedWebapp>-->
+						<!--src/main/resources/VAADIN/widgetsets-->
+					<!--</hostedWebapp>-->
+					<!--<noServer>true</noServer>-->
+					<!--&lt;!&ndash; Remove draftCompile when project is ready &ndash;&gt;-->
+					<!--<draftCompile>true</draftCompile>-->
+					<!--<persistentunitcachedir>${project.build.directory}/gwtdirt</persistentunitcachedir>-->
+					<!--<compileReport>false</compileReport>-->
+					<!--<style>OBF</style>-->
+					<!--<strict>true</strict>-->
+					<!--&lt;!&ndash; Symbol maps etc, not needed in vaadin app, just target them outside war &ndash;&gt;-->
+					<!--<deploy>${project.build.directory}/gwt-deploy</deploy>-->
+				<!--</configuration>-->
 
-				<executions>
-					<execution>
-						<configuration>
-							<!-- if you don't specify any modules, the plugin will find them -->
-                            <!--<modules>-->
-                            	<!--<module>com.nrusev.AppWidgetSet.gwt.xml</module>-->
-                            <!--</modules>-->
-						</configuration>
-						<goals>
-							<goal>clean</goal>
-							<goal>resources</goal>
-							<!-- These are non functional currently with spring boot directory structure
-                            <goal>update-theme</goal>
-                            <goal>compile-theme</goal>
-                             -->
-							<goal>update-widgetset</goal>
-							<goal>compile</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<executions>
-					<!-- ensure fresly compiled widgetset to jar, TODO check
-                    vaadin plugin configuration could get rid of this -->
-					<execution>
-						<id>copy-resources</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/target/classes/VAADIN</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${basedir}/src/main/resources/VAADIN</directory>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<configuration>-->
+							<!--&lt;!&ndash; if you don't specify any modules, the plugin will find them &ndash;&gt;-->
+                            <!--&lt;!&ndash;<modules>&ndash;&gt;-->
+                            	<!--&lt;!&ndash;<module>com.nrusev.AppWidgetSet.gwt.xml</module>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</modules>&ndash;&gt;-->
+						<!--</configuration>-->
+						<!--<goals>-->
+							<!--<goal>clean</goal>-->
+							<!--<goal>resources</goal>-->
+							<!--&lt;!&ndash; These are non functional currently with spring boot directory structure-->
+                            <!--<goal>update-theme</goal>-->
+                            <!--<goal>compile-theme</goal>-->
+                             <!--&ndash;&gt;-->
+							<!--<goal>update-widgetset</goal>-->
+							<!--<goal>compile</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
+			<!--<plugin>-->
+				<!--<artifactId>maven-resources-plugin</artifactId>-->
+				<!--<executions>-->
+					<!--&lt;!&ndash; ensure fresly compiled widgetset to jar, TODO check-->
+                    <!--vaadin plugin configuration could get rid of this &ndash;&gt;-->
+					<!--<execution>-->
+						<!--<id>copy-resources</id>-->
+						<!--<phase>prepare-package</phase>-->
+						<!--<goals>-->
+							<!--<goal>copy-resources</goal>-->
+						<!--</goals>-->
+						<!--<configuration>-->
+							<!--<outputDirectory>${basedir}/target/classes/VAADIN</outputDirectory>-->
+							<!--<resources>-->
+								<!--<resource>-->
+									<!--<directory>${basedir}/src/main/resources/VAADIN</directory>-->
+								<!--</resource>-->
+							<!--</resources>-->
+						<!--</configuration>-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
 		</plugins>
 	</build>
 

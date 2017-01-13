@@ -1,6 +1,8 @@
 package com.nrusev.web.ui.user_pools;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
+import com.nrusev.domain.Team;
 import com.nrusev.service.TeamPoolService;
 import com.nrusev.service.TeamService;
 import com.nrusev.service.UserService;
@@ -10,6 +12,7 @@ import com.vaadin.spring.annotation.SpringView;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 /**
  * Created by Nikolay Rusev on 26.10.2016 г..
@@ -36,22 +39,31 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
         loadData();
     }
 
+
     private void initLayout() {
         getView().initLayout();
     }
 
     private void loadData(){
         //TODO: grab user from session
+
+        //load pools data
         this.userService.findByUserName("nrusev").ifPresent(user -> {
             getView().loadData(this.teamPoolService.findAllByUserName(user.getUserName()));
         });
 
+        //load autocomplete data
         getView().loadDataForAutoComplete(this.teamService.findAllClubTeams());
     }
 
     @Override
     public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
 
+    }
+
+    @Subscribe
+    public void teamSelectedHandler(Team team){
+        System.out.println("team is selected " + team);
     }
 
 

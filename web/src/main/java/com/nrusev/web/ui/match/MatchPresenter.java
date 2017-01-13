@@ -46,11 +46,6 @@ public class MatchPresenter extends MvpPresenter<MatchView>{
         getView().initLayout();
     }
 
-    @PreDestroy
-    public void preDestroy(){
-        getEventBus().unregister(this);
-    }
-
     @Override
     public void enter(ViewChangeEvent viewChangeEvent) {
         if(viewChangeEvent.getOldView().equals(viewChangeEvent.getOldView()))

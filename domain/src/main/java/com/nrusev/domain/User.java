@@ -21,7 +21,7 @@ public class User {
     @Column(unique = true)
     private String userName;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user",cascade = CascadeType.REMOVE)
     private Set<TeamPool> teamPools = new HashSet<>(0);
 
     public User() {

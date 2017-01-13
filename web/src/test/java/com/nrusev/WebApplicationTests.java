@@ -6,10 +6,12 @@ import com.nrusev.repository.CountryRepository;
 import com.nrusev.repository.LeagueRepository;
 import com.nrusev.repository.TeamRepository;
 import com.nrusev.service.TeamService;
+import com.nrusev.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -29,6 +31,9 @@ public class WebApplicationTests {
 
 	@Autowired
 	CountryRepository countryRepository;
+
+	@Autowired
+	UserService userService;
 
 	@Test
 	public void contextLoads() {
@@ -71,6 +76,12 @@ public class WebApplicationTests {
 	@Test
 	public void testFindAllLeagues(){
 		leagueRepository.findByClubTrue().forEach(System.out::println);
+	}
+
+	@Test
+	@Rollback(false)
+	public void testRemoveUser() {
+		this.userService.findByUserName("nrusev").ifPresent(u -> this.userService.delete(u));
 	}
 
 	@Test

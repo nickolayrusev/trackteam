@@ -39,21 +39,24 @@ public class InitialDataRunner implements ApplicationRunner {
         System.out.println("loading initial data ....");
         User user = userRepository.findByUserName("nrusev").orElse(new User("nickolay", "rusev", "nrusev"));
 
-        if(user.getId()==null){
+        if(user.getId()==null)
             user = this.userRepository.save(user);
-        }
 
         if (user.getTeamPools().isEmpty()) {
             TeamPool pool = new TeamPool();
-            pool.setName("over kings !");
+            pool.setName("Favs kings !");
             pool.setDescription("teams that scores a lot");
             pool.setUser(user);
 
-            List<Team> chelsea = teamRepository.findByTitle("Chelsea");
-            List<Team> arsenal = teamRepository.findByTitleIgnoreCase("arsenal");
+            Team leeds = teamRepository.findOne(1160L);
+            Team levski = teamRepository.findOne(329L);
+            Team benfica = teamRepository.findOne(393L);
+            Team atletico = teamRepository.findOne(1227L);
 
-            pool.getTeams().add(chelsea.get(0));
-            pool.getTeams().add(arsenal.get(0));
+            pool.getTeams().add(leeds);
+            pool.getTeams().add(levski);
+            pool.getTeams().add(benfica);
+            pool.getTeams().add(atletico);
 
             teamPoolRepository.save(pool);
 

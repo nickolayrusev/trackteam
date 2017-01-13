@@ -4,6 +4,8 @@ import com.google.common.eventbus.EventBus;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 
+import javax.annotation.PreDestroy;
+
 @SuppressWarnings("serial")
 public abstract class MvpPresenter<T extends MvpView> implements View {
 	
@@ -23,6 +25,12 @@ public abstract class MvpPresenter<T extends MvpView> implements View {
 
 	public EventBus getEventBus(){
 		return eventBus;
+	}
+
+	@PreDestroy
+	private void preDestroy(){
+		this.eventBus.unregister(this);
+		System.out.println("pre destroy on abstract class...");
 	}
 
 }

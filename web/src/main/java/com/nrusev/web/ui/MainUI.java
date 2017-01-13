@@ -32,7 +32,7 @@ import java.util.Locale;
 @SpringUI(path = "")
 @Theme("valo")
 @SuppressWarnings("serial")
-@Widgetset("AppWidgetset")
+//@Widgetset("AppWidgetset")
 public class MainUI extends UI {
 
 	private ValoMenuLayout root = new ValoMenuLayout();

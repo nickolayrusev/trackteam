@@ -23,7 +23,7 @@ public class TeamPool {
    @JoinColumn(name = "user_id", nullable = false)
    private User user;
 
-   @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+   @ManyToMany(fetch = FetchType.EAGER)
    @JoinTable(name = "team_pool_teams",
            joinColumns = {
            @JoinColumn(name = "team_pool_id", nullable = false, updatable = false) },
