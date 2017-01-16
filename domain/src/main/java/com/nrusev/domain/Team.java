@@ -215,7 +215,7 @@ public class Team extends AbstractAuditableEntity{
         if (title2 != null ? !title2.equals(team.title2) : team.title2 != null) return false;
         if (code != null ? !code.equals(team.code) : team.code != null) return false;
         if (synonyms != null ? !synonyms.equals(team.synonyms) : team.synonyms != null) return false;
-        if (country != null ? !country.equals(team.country) : team.country != null) return false;
+//        if (country != null ? !country.equals(team.country) : team.country != null) return false;
         if (cityId != null ? !cityId.equals(team.cityId) : team.cityId != null) return false;
         if (club != null ? !club.equals(team.club) : team.club != null) return false;
         if (since != null ? !since.equals(team.since) : team.since != null) return false;

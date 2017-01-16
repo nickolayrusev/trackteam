@@ -4,15 +4,11 @@ import com.google.common.eventbus.EventBus;
 import com.nrusev.domain.Team;
 import com.nrusev.domain.TeamPool;
 import com.nrusev.web.ui.components.PoolComponent;
-import com.vaadin.data.util.BeanItemContainer;
-import com.vaadin.shared.ui.combobox.FilteringMode;
-import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import javax.inject.Inject;
 import java.util.List;
 
 /**
@@ -24,7 +20,7 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
     private VerticalLayout layout;
 
-    private List<Team> teams;
+    private List<TeamPool> pools;
 
     private final EventBus eventBus;
 
@@ -39,36 +35,31 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
     }
 
     @Override
-    public void loadData(List<TeamPool> pools) {
-        pools.forEach(teamPool -> {
-            layout.addComponent(new PoolComponent(teamPool));
+    public void loadData(List<TeamPool> pools, List<Team> teams) {
+        layout.removeAllComponents();
+        this.pools = pools;
+        this.pools.forEach(teamPool -> {
+            PoolComponent poolComponent = new PoolComponent(teamPool, teams);
+            poolComponent.addTeamClickedListener(l-> this.eventBus.post(new PoolComponent.TeamClickedEvent(l.getComponent(),l.getTeam(), teamPool)));
+            poolComponent.addAddTeamListener(l-> this.eventBus.post(new PoolComponent.AddTeamEvent(l.getComponent(),l.getTeam(), teamPool)));
+            layout.addComponent(poolComponent);
         });
+
+        layout.addComponent(new Button("Add pool",l->{
+            final Window window = new Window("Add new pool");
+            window.setWidth(300.0f, Unit.PIXELS);
+            window.center();
+            final FormLayout content = new FormLayout();
+            
+            window.setContent(content);
+            UI.getCurrent().addWindow(window);
+        }));
     }
 
+
     @Override
-    public void loadDataForAutoComplete(List<Team> teams) {
-        this.teams = teams;
-
-        BeanItemContainer<Team> container =
-                new BeanItemContainer<Team>(
-                        Team.class);
-        teams.forEach(container::addItem);
-
-        // Create a selection component bound
-        // to the container
-        ComboBox select = new ComboBox("Planets",
-                container);
-
-        // Set the caption mode to read the
-        // caption directly from the 'name'
-        // property of the bean
-        select.setItemCaptionMode(
-                AbstractSelect.ItemCaptionMode.PROPERTY);
-        select.setItemCaptionPropertyId("title");
-        select.setFilteringMode(FilteringMode.CONTAINS);
-        select.addValueChangeListener(l->{ eventBus.post((Team)l.getProperty().getValue());});
-        layout.addComponent(select);
-
+    public boolean addTeam(TeamPool pool, Team team) {
+        return false;
     }
 
     private void buildLayout() {

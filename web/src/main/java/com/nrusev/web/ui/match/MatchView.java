@@ -16,7 +16,7 @@ public interface MatchView extends MvpView {
     void displayPreviousMeetings(List<Game> previousGames);
     void clear();
 
-    class TeamClickedEvent{
+    class TeamClickedEvent {
         private Team team;
 
         public TeamClickedEvent(Team team) {
