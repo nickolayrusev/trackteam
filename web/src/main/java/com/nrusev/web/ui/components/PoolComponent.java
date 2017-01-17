@@ -5,16 +5,13 @@ import com.nrusev.domain.Country;
 import com.nrusev.domain.Team;
 import com.nrusev.domain.TeamPool;
 import com.vaadin.data.Item;
-import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.server.*;
 import com.vaadin.shared.ui.combobox.FilteringMode;
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 import com.vaadin.util.ReflectTools;
-import org.springframework.core.io.ClassPathResource;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -60,6 +57,20 @@ public class PoolComponent extends CustomComponent {
         }
     }
 
+    public static class DeleteTeamPoolEvent extends Event{
+
+        private TeamPool teamPool;
+
+        public DeleteTeamPoolEvent(Component source, TeamPool teamPool) {
+            super(source);
+            this.teamPool = teamPool;
+        }
+
+        public TeamPool getTeamPool() {
+            return teamPool;
+        }
+    }
+
     private static class TeamEvent extends Event{
         private Team team;
         private TeamPool pool;
@@ -95,12 +106,14 @@ public class PoolComponent extends CustomComponent {
         initLayout();
         loadInitialPools();
         loadAutocompleteData();
+        loadDeleteButton();
     }
 
     private void initLayout() {
         panel = new Panel();
         panelContent = new VerticalLayout();
         panelContent.setMargin(true); // Very useful
+        panelContent.setSpacing(true);
         panel.setContent(panelContent);
 
         // Set the size as undefined at all levels
@@ -115,7 +128,9 @@ public class PoolComponent extends CustomComponent {
     private void loadInitialPools() {
         panel.setCaption(pool.getName() + " " + pool.getDescription());
         pool.getTeams().forEach(team -> {
-            panelContent.addComponent(new Button(team.getTitle(), clickEvent -> this.fireEvent(new TeamClickedEvent(this, team, pool))));
+
+            Button button = new Button(team.getTitle(), clickEvent -> this.fireEvent(new TeamClickedEvent(this, team, pool)));
+            panelContent.addComponent(button);
         });
     }
 
@@ -162,6 +177,12 @@ public class PoolComponent extends CustomComponent {
 
         select.addValueChangeListener(l-> this.fireEvent(new AddTeamEvent(this, (Team) l.getProperty().getValue(), pool)));
         panelContent.addComponent(select);
+    }
+
+    private void loadDeleteButton(){
+        Button delete = new Button("delete", l -> this.fireEvent(new DeleteTeamPoolEvent(this, pool)));
+        delete.addStyleName(ValoTheme.BUTTON_DANGER);
+        panelContent.addComponent(delete);
     }
 
     public void addTeamClickedListener(TeamClickListener okListener) {
