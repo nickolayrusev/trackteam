@@ -65,7 +65,7 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 		caption.addStyleName(ValoTheme.LABEL_H1);
 		layout.addComponent(caption);
 		
-		Label subCaption = new Label("These are my friends: ", ContentMode.HTML);
+		Label subCaption = new Label("These are my games: ", ContentMode.HTML);
 		subCaption.addStyleName(ValoTheme.LABEL_LIGHT);
 		layout.addComponent(subCaption);
 

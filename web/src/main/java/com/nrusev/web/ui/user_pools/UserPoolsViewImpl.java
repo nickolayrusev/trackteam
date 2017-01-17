@@ -18,7 +18,7 @@ import java.util.List;
 @ViewScope
 public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
-    private VerticalLayout layout;
+    private HorizontalLayout layout;
 
     private List<TeamPool> pools;
 
@@ -50,7 +50,15 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
             window.setWidth(300.0f, Unit.PIXELS);
             window.center();
             final FormLayout content = new FormLayout();
-            
+            content.setSpacing(true);
+            content.setMargin(true);
+
+            TextField name = new TextField("name");
+            content.addComponent(name);
+            TextField description = new TextField("description");
+            content.addComponent(description);
+            content.addComponent(new Button("Add", q-> this.eventBus.post(new TeamPool(name.getValue(),description.getValue(),false))));
+
             window.setContent(content);
             UI.getCurrent().addWindow(window);
         }));
@@ -63,8 +71,7 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
     }
 
     private void buildLayout() {
-        layout = new VerticalLayout();
-        layout.setWidth("100%");
+        layout = new HorizontalLayout();
         layout.setMargin(true);
         layout.setSpacing(true);
         addComponent(layout);

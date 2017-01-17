@@ -32,6 +32,15 @@ public class TeamPool {
                    nullable = false, updatable = false) })
    private Set<Team> teams = new HashSet<Team>(0);
 
+   public TeamPool() {
+
+   }
+
+   public TeamPool(String name, String description, Boolean closed) {
+      this.name = name;
+      this.description = description;
+      this.closed = closed;
+   }
 
    public Long getId() {
       return id;

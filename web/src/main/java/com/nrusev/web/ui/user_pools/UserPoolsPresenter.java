@@ -78,6 +78,12 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
         loadData();
     }
 
+    @Subscribe
+    public void addPool(TeamPool pool){
+        teamPoolService.save(pool);
+        loadData();
+    }
+
 
 
 }
