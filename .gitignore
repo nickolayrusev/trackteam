@@ -69,3 +69,6 @@ fabric.properties
 .settings/
 RemoteSystemsTempFiles/
 web/src/main/resources/vAADIN/
+
+#project specific
+.trackteam.yml
