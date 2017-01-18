@@ -44,6 +44,11 @@ public class TeamPoolService {
     }
 
     @Transactional
+    public void delete(TeamPool pool){
+        this.teamPoolRepository.delete(pool);
+    }
+
+    @Transactional
     public TeamPool removeTeam(TeamPool pool, Team team){
         pool.getTeams().remove(team);
         return save(pool);

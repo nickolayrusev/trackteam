@@ -79,6 +79,13 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
     }
 
     @Subscribe
+    public void deleteTeamPool(PoolComponent.DeleteTeamPoolEvent event){
+        System.out.println("deleting team pool ... " + event.getTeamPool());
+        teamPoolService.delete(event.getTeamPool());
+        loadData();
+    }
+
+    @Subscribe
     public void addPool(TeamPool pool){
         teamPoolService.save(pool);
         loadData();

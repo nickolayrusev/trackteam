@@ -42,6 +42,7 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
             PoolComponent poolComponent = new PoolComponent(teamPool, teams);
             poolComponent.addTeamClickedListener(l-> this.eventBus.post(new PoolComponent.TeamClickedEvent(l.getComponent(),l.getTeam(), teamPool)));
             poolComponent.addAddTeamListener(l-> this.eventBus.post(new PoolComponent.AddTeamEvent(l.getComponent(),l.getTeam(), teamPool)));
+            poolComponent.addDeleteTeamPoolListener(l->this.eventBus.post(new PoolComponent.DeleteTeamPoolEvent(l.getComponent(), l.getTeamPool())));
             layout.addComponent(poolComponent);
         });
 

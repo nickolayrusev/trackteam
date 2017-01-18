@@ -57,6 +57,12 @@ public class PoolComponent extends CustomComponent {
         }
     }
 
+    public interface DeleteTeamPoolListener extends Serializable{
+        Method DELETE_METHOD = ReflectTools.findMethod(DeleteTeamPoolListener.class, "delete", new Class[]{DeleteTeamPoolEvent.class});
+        void delete(DeleteTeamPoolEvent deleteTeamPoolEvent);
+
+    }
+
     public static class DeleteTeamPoolEvent extends Event{
 
         private TeamPool teamPool;
@@ -114,6 +120,7 @@ public class PoolComponent extends CustomComponent {
         panelContent = new VerticalLayout();
         panelContent.setMargin(true); // Very useful
         panelContent.setSpacing(true);
+        panelContent.setResponsive(true);
         panel.setContent(panelContent);
 
         // Set the size as undefined at all levels
@@ -135,16 +142,9 @@ public class PoolComponent extends CustomComponent {
     }
 
     private void loadAutocompleteData() {
-//        BeanItemContainer<Team> container =
-//                new BeanItemContainer<Team>(
-//                        Team.class);
-//        teams.forEach(container::addItem);
-
         IndexedContainer container = new IndexedContainer();
         container.addContainerProperty("title", String.class,
                 null);
-//        container.addContainerProperty("short", String.class,
-//                null);
         container.addContainerProperty("flag", Resource.class,
                 null);
 
@@ -191,6 +191,10 @@ public class PoolComponent extends CustomComponent {
 
     public void addAddTeamListener(AddTeamListener addTeamListener){
         this.addListener(AddTeamEvent.class, addTeamListener, AddTeamListener.ADD_METHOD);
+    }
+
+    public void addDeleteTeamPoolListener(DeleteTeamPoolListener deleteTeamPoolListener){
+        this.addListener(DeleteTeamPoolEvent.class,deleteTeamPoolListener,DeleteTeamPoolListener.DELETE_METHOD);
     }
 
 
