@@ -2,7 +2,6 @@ package com.nrusev.web.ui.user_pools;
 
 import com.nrusev.domain.Team;
 import com.nrusev.domain.TeamPool;
-import com.nrusev.domain.User;
 import com.nrusev.web.ui.mvp.MvpView;
 
 import java.util.List;
@@ -13,5 +12,7 @@ import java.util.List;
 public interface UserPoolsView extends MvpView {
     void initLayout();
     void loadData(List<TeamPool> user, List<Team> teams);
-    boolean addTeam(TeamPool pool, Team team);
+    void reloadPool(TeamPool pool, List<Team> teams);
+    void addPool(TeamPool pool, List<Team> teams);
+    void removePool(TeamPool pool);
 }

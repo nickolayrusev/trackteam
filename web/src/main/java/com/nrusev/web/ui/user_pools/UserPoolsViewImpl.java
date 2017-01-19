@@ -20,9 +20,8 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
     private HorizontalLayout layout;
 
-    private List<TeamPool> pools;
-
     private final EventBus eventBus;
+
 
     @Autowired
     public UserPoolsViewImpl(EventBus eventBus) {
@@ -36,15 +35,7 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
     @Override
     public void loadData(List<TeamPool> pools, List<Team> teams) {
-        layout.removeAllComponents();
-        this.pools = pools;
-        this.pools.forEach(teamPool -> {
-            PoolComponent poolComponent = new PoolComponent(teamPool, teams);
-            poolComponent.addTeamClickedListener(l-> this.eventBus.post(new PoolComponent.TeamClickedEvent(l.getComponent(),l.getTeam(), teamPool)));
-            poolComponent.addAddTeamListener(l-> this.eventBus.post(new PoolComponent.AddTeamEvent(l.getComponent(),l.getTeam(), teamPool)));
-            poolComponent.addDeleteTeamPoolListener(l->this.eventBus.post(new PoolComponent.DeleteTeamPoolEvent(l.getComponent(), l.getTeamPool())));
-            layout.addComponent(poolComponent);
-        });
+        pools.forEach(teamPool -> layout.addComponent(createPoolComponent(teamPool,teams)));
 
         layout.addComponent(new Button("Add pool",l->{
             final Window window = new Window("Add new pool");
@@ -67,8 +58,33 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
 
     @Override
-    public boolean addTeam(TeamPool pool, Team team) {
-        return false;
+    public void reloadPool(TeamPool pool, List<Team> teams){
+        layout.forEach(c-> {
+            System.out.println(" class " + c.getClass() + " id " + c.getId());
+            if(c instanceof PoolComponent){
+                PoolComponent poolComponent = (PoolComponent) c;
+                if(pool.getId().equals(poolComponent.getPool().getId())){
+                    layout.replaceComponent(poolComponent, createPoolComponent(pool,teams));
+                }
+            }
+        });
+    }
+
+    @Override
+    public void addPool(TeamPool pool, List<Team> teams) {
+        layout.addComponent(createPoolComponent(pool,teams), layout.getComponentCount()-1);
+    }
+
+    @Override
+    public void removePool(TeamPool pool) {
+        layout.forEach(c->{
+            if(c instanceof PoolComponent){
+                PoolComponent poolComponent = (PoolComponent) c;
+                if(pool.getId().equals(poolComponent.getPool().getId())){
+                    layout.removeComponent(poolComponent);
+                }
+            }
+        });
     }
 
     private void buildLayout() {
@@ -76,6 +92,14 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
         layout.setMargin(true);
         layout.setSpacing(true);
         addComponent(layout);
+    }
+
+    private PoolComponent createPoolComponent(TeamPool pool, List<Team> teams){
+        PoolComponent poolComponent = new PoolComponent(pool, teams);
+        poolComponent.addTeamClickedListener(l -> this.eventBus.post(new PoolComponent.TeamClickedEvent(l.getComponent(), l.getTeam(), pool)));
+        poolComponent.addAddTeamListener(l -> this.eventBus.post(new PoolComponent.AddTeamEvent(l.getComponent(), l.getTeam(), pool)));
+        poolComponent.addDeleteTeamPoolListener(l -> this.eventBus.post(new PoolComponent.DeleteTeamPoolEvent(l.getComponent(), pool)));
+        return  poolComponent;
     }
 
 

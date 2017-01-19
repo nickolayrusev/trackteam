@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.List;
 
 /**
  * Created by Nikolay Rusev on 26.10.2016 г..
@@ -26,12 +27,16 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
     private final TeamPoolService teamPoolService;
     private final TeamService teamService;
 
+    private List<Team> teams;
+
     @Autowired
     public UserPoolsPresenter(UserPoolsView view, EventBus eventBus, UserService userService, TeamPoolService teamPoolService, TeamService teamService) {
         super(view, eventBus);
         this.userService = userService;
         this.teamPoolService = teamPoolService;
         this.teamService = teamService;
+
+        this.teams = this.teamService.findAllClubTeams();
     }
 
     @PostConstruct
@@ -50,7 +55,7 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
 
         //load pools data
         this.userService.findByUserName("nrusev").ifPresent(user -> {
-            getView().loadData(this.teamPoolService.findAllByUserName(user.getUserName()),this.teamService.findAllClubTeams());
+            getView().loadData(this.teamPoolService.findAllByUserName(user.getUserName()),teams);
         });
 
     }
@@ -61,34 +66,37 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
     }
 
     @Subscribe
-    public void teamClicked(PoolComponent.TeamClickedEvent event){
+    public void removeTeam(PoolComponent.TeamClickedEvent event){
         Team team = event.getTeam();
         TeamPool pool = event.getPool();
-        System.out.println("team clicked ! " + team);
+        System.out.println("delete team " + team);
         teamPoolService.removeTeam(pool,team);
-        loadData();
+//        loadData();
+        getView().reloadPool(pool,teams);
     }
 
     @Subscribe
     public void addTeam(PoolComponent.AddTeamEvent event){
         Team team = event.getTeam();
         TeamPool pool = event.getPool();
-        System.out.println("team add clicked ! " + team + " pool " + pool);
+        System.out.println("team add " + team + " for pool " + pool);
         teamPoolService.addTeam(pool,team);
-        loadData();
+        getView().reloadPool(pool,teams);
     }
 
     @Subscribe
     public void deleteTeamPool(PoolComponent.DeleteTeamPoolEvent event){
         System.out.println("deleting team pool ... " + event.getTeamPool());
         teamPoolService.delete(event.getTeamPool());
-        loadData();
+        getView().removePool(event.getTeamPool());
+//        loadData();
     }
 
     @Subscribe
     public void addPool(TeamPool pool){
         teamPoolService.save(pool);
-        loadData();
+//        loadData();
+        getView().addPool(pool, teams);
     }
 
 

@@ -134,12 +134,13 @@ public class PoolComponent extends CustomComponent {
 
     private void loadInitialPools() {
         panel.setCaption(pool.getName() + " " + pool.getDescription());
-        pool.getTeams().forEach(team -> {
+        pool.getTeams().stream().sorted((q,p) ->{ return q.getTitle().compareToIgnoreCase(p.getTitle());}).forEach(team -> {
 
             Button button = new Button(team.getTitle(), clickEvent -> this.fireEvent(new TeamClickedEvent(this, team, pool)));
             panelContent.addComponent(button);
         });
     }
+
 
     private void loadAutocompleteData() {
         IndexedContainer container = new IndexedContainer();
@@ -171,6 +172,7 @@ public class PoolComponent extends CustomComponent {
         // Set the appropriate filtering mode for this example
         select.setFilteringMode(FilteringMode.CONTAINS);
         select.setImmediate(true);
+
 
         // Disallow null selections
         select.setNullSelectionAllowed(false);
@@ -231,6 +233,10 @@ public class PoolComponent extends CustomComponent {
                 return "northern-ireland";
             return country.getAlpha2().toLowerCase();
         }).map(s->prefix + s +suffix).orElse(prefix + "default" + suffix);
+    }
+
+    public TeamPool getPool() {
+        return pool;
     }
 
 }
