@@ -21,20 +21,6 @@ import java.util.Optional;
 public class ServiceConfig {
     private final UserService userService;
 
-    @Value("${betfair.appKey}")
-    private String betfairAppKey;
-
-    @Value("${betfair.username}")
-    private String betfairUsername;
-
-    @Value("${betfair.password}")
-    private String betfairPassword;
-
-    @Value("${BETFAIR_CERTIFICATE_PASSWORD}")
-    private String betfairCertificatePassword;
-
-    @Value("${BETFAIR_CERTIFICATE_LOCATION}")
-    private String betfairCertificateLocation;
 
     @Autowired
     public ServiceConfig(UserService userService) {
@@ -46,11 +32,4 @@ public class ServiceConfig {
         return userService.findByUserName("nrusev").orElseThrow(IllegalStateException::new);
     }
 
-    @Bean
-    public BetfairClient betfairClient() throws LoginException {
-        System.out.println(betfairCertificatePassword);
-        BetfairClient client = new BetfairClient(Exchange.UK, betfairAppKey);
-        client.login(betfairCertificateLocation, betfairCertificatePassword, betfairUsername, betfairPassword);
-        return client;
-    }
 }

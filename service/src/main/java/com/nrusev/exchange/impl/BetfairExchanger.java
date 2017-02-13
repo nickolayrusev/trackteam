@@ -1,5 +1,9 @@
 package com.nrusev.exchange.impl;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.jbetfairng.BetfairClient;
 import com.jbetfairng.entities.EventResult;
 import com.jbetfairng.entities.MarketFilter;
@@ -9,6 +13,8 @@ import com.nrusev.exchange.DataExchanger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
@@ -57,6 +63,45 @@ public class BetfairExchanger implements DataExchanger {
         filter.setMarketStartTime(range);
         List<EventResult> response = client.listEvents(filter).getResponse();
 
+        System.out.println(getCompetitions());
         return Collections.emptyList();
     }
+
+    public List<Competition> getCompetitions()  {
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        List<Competition> value = null;
+        try {
+            value = mapper.readValue(getClass().getClassLoader().getResourceAsStream("betfair-competitions-config.yml"), new TypeReference<List<Competition>>() {});
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return value;
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    static class Competition{
+        private Long id;
+        private String region;
+
+        public Competition(){
+
+        }
+
+        public Long getId() {
+            return id;
+        }
+
+        public void setId(Long id) {
+            this.id = id;
+        }
+
+        public String getRegion() {
+            return region;
+        }
+
+        public void setRegion(String region) {
+            this.region = region;
+        }
+    }
+
 }
