@@ -71,7 +71,6 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
         TeamPool pool = event.getPool();
         System.out.println("delete team " + team);
         teamPoolService.removeTeam(pool,team);
-//        loadData();
         getView().reloadPool(pool,teams);
     }
 
@@ -89,13 +88,11 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
         System.out.println("deleting team pool ... " + event.getTeamPool());
         teamPoolService.delete(event.getTeamPool());
         getView().removePool(event.getTeamPool());
-//        loadData();
     }
 
     @Subscribe
     public void addPool(TeamPool pool){
         teamPoolService.save(pool);
-//        loadData();
         getView().addPool(pool, teams);
     }
 

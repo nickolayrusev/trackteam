@@ -20,7 +20,9 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
     private HorizontalLayout layout;
 
+
     private final EventBus eventBus;
+
 
 
     @Autowired
@@ -49,7 +51,10 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
             content.addComponent(name);
             TextField description = new TextField("description");
             content.addComponent(description);
-            content.addComponent(new Button("Add", q-> this.eventBus.post(new TeamPool(name.getValue(),description.getValue(),false))));
+            content.addComponent(new Button("Add", q -> {
+                this.eventBus.post(new TeamPool(name.getValue(), description.getValue(), false));
+                window.close();
+            }));
 
             window.setContent(content);
             UI.getCurrent().addWindow(window);
@@ -60,7 +65,6 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
     @Override
     public void reloadPool(TeamPool pool, List<Team> teams){
         layout.forEach(c-> {
-            System.out.println(" class " + c.getClass() + " id " + c.getId());
             if(c instanceof PoolComponent){
                 PoolComponent poolComponent = (PoolComponent) c;
                 if(pool.getId().equals(poolComponent.getPool().getId())){

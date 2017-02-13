@@ -2,6 +2,7 @@ package com.nrusev;
 
 import com.nrusev.domain.Country;
 import com.nrusev.domain.Team;
+import com.nrusev.exchange.DataExchanger;
 import com.nrusev.repository.CountryRepository;
 import com.nrusev.repository.LeagueRepository;
 import com.nrusev.repository.TeamRepository;
@@ -10,6 +11,7 @@ import com.nrusev.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -34,6 +36,9 @@ public class WebApplicationTests {
 
 	@Autowired
 	UserService userService;
+
+	@Autowired @Qualifier("betfairExchanger")
+	DataExchanger dataExchanger;
 
 	@Test
 	public void contextLoads() {
@@ -93,4 +98,8 @@ public class WebApplicationTests {
 		}
 	}
 
+	@Test
+	public void testBetfairClient(){
+	    dataExchanger.findTodayGames();
+	}
 }

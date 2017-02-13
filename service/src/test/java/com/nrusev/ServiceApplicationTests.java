@@ -4,11 +4,13 @@ import com.nrusev.domain.Game;
 import com.nrusev.domain.Team;
 import com.nrusev.domain.TeamPool;
 import com.nrusev.domain.User;
+import com.nrusev.exchange.DataExchanger;
 import com.nrusev.service.*;
 import info.debatty.java.stringsimilarity.NormalizedLevenshtein;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -23,7 +25,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = ServiceApplication.class)
+//@SpringBootTest(classes = ServiceApplication.class)
 @Transactional
 public class ServiceApplicationTests {
 
@@ -41,6 +43,7 @@ public class ServiceApplicationTests {
 
 	@Autowired
 	GameService gameService;
+
 
 	@Test
 	public void findItalianTeams() {
@@ -146,4 +149,6 @@ public class ServiceApplicationTests {
 		System.out.println(new String(param.getBytes("ISO-8859-1"), "UTF-8"));
 		System.out.println(new String(japanparam.getBytes("ISO-8859-1"), "UTF-8"));
 	}
+
+
 }

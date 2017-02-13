@@ -44,7 +44,7 @@
 		<dependency>
 			<groupId>com.github.nickolayrusev</groupId>
 			<artifactId>jbetfairng</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.3-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
