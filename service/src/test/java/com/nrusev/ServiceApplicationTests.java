@@ -52,6 +52,8 @@ public class ServiceApplicationTests {
 	@Autowired
 	GameService gameService;
 
+	@Autowired @Qualifier("betfairExchanger")
+	DataExchanger dataExchanger;
 
 	@Test
 	public void findItalianTeams() {
@@ -70,9 +72,7 @@ public class ServiceApplicationTests {
 		List<String> italy = matchesService.findAllTeams("italy");
 		italy.forEach(t->{
 			Optional<Team> found = teamService.findTeam(t, "Italy");
-			if(found.isPresent()){
-				System.out.println(t + " not exists");
-			}
+			found.ifPresent(team -> System.out.println(t + " not exists"));
 		});
 	}
 
@@ -158,4 +158,8 @@ public class ServiceApplicationTests {
 		System.out.println(new String(japanparam.getBytes("ISO-8859-1"), "UTF-8"));
 	}
 
+	@Test
+	public void testBetfairClient(){
+		dataExchanger.findTodayGames();
+	}
 }

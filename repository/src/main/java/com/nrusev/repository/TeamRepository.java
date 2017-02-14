@@ -44,4 +44,7 @@ public interface TeamRepository  extends CrudRepository<Team,Long>{
 
     @Query("select t from Team t join fetch t.country c where t.club = true and t.national = false and c.name in :names order by t.title")
     List<Team> findByCountriesNames(@Param("names")String ... names);
+
+    @Query("select t from Team t join fetch t.country c where t.club = true and t.national = false and c.alpha2 in :codes order by t.title")
+    List<Team> findByCountryAlpha2Code(@Param("codes")String ... codes);
 }

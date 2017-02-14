@@ -61,6 +61,15 @@ public class TeamService {
         return Optional.empty();
     }
 
+    public Optional<Team> findTeamByCountryAlpha2Code(String name, String ...codes){
+        List<Team> byCountryAlpha2Code = this.teamRepository.findByCountryAlpha2Code(codes);
+        Optional<Team> teamByName = byCountryAlpha2Code.stream().filter(t -> isTeamSame(name,t)).findAny();
+        if (teamByName.isPresent())
+            return teamByName;
+
+        return Optional.empty();
+    }
+
     public boolean isTeamSame(String candidate, Team original) {
         if(original.getTitle().equalsIgnoreCase(candidate))
             return true;

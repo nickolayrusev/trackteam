@@ -1,1251 +1,449 @@
-competitions:
-  - competition:
-      id: '9233037'
-      name: World Championship 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '12801'
-      name: Copa Del Rey
-    region: ESP
-    supported: false
-  - competition:
-      id: '16901'
-      name: Aviva Premiership
-    region: International
-    supported: false
-  - competition:
-      id: '7'
-      name: Austrian Bundesliga
-    region: International
-    supported: false
-  - competition:
-      id: '9249930'
-      name: Biathlon 2016/2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '10699940'
-      name: South African Premier
-    region: ZAF
-    supported: false
-  - competition:
-      id: '11'
-      name: Dutch Jupiler League
-    region: NLD
-    supported: false
-  - competition:
-      id: '10542763'
-      name: The Six Nations
-    region: International
-    supported: false
-  - competition:
-      id: '8381556'
-      name: Cross Country 2016/17
-    region: International
-    supported: false
-  - competition:
-      id: '15'
-      name: Bulgarian Premier
-    region: BGR
-    supported: false
-  - competition:
-      id: '10721971'
-      name: NBA All-Star Game
-    region: International
-    supported: false
-  - competition:
-      id: '4431442'
-      name: Algerian Ligue 1
-    region: DZA
-    supported: false
-  - competition:
-      id: '10617526'
-      name: County Championship 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '23'
-      name: Danish Superliga
-    region: DNK
-    supported: false
-  - competition:
-      id: '9404054'
-      name: Dutch Eredivisie
-    region: NLD
-    supported: false
-  - competition:
-      id: '10697913'
-      name: Australian Open 2018
-    region: AUS
-    supported: false
-  - competition:
-      id: '10522812'
-      name: Moto GP Outrights 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '2519611'
-      name: Brazilian Paulista A2
-    region: BRA
-    supported: false
-  - competition:
-      id: '31'
-      name: English Premier League
-    region: GBR
-    supported: false
-  - competition:
-      id: '9936520'
-      name: ITF Switzerland Futures
-    region: International
-    supported: false
-  - competition:
-      id: '10631299'
-      name: The Six Nations Outrights
-    region: GBR
-    supported: false
-  - competition:
-      id: '35'
-      name: League One
-    region: GBR
-    supported: false
-  - competition:
-      id: '37'
-      name: League Two
-    region: GBR
-    supported: false
-  - competition:
-      id: '852011'
-      name: Xerox Super Cup
-    region: JPN
-    supported: false
-  - competition:
-      id: '39'
-      name: National League
-    region: GBR
-    supported: false
-  - competition:
-      id: '41'
-      name: National League North
-    region: GBR
-    supported: false
-  - competition:
-      id: '1065530'
-      name: Venezuelan Primera Division
-    region: VEN
-    supported: false
-  - competition:
-      id: '43'
-      name: National League South
-    region: GBR
-    supported: false
-  - competition:
-      id: '10631309'
-      name: Haryana Premier League 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '55'
-      name: French Ligue 1
-    region: FRA
-    supported: false
-  - competition:
-      id: '10547864'
-      name: NBA Matches
-    region: International
-    supported: false
-  - competition:
-      id: '57'
-      name: French Ligue 2
-    region: FRA
-    supported: false
-  - competition:
-      id: '10727578'
-      name: Argentina Open 2017
-    region: ARG
-    supported: false
-  - competition:
-      id: '59'
-      name: Bundesliga 1
-    region: DEU
-    supported: false
-  - competition:
-      id: '61'
-      name: Bundesliga 2
-    region: DEU
-    supported: false
-  - competition:
-      id: '175680'
-      name: Turkish Division 1
-    region: TUR
-    supported: false
-  - competition:
-      id: '67'
-      name: Greek Super League
-    region: GRC
-    supported: false
-  - competition:
-      id: '43079'
-      name: Coupe de France
-    region: FRA
-    supported: false
-  - competition:
-      id: '3792498'
-      name: Algerian U21 Ligue 1
-    region: DZA
-    supported: false
-  - competition:
-      id: '856134'
-      name: Colombian Primera B
-    region: COL
-    supported: false
-  - competition:
-      id: '77'
-      name: Airtricity Premier Division
-    region: IRL
-    supported: false
-  - competition:
-      id: '81'
-      name: Serie A
-    region: ITA
-    supported: false
-  - competition:
-      id: '10693361'
-      name: NFL Season 2017/18
-    region: GBR
-    supported: false
-  - competition:
-      id: '83'
-      name: Serie B
-    region: ITA
-    supported: false
-  - competition:
-      id: '2134'
-      name: EFL Cup
-    region: GBR
-    supported: false
-  - competition:
-      id: '10730740'
-      name: World Super 6 2017
-    region: AUS
-    supported: false
-  - competition:
-      id: '1097799'
-      name: Central League
-    region: GBR
-    supported: false
-  - competition:
-      id: '9992899'
-      name: International Twenty20 Matches
-    region: International
-    supported: false
-  - competition:
-      id: '10094279'
-      name: US  Open 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '9884918'
-      name: US PGA 2017
-    region: USA
-    supported: false
-  - competition:
-      id: '97'
-      name: Ekstraklasa
-    region: POL
-    supported: false
-  - competition:
-      id: '99'
-      name: Primeira Liga
-    region: PRT
-    supported: false
-  - competition:
-      id: '101'
-      name: Premier Division
-    region: RUS
-    supported: false
-  - competition:
-      id: '852072'
-      name: Malaysian FA Cup
-    region: MYS
-    supported: false
-  - competition:
-      id: '10727621'
-      name: Memphis Open 2017
-    region: USA
-    supported: false
-  - competition:
-      id: '9231083'
-      name: Poland V Liga Siatkowki
-    region: POL
-    supported: false
-  - competition:
-      id: '7008771'
-      name: New Customer Only. First Bet Exclusive 10
-    region: GBR
-    supported: false
-  - competition:
-      id: '10719434'
-      name: Balchik Cup
-    region: International
-    supported: false
-  - competition:
-      id: '105'
-      name: Scottish Premiership
-    region: GBR
-    supported: false
-  - competition:
-      id: '10224373'
-      name: Stirling Sports Premiership 2016/17
-    region: NZL
-    supported: false
-  - competition:
-      id: '107'
-      name: Scottish Championship
-    region: GBR
-    supported: false
-  - competition:
-      id: '7247362'
-      name: Ugandan Premier League
-    region: UGA
-    supported: false
-  - competition:
-      id: '10514636'
-      name: Italian Serie A
-    region: International
-    supported: false
-  - competition:
-      id: '109'
-      name: Scottish League One
-    region: GBR
-    supported: false
-  - competition:
-      id: '111'
-      name: Scottish League Two
-    region: GBR
-    supported: false
-  - competition:
-      id: '10731216'
-      name: Vuelta a Andalucia 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '117'
-      name: Primera Division
-    region: ESP
-    supported: false
-  - competition:
-      id: '119'
-      name: Segunda Division
-    region: ESP
-    supported: false
-  - competition:
-      id: '10515159'
-      name: European Champions Cup
-    region: International
-    supported: false
-  - competition:
-      id: '2490975'
-      name: Brazilian Paulista A1
-    region: BRA
-    supported: false
-  - competition:
-      id: '20601'
-      name: Finnish Cup
-    region: FIN
-    supported: false
-  - competition:
-      id: '10034915'
-      name: Womens International Twenty20 Matches
-    region: International
-    supported: false
-  - competition:
-      id: '9864939'
-      name: Tour de France 2017
-    region: FRA
-    supported: false
-  - competition:
-      id: '2883157'
-      name: Israeli Premier League (W)
-    region: ISR
-    supported: false
-  - competition:
-      id: '4760777'
-      name: Cheshire Senior Cup
-    region: GBR
-    supported: false
-  - competition:
-      id: '8750084'
-      name: Denmark HB Handboldligaen
-    region: DNK
-    supported: false
-  - competition:
-      id: '10534437'
-      name: Euroleague Men
-    region: International
-    supported: false
-  - competition:
-      id: '133'
-      name: Swiss Super League
-    region: CHE
-    supported: false
-  - competition:
-      id: '10282009'
-      name: All Ireland Senior Football Championship 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '6435559'
-      name: Gloucester Senior Challenge Cup
-    region: GBR
-    supported: false
-  - competition:
-      id: '135'
-      name: Swiss Challenge League
-    region: CHE
-    supported: false
-  - competition:
-      id: '9231365'
-      name: Sweden HB Elitserien
-    region: SWE
-    supported: false
-  - competition:
-      id: '409743'
-      name: Scottish Cup
-    region: GBR
-    supported: false
-  - competition:
-      id: '137'
-      name: Super League
-    region: International
-    supported: false
-  - competition:
-      id: '9191429'
-      name: Alpine Skiing World Cup  2016/17
-    region: GBR
-    supported: false
-  - competition:
-      id: '139'
-      name: Vischya Liga
-    region: UKR
-    supported: false
-  - competition:
-      id: '10618415'
-      name: Nagico Super50
-    region: International
-    supported: false
-  - competition:
-      id: '10188309'
-      name: State of Origin 2017
-    region: AUS
-    supported: false
-  - competition:
-      id: '10538030'
-      name: Specials 2017
-    region: International
-    supported: false
-  - competition:
-      id: '10469389'
-      name: Race To Dubai 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '10513460'
-      name: Turkish TBSL
-    region: International
-    supported: false
-  - competition:
-      id: '895129'
-      name: Azerbaijan Premier
-    region: AZE
-    supported: false
-  - competition:
-      id: '10694203'
-      name: Allianz NFL - Div 4
-    region: International
-    supported: false
-  - competition:
-      id: '5808320'
-      name: SPFL Development League
-    region: GBR
-    supported: false
-  - competition:
-      id: '6011072'
-      name: SPFL Development League 2
-    region: GBR
-    supported: false
-  - competition:
-      id: '10533436'
-      name: Australian NBL
-    region: International
-    supported: false
-  - competition:
-      id: '1615493'
-      name: Saudi Champions Cup
-    region: SAU
-    supported: false
-  - competition:
-      id: '10693181'
-      name: Pakistan Super League
-    region: International
-    supported: false
-  - competition:
-      id: '7126733'
-      name: ICC Cricket World Cup 2019
-    region: GBR
-    supported: false
-  - competition:
-      id: '10459710'
-      name: MLB 2017
-    region: USA
-    supported: false
-  - competition:
-      id: '194215'
-      name: Turkish Super League
-    region: TUR
-    supported: false
-  - competition:
-      id: '10239540'
-      name: Rugby  League World Cup 2017
-    region: AUS
-    supported: false
-  - competition:
-      id: '5984496'
-      name: Lega Pro
-    region: ITA
-    supported: false
-  - competition:
-      id: '6918343'
-      name: New Customer Only. First Bet Exclusive 2
-    region: GBR
-    supported: false
-  - competition:
-      id: '10615822'
-      name: Spanish Division de Honor U19
-    region: ESP
-    supported: false
-  - competition:
-      id: '10694163'
-      name: Allianz NFL - Div 3
-    region: International
-    supported: false
-  - competition:
-      id: '4540663'
-      name: Panama Liga Nacional de Ascenso
-    region: PAN
-    supported: false
-  - competition:
-      id: '10282543'
-      name: South Korea V V League Women
-    region: KOR
-    supported: false
-  - competition:
-      id: '8496690'
-      name: RCF Nadkarni Cup
-    region: IND
-    supported: false
-  - competition:
-      id: '10546195'
-      name: College Basketball Matches
-    region: International
-    supported: false
-  - competition:
-      id: '801976'
-      name: Egyptian Premier
-    region: EGY
-    supported: false
-  - competition:
-      id: '10282537'
-      name: South Korea V V League
-    region: KOR
-    supported: false
-  - competition:
-      id: '804044'
-      name: Israeli Liga Leumit
-    region: ISR
-    supported: false
-  - competition:
-      id: '6447264'
-      name: Northern Premier League Challenge Cup
-    region: GBR
-    supported: false
-  - competition:
-      id: '9310282'
-      name: NBA Outrights
-    region: International
-    supported: false
-  - competition:
-      id: '10632804'
-      name: NHL Matches
-    region: International
-    supported: false
-  - competition:
-      id: '10621540'
-      name: Fotbolti.net Cup - B Division
-    region: ISL
-    supported: false
-  - competition:
-      id: '8718402'
-      name: Brazilian Alagoano
-    region: BRA
-    supported: false
-  - competition:
-      id: '9616981'
-      name: ICC Champions Trophy 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '10568298'
-      name: Giro D'Italia
-    region: International
-    supported: false
-  - competition:
-      id: '10662505'
-      name: DFB Pokal
-    region: DEU
-    supported: false
-  - competition:
-      id: '10546796'
-      name: Swedish Allsvenskan
-    region: International
-    supported: false
-  - competition:
-      id: '5614746'
-      name: FIFA World Cup 2018
-    region: International
-    supported: false
-  - competition:
-      id: '5817495'
-      name: Northern Irish League Cup
-    region: GBR
-    supported: false
-  - competition:
-      id: '10693235'
-      name: Australian NNL 2017
-    region: AUS
-    supported: false
-  - competition:
-      id: '362204'
-      name: Slovak Extraliga
-    region: International
-    supported: false
-  - competition:
-      id: '33498'
-      name: Greek A1
-    region: International
-    supported: false
-  - competition:
-      id: '10582138'
-      name: CSGO DreamHack Las Vegas 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '10000963'
-      name: Club Hurling Matches
-    region: International
-    supported: false
-  - competition:
-      id: '10622019'
-      name: Allianz NFL - Div 1
-    region: International
-    supported: false
-  - competition:
-      id: '228'
-      name: UEFA Champions League
-    region: International
-    supported: false
-  - competition:
-      id: '10622021'
-      name: Allianz NFL - Div 2
-    region: International
-    supported: false
-  - competition:
-      id: '9310822'
-      name: VTB United League
-    region: International
-    supported: false
-  - competition:
-      id: '376041'
-      name: Indian I League
-    region: IND
-    supported: false
-  - competition:
-      id: '9735288'
-      name: Wimbledon 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '7129730'
-      name: The Championship
-    region: GBR
-    supported: false
-  - competition:
-      id: '9074277'
-      name: Ski Jumping 2016/17
-    region: GBR
-    supported: false
-  - competition:
-      id: '8781431'
-      name: Gibraltar Rock Cup
-    region: GIB
-    supported: false
-  - competition:
-      id: '9230975'
-      name: Spain HB Asobal
-    region: ESP
-    supported: false
-  - competition:
-      id: '10120800'
-      name: France HB LNH Starligue
-    region: FRA
-    supported: false
-  - competition:
-      id: '10473371'
-      name: F1 Outrights 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '10187164'
-      name: Ryder Cup 2018
-    region: FRA
-    supported: false
-  - competition:
-      id: '10586027'
-      name: Ford Trophy
-    region: International
-    supported: false
-  - competition:
-      id: '3270458'
-      name: Bellator
-    region: International
-    supported: false
-  - competition:
-      id: '10726316'
-      name: Syed Mushtaq Ali Trophy Inter Zonal
-    region: GBR
-    supported: false
-  - competition:
-      id: '483094'
-      name: Brazilian Goiano
-    region: BRA
-    supported: false
-  - competition:
-      id: '6964600'
-      name: New Customer Only. First Bet Exclusive 6
-    region: GBR
-    supported: false
-  - competition:
-      id: '6964607'
-      name: New Customer Only. First Bet Exclusive 7
-    region: GBR
-    supported: false
-  - competition:
-      id: '10164109'
-      name: AFL 2017
-    region: AUS
-    supported: false
-  - competition:
-      id: '10546104'
-      name: Russian KHL
-    region: International
-    supported: false
-  - competition:
-      id: '1278730'
-      name: Faxafloi Cup (W)
-    region: ISL
-    supported: false
-  - competition:
-      id: '3037492'
-      name: Beloften Pro League
-    region: BEL
-    supported: false
-  - competition:
-      id: '8415646'
-      name: Rugby World Cup 2019
-    region: JPN
-    supported: false
-  - competition:
-      id: '8616348'
-      name: Friendly
-    region: International
-    supported: false
-  - competition:
-      id: '10630530'
-      name: LV Anglo Welsh Cup
-    region: International
-    supported: false
-  - competition:
-      id: '10537346'
-      name: Polish PLK
-    region: International
-    supported: false
-  - competition:
-      id: '10331066'
-      name: V Champions League
-    region: International
-    supported: false
-  - competition:
-      id: '10699659'
-      name: Leinster Senior Hurling Chmapionship
-    region: International
-    supported: false
-  - competition:
-      id: '4905'
-      name: Liga 1
-    region: ROU
-    supported: false
-  - competition:
-      id: '9513'
-      name: Segunda Liga
-    region: PRT
-    supported: false
-  - competition:
-      id: '439085'
-      name: Brazilian Gaucho
-    region: BRA
-    supported: false
-  - competition:
-      id: '8832951'
-      name: Brazilian Sergipano
-    region: BRA
-    supported: false
-  - competition:
-      id: '69427'
-      name: Welsh Open
-    region: International
-    supported: false
-  - competition:
-      id: '9556388'
-      name: French Open 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '7942977'
-      name: New Customer Only. First Bet Exclusive 15
-    region: GBR
-    supported: false
-  - competition:
-      id: '10546074'
-      name: Swiss NLA
-    region: International
-    supported: false
-  - competition:
-      id: '10150305'
-      name: A League 2016/17
-    region: AUS
-    supported: false
-  - competition:
-      id: '4644728'
-      name: Northern Premier League Division One North
-    region: GBR
-    supported: false
-  - competition:
-      id: '10545123'
-      name: Guinness Pro 12
-    region: International
-    supported: false
-  - competition:
-      id: '439106'
-      name: Brazilian Paranaense
-    region: BRA
-    supported: false
-  - competition:
-      id: '7942963'
-      name: New Customer Only. first Bet Exclusive 12
-    region: GBR
-    supported: false
-  - competition:
-      id: '10403285'
-      name: Premier League Cup
-    region: GBR
-    supported: false
-  - competition:
-      id: '10719720'
-      name: Tour of Flanders One Day Classic 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '7942967'
-      name: New Customer Only. first Bet Exclusive 13
-    region: GBR
-    supported: false
-  - competition:
-      id: '10730988'
-      name: Chubb Classic 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '10616817'
-      name: 2017 NFL Draft
-    region: GBR
-    supported: false
-  - competition:
-      id: '845150'
-      name: Indonesian President's Cup
-    region: IDN
-    supported: false
-  - competition:
-      id: '334679'
-      name: Scottish Challenge Cup
-    region: GBR
-    supported: false
-  - competition:
-      id: '1874'
-      name: Coppa Italia
-    region: ITA
-    supported: false
-  - competition:
-      id: '7942955'
-      name: New Customer Only. first Bet Exclusive 14
-    region: GBR
-    supported: false
-  - competition:
-      id: '431957'
-      name: March Bouts
-    region: International
-    supported: false
-  - competition:
-      id: '8740305'
-      name: Brazilian Primeira Liga
-    region: BRA
-    supported: false
-  - competition:
-      id: '10480587'
-      name: Rugby League Challenge Cup 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '10546170'
-      name: Conor McGregor's Next Opponent
-    region: GBR
-    supported: false
-  - competition:
-      id: '10168263'
-      name: NRL 2017
-    region: AUS
-    supported: false
-  - competition:
-      id: '10725885'
-      name: Qatar Total Open 2017
-    region: QAT
-    supported: false
-  - competition:
-      id: '30558'
-      name: English FA Cup
-    region: GBR
-    supported: false
-  - competition:
-      id: '10729468'
-      name: Super Rugby 2017
-    region: AUS
-    supported: false
-  - competition:
-      id: '62815'
-      name: Copa Libertadores
-    region: International
-    supported: false
-  - competition:
-      id: '820588'
-      name: Southern Premier
-    region: GBR
-    supported: false
-  - competition:
-      id: '9317871'
-      name: Spanish ACB
-    region: International
-    supported: false
-  - competition:
-      id: '449381'
-      name: February Bouts
-    region: International
-    supported: false
-  - competition:
-      id: '10699712'
-      name: Munster Senior Hurling Championship
-    region: International
-    supported: false
-  - competition:
-      id: '803690'
-      name: Ecuadorian Primera A
-    region: ECU
-    supported: false
-  - competition:
-      id: '820582'
-      name: Isthmian Premier
-    region: GBR
-    supported: false
-  - competition:
-      id: '9231335'
-      name: HB Champions League
-    region: International
-    supported: false
-  - competition:
-      id: '10699731'
-      name: All Ireland Senior Hurling Championship 2017
-    region: International
-    supported: false
-  - competition:
-      id: '10579923'
-      name: Milan - San Remo 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '10315246'
-      name: Sheffield Shield 2016/17
-    region: AUS
-    supported: false
-  - competition:
-      id: '10528723'
-      name: French ProA League
-    region: International
-    supported: false
-  - competition:
-      id: '10729430'
-      name: Kazan Preseason Tournament
-    region: International
-    supported: false
-  - competition:
-      id: '849268'
-      name: Coppa Italia Lega Pro
-    region: ITA
-    supported: false
-  - competition:
-      id: '89979'
-      name: Belgian Jupiler League
-    region: BEL
-    supported: false
-  - competition:
-      id: '2608550'
-      name: Specials
-    region: GBR
-    supported: false
-  - competition:
-      id: '10474270'
-      name: Premier League Darts
-    region: International
-    supported: false
-  - competition:
-      id: '857992'
-      name: Chilean Primera B
-    region: CHL
-    supported: false
-  - competition:
-      id: '10719526'
-      name: Paris-Roubaix One Day Classic 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '94603'
-      name: Hungarian Cup
-    region: HUN
-    supported: false
-  - competition:
-      id: '7654910'
-      name: Ghana Premier League
-    region: GHA
-    supported: false
-  - competition:
-      id: '10726703'
-      name: ABN Amro World Tennis Tournament 2017
-    region: NLD
-    supported: false
-  - competition:
-      id: '10699567'
-      name: Allianz NHL - Div 1
-    region: International
-    supported: false
-  - competition:
-      id: '10372874'
-      name: Brownlow Medal 2017
-    region: AUS
-    supported: false
-  - competition:
-      id: '10355467'
-      name: NCAAB Outrights
-    region: GBR
-    supported: false
-  - competition:
-      id: '7008764'
-      name: New Customer Only. First Bet Exclusive 9
-    region: GBR
-    supported: false
-  - competition:
-      id: '822165'
-      name: Israeli Premier
-    region: ISR
-    supported: false
-  - competition:
-      id: '9993990'
-      name: Tokyo 2020
-    region: GBR
-    supported: false
-  - competition:
-      id: '2489732'
-      name: Latvia Winter Cup
-    region: LVA
-    supported: false
-  - competition:
-      id: '844197'
-      name: Colombian Primera A
-    region: COL
-    supported: false
-  - competition:
-      id: '10465589'
-      name: Tennis Specials 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '9231651'
-      name: Germany HB Bundesliga
-    region: DEU
-    supported: false
-  - competition:
-      id: '6694857'
-      name: New Customer Only. First Bet Exclusive 3
-    region: USA
-    supported: false
-  - competition:
-      id: '10272558'
-      name: Solheim Cup 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '442290'
-      name: April Bouts
-    region: International
-    supported: false
-  - competition:
-      id: '10728215'
-      name: Ireland GAA Club Football Matches
-    region: International
-    supported: false
-  - competition:
-      id: '9724204'
-      name: US Open 2017
-    region: USA
-    supported: false
-  - competition:
-      id: '9773869'
-      name: Open Championship 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '9112880'
-      name: US Masters 2017
-    region: USA
-    supported: false
-  - competition:
-      id: '10474272'
-      name: PDC World Championship
-    region: International
-    supported: false
-  - competition:
-      id: '10730338'
-      name: Genesis Open 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '1242586'
-      name: Westfalenpokal
-    region: DEU
-    supported: false
-  - competition:
-      id: '10581864'
-      name: UFC 209
-    region: USA
-    supported: false
-  - competition:
-      id: '10320212'
-      name: PGA Tour Money List 2016/2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '10479956'
-      name: Austrian Bundesliga.
-    region: AUT
-    supported: false
-  - competition:
-      id: '6961573'
-      name: New Customer Only. First Bet Exclusive 4
-    region: GBR
-    supported: false
-  - competition:
-      id: '8068520'
-      name: Netherlands Reserve League
-    region: NLD
-    supported: false
-  - competition:
-      id: '2005'
-      name: UEFA Europa League
-    region: International
-    supported: false
-  - competition:
-      id: '10521976'
-      name: European Challenge Cup
-    region: International
-    supported: false
-  - competition:
-      id: '6961588'
-      name: New Customer Only. First Bet Exclusive 5
-    region: GBR
-    supported: false
-  - competition:
-      id: '10555774'
-      name: Davis Cup 2017
-    region: GBR
-    supported: false
-  - competition:
-      id: '31201'
-      name: French Top 14
-    region: International
-    supported: false
-  - competition:
-      id: '8426338'
-      name: Greek Football League U19
-    region: GRC
-    supported: false
-  - competition:
-      id: '10726731'
-      name: Challenger La Manche 2017
-    region: FRA
-    supported: false
-  - competition:
-      id: '6964614'
-      name: New Customer Only. First Bet Exclusive 8
-    region: GBR
-    supported: false
-  - competition:
-      id: '6454159'
-      name: Essex Senior Cup
-    region: GBR
-    supported: false
-  - competition:
-      id: '2788804'
-      name: Rugby Specials
-    region: GBR
-    supported: false
-  - competition:
-      id: '8828275'
-      name: Carioca U20
-    region: BRA
-    supported: false
-  - competition:
-      id: '10660181'
-      name: AFL Womens 2017
-    region: AUS
-    supported: false
-  - competition:
-      id: '9231223'
-      name: Italy V Serie A1 Women
-    region: ITA
-    supported: false
-  - competition:
-      id: '10727768'
-      name: Tempe Challenger 2017
-    region: USA
-    supported: false
-  - competition:
-      id: '10726751'
-      name: FNL Cup
-    region: International
-    supported: false
+---
+- id: 158146
+  name: 3 Liga
+  region: DEU
+  supported: false
+- id: 10150305
+  name: A League 2016/17
+  region: AUS
+  supported: false
+- id: 77
+  name: Airtricity Premier Division
+  region: IRL
+  supported: false
+- id: 4431442
+  name: Algerian Ligue 1
+  region: DZA
+  supported: false
+- id: 3792498
+  name: Algerian U21 Ligue 1
+  region: DZA
+  supported: false
+- id: 10479956
+  name: Austrian Bundesliga.
+  region: AUT
+  supported: false
+- id: 89979
+  name: Belgian Jupiler League
+  region: BEL
+  supported: false
+- id: 3037492
+  name: Beloften Pro League
+  region: BEL
+  supported: false
+- id: 4540630
+  name: Brasiliense
+  region: BRA
+  supported: false
+- id: 835595
+  name: Brazilian Baiano
+  region: BRA
+  supported: false
+- id: 89219
+  name: Brazilian Cup
+  region: BRA
+  supported: false
+- id: 4517498
+  name: Brazilian Paraense
+  region: BRA
+  supported: false
+- id: 439106
+  name: Brazilian Paranaense
+  region: BRA
+  supported: false
+- id: 2490975
+  name: Brazilian Paulista A1
+  region: BRA
+  supported: false
+- id: 2519611
+  name: Brazilian Paulista A2
+  region: BRA
+  supported: false
+- id: 832265
+  name: Brazilian Pernambucano
+  region: BRA
+  supported: false
+- id: 8740305
+  name: Brazilian Primeira Liga
+  region: BRA
+  supported: false
+- id: 15
+  name: Bulgarian Premier
+  region: BGR
+  supported: false
+- id: 59
+  name: Bundesliga 1
+  region: DEU
+  supported: false
+- id: 61
+  name: Bundesliga 2
+  region: DEU
+  supported: false
+- id: 1097799
+  name: Central League
+  region: GBR
+  supported: false
+- id: 4760777
+  name: Cheshire Senior Cup
+  region: GBR
+  supported: false
+- id: 744098
+  name: Chilean Primera
+  region: CHL
+  supported: false
+- id: 844197
+  name: Colombian Primera A
+  region: COL
+  supported: false
+- id: 856134
+  name: Colombian Primera B
+  region: COL
+  supported: false
+- id: 1032778
+  name: Copa Catalunya
+  region: ESP
+  supported: false
+- id: 12801
+  name: Copa Del Rey
+  region: ESP
+  supported: false
+- id: 62815
+  name: Copa Libertadores
+  region: International
+  supported: false
+- id: 1979279
+  name: Copa Mexico
+  region: MEX
+  supported: false
+- id: 1874
+  name: Coppa Italia
+  region: ITA
+  supported: false
+- id: 849268
+  name: Coppa Italia Lega Pro
+  region: ITA
+  supported: false
+- id: 43079
+  name: Coupe de France
+  region: FRA
+  supported: false
+- id: 17
+  name: Croatian Division 1
+  region: HRV
+  supported: false
+- id: 10662505
+  name: DFB Pokal
+  region: DEU
+  supported: false
+- id: 23
+  name: Danish Superliga
+  region: DNK
+  supported: false
+- id: 9404054
+  name: Dutch Eredivisie
+  region: NLD
+  supported: false
+- id: 2134
+  name: EFL Cup
+  region: GBR
+  supported: false
+- id: 801976
+  name: Egyptian Premier
+  region: EGY
+  supported: false
+- id: 97
+  name: Ekstraklasa
+  region: POL
+  supported: false
+- id: 3039423
+  name: Emir Cup
+  region: KWT
+  supported: false
+- id: 30558
+  name: English FA Cup
+  region: GBR
+  supported: false
+- id: 31
+  name: English Premier League
+  region: GBR
+  supported: false
+- id: 5614746
+  name: FIFA World Cup 2018
+  region: International
+  supported: false
+- id: 10726751
+  name: FNL Cup
+  region: International
+  supported: false
+- id: 10621540
+  name: Fotbolti.net Cup - B Division
+  region: ISL
+  supported: false
+- id: 55
+  name: French Ligue 1
+  region: FRA
+  supported: false
+- id: 57
+  name: French Ligue 2
+  region: FRA
+  supported: false
+- id: 8616348
+  name: Friendly
+  region: International
+  supported: false
+- id: 852459
+  name: German Junioren Bundesliga
+  region: DEU
+  supported: false
+- id: 6435559
+  name: Gloucester Senior Challenge Cup
+  region: GBR
+  supported: false
+- id: 833616
+  name: Greek Football League
+  region: GRC
+  supported: false
+- id: 67
+  name: Greek Super League
+  region: GRC
+  supported: false
+- id: 6569480
+  name: Highland Football League
+  region: GBR
+  supported: false
+- id: 3085802
+  name: Hong Kong Reserve League
+  region: HKG
+  supported: false
+- id: 94603
+  name: Hungarian Cup
+  region: HUN
+  supported: false
+- id: 376041
+  name: Indian I League
+  region: IND
+  supported: false
+- id: 845150
+  name: Indonesian President's Cup
+  region: IDN
+  supported: false
+- id: 2883157
+  name: Israeli Premier League (W)
+  region: ISR
+  supported: false
+- id: 4596938
+  name: Isthmian Division One South
+  region: GBR
+  supported: false
+- id: 10729430
+  name: Kazan Preseason Tournament
+  region: International
+  supported: false
+- id: 2489732
+  name: Latvia Winter Cup
+  region: LVA
+  supported: false
+- id: 35
+  name: League One
+  region: GBR
+  supported: false
+- id: 37
+  name: League Two
+  region: GBR
+  supported: false
+- id: 944888
+  name: Leinster Senior Cup
+  region: IRL
+  supported: false
+- id: 4905
+  name: Liga 1
+  region: ROU
+  supported: false
+- id: 852072
+  name: Malaysian FA Cup
+  region: MYS
+  supported: false
+- id: 7261832
+  name: Maranhense 1 Division
+  region: BRA
+  supported: false
+- id: 5627174
+  name: Mexican Primera Division
+  region: MEX
+  supported: false
+- id: 4540650
+  name: NIFL Reserve League
+  region: GBR
+  supported: false
+- id: 39
+  name: National League
+  region: GBR
+  supported: false
+- id: 41
+  name: National League North
+  region: GBR
+  supported: false
+- id: 43
+  name: National League South
+  region: GBR
+  supported: false
+- id: 5817495
+  name: Northern Irish League Cup
+  region: GBR
+  supported: false
+- id: 6447264
+  name: Northern Premier League Challenge Cup
+  region: GBR
+  supported: false
+- id: 4644728
+  name: Northern Premier League Division One North
+  region: GBR
+  supported: false
+- id: 4540663
+  name: Panama Liga Nacional de Ascenso
+  region: PAN
+  supported: false
+- id: 8825999
+  name: Paulista A3
+  region: BRA
+  supported: false
+- id: 101
+  name: Premier Division
+  region: RUS
+  supported: false
+- id: 10403285
+  name: Premier League Cup
+  region: GBR
+  supported: false
+- id: 99
+  name: Primeira Liga
+  region: PRT
+  supported: false
+- id: 117
+  name: Primera Division
+  region: ESP
+  supported: false
+- id: 842258
+  name: Qatari Stars League
+  region: QAT
+  supported: false
+- id: 65
+  name: Regionalliga Sudwest
+  region: DEU
+  supported: false
+- id: 5808320
+  name: SPFL Development League
+  region: GBR
+  supported: false
+- id: 6011072
+  name: SPFL Development League 2
+  region: GBR
+  supported: false
+- id: 334679
+  name: Scottish Challenge Cup
+  region: GBR
+  supported: false
+- id: 107
+  name: Scottish Championship
+  region: GBR
+  supported: false
+- id: 409743
+  name: Scottish Cup
+  region: GBR
+  supported: false
+- id: 109
+  name: Scottish League One
+  region: GBR
+  supported: false
+- id: 111
+  name: Scottish League Two
+  region: GBR
+  supported: false
+- id: 105
+  name: Scottish Premiership
+  region: GBR
+  supported: false
+- id: 119
+  name: Segunda Division
+  region: ESP
+  supported: false
+- id: 9513
+  name: Segunda Liga
+  region: PRT
+  supported: false
+- id: 81
+  name: Serie A
+  region: ITA
+  supported: false
+- id: 83
+  name: Serie B
+  region: ITA
+  supported: false
+- id: 10699940
+  name: South African Premier
+  region: ZAF
+  supported: false
+- id: 10615822
+  name: Spanish Division de Honor U19
+  region: ESP
+  supported: false
+- id: 2608550
+  name: Specials
+  region: GBR
+  supported: false
+- id: 10224373
+  name: Stirling Sports Premiership 2016/17
+  region: NZL
+  supported: false
+- id: 133
+  name: Swiss Super League
+  region: CHE
+  supported: false
+- id: 7129730
+  name: The Championship
+  region: GBR
+  supported: true
+- id: 6103298
+  name: Tunisian Ligue Professionelle 1
+  region: TUN
+  supported: false
+- id: 194215
+  name: Turkish Super League
+  region: TUR
+  supported: false
+- id: 13051
+  name: U19 Internationals
+  region: International
+  supported: false
+- id: 258537
+  name: UAE Premier League
+  region: ARE
+  supported: false
+- id: 228
+  name: UEFA Champions League
+  region: International
+  supported: false
+- id: 2005
+  name: UEFA Europa League
+  region: International
+  supported: false
+- id: 7247362
+  name: Ugandan Premier League
+  region: UGA
+  supported: false
+- id: 139
+  name: Vischya Liga
+  region: UKR
+  supported: false
+- id: 252549
+  name: Welsh Premier League
+  region: GBR
+  supported: false
+- id: 1242586
+  name: Westfalenpokal
+  region: DEU
+  supported: false
+- id: 852011
+  name: Xerox Super Cup
+  region: JPN
+  supported: false
