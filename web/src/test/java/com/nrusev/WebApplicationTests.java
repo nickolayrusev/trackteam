@@ -1,5 +1,6 @@
 package com.nrusev;
 
+import com.nrusev.config.RootConfig;
 import com.nrusev.domain.Country;
 import com.nrusev.domain.Team;
 import com.nrusev.exchange.DataExchanger;
@@ -19,7 +20,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import java.util.List;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = WebApplication.class)
 public class WebApplicationTests {
 
 	@Autowired
