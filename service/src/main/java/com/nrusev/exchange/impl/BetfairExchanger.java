@@ -5,6 +5,7 @@ import com.jbetfairng.entities.Event;
 import com.jbetfairng.entities.EventResult;
 import com.jbetfairng.entities.MarketFilter;
 import com.jbetfairng.entities.TimeRange;
+import com.nrusev.config.CompetitionsConfig;
 import com.nrusev.config.ExchangeConfig;
 import com.nrusev.domain.Game;
 import com.nrusev.exchange.DataExchanger;
@@ -30,8 +31,8 @@ import static java.util.stream.Collectors.toSet;
 public class BetfairExchanger implements DataExchanger {
 
     private final BetfairClient client;
-    private final Set<ExchangeConfig.Competition> competitions;
-    private final Set<ExchangeConfig.Competition> supportedCompetitions;
+    private final Set<CompetitionsConfig.Competition> competitions;
+    private final Set<CompetitionsConfig.Competition> supportedCompetitions;
     private final TeamService teamService;
 
 
@@ -39,8 +40,8 @@ public class BetfairExchanger implements DataExchanger {
 
     @Autowired
     public BetfairExchanger(BetfairClient client,
-                            @Qualifier("competitions") Set<ExchangeConfig.Competition> competitions,
-                            @Qualifier("supportedCompetitions") Set<ExchangeConfig.Competition> supoportedCompetitions,
+                            @Qualifier("competitions") Set<CompetitionsConfig.Competition> competitions,
+                            @Qualifier("supportedCompetitions") Set<CompetitionsConfig.Competition> supoportedCompetitions,
                             TeamService teamService) {
         this.client = client;
         this.competitions = competitions;
