@@ -52,22 +52,21 @@ public class TeamService {
     }
 
     public Optional<Team> findTeam(String name, String... countries) {
-        List<Team> byCountryName = findByCountries(countries);
-
-        Optional<Team> teamByName = byCountryName.stream().filter(t -> isTeamSame(name,t)).findAny();
-        if (teamByName.isPresent())
-            return teamByName;
-
-        return Optional.empty();
+        if(countries.length != 0) {
+            List<Team> byCountryName = findByCountries(countries);
+            return byCountryName.stream().filter(t -> isTeamSame(name, t)).findAny();
+        }else{
+            List<Team> byTitleIgnoreCase = findByTitleIgnoreCase(name);
+            return byTitleIgnoreCase.stream().filter(t -> isTeamSame(name, t)).findAny();
+        }
     }
 
     public Optional<Team> findTeamByCountryAlpha2Code(String name, String ...codes){
-        List<Team> byCountryAlpha2Code = this.teamRepository.findByCountryAlpha2Code(codes);
-        Optional<Team> teamByName = byCountryAlpha2Code.stream().filter(t -> isTeamSame(name,t)).findAny();
-        if (teamByName.isPresent())
-            return teamByName;
-
-        return Optional.empty();
+        if(codes.length == 1 && codes[0] != null  ){
+            List<Team> byCountryAlpha2Code = this.teamRepository.findByCountryAlpha2Code(codes);
+            return byCountryAlpha2Code.stream().filter(t -> isTeamSame(name,t)).findAny();
+        }
+        return findTeam(name);
     }
 
     public boolean isTeamSame(String candidate, Team original) {

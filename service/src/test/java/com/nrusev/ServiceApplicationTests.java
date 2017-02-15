@@ -160,6 +160,6 @@ public class ServiceApplicationTests {
 
 	@Test
 	public void testBetfairClient(){
-		dataExchanger.findTodayGames();
+		dataExchanger.findTodayGames().forEach(System.out::println);
 	}
 }

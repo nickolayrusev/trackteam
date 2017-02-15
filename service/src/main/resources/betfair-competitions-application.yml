@@ -162,11 +162,11 @@ competitions:
   - id: 30558
     name: English FA Cup
     region: GBR
-    supported: false
+    supported: true
   - id: 31
     name: English Premier League
     region: GBR
-    supported: false
+    supported: true
   - id: 5614746
     name: FIFA World Cup 2018
     region: International
@@ -422,11 +422,11 @@ competitions:
   - id: 228
     name: UEFA Champions League
     region: International
-    supported: false
+    supported: true
   - id: 2005
     name: UEFA Europa League
     region: International
-    supported: false
+    supported: true
   - id: 7247362
     name: Ugandan Premier League
     region: UGA

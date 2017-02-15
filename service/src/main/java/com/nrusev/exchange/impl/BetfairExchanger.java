@@ -14,14 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import java.time.Duration;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.time.temporal.TemporalUnit;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
+import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
 
 /**
@@ -41,11 +42,11 @@ public class BetfairExchanger implements DataExchanger {
     @Autowired
     public BetfairExchanger(BetfairClient client,
                             @Qualifier("competitions") Set<CompetitionsConfig.Competition> competitions,
-                            @Qualifier("supportedCompetitions") Set<CompetitionsConfig.Competition> supoportedCompetitions,
+                            @Qualifier("supportedCompetitions") Set<CompetitionsConfig.Competition> supportedCompetitions,
                             TeamService teamService) {
         this.client = client;
         this.competitions = competitions;
-        this.supportedCompetitions = supoportedCompetitions;
+        this.supportedCompetitions = supportedCompetitions;
         this.teamService = teamService;
     }
 
@@ -56,7 +57,8 @@ public class BetfairExchanger implements DataExchanger {
 
         ZonedDateTime now = ZonedDateTime.now(UTC);
         ZonedDateTime from = ZonedDateTime.of(now.getYear(),now.getMonthValue(),now.getDayOfMonth(),0,0,0,0,UTC);
-        ZonedDateTime to = from.plus(1439, ChronoUnit.MINUTES);
+        ZonedDateTime to = from.plus(Duration.ofHours(23).toMinutes() + 59, ChronoUnit.MINUTES);
+//        ZonedDateTime to =  from.plus(Duration.of(4,ChronoUnit.DAYS).toMinutes(), ChronoUnit.MINUTES);
 
         System.out.println("from : " + from + " to : " + to);
         TimeRange range = new TimeRange();
@@ -65,24 +67,26 @@ public class BetfairExchanger implements DataExchanger {
 
         filter.setMarketStartTime(range);
         List<EventResult> response = client.listEvents(filter).getResponse();
-        response.forEach(eventResult -> {
-            toGame(eventResult.getEvent());
-        });
-        return Collections.emptyList();
+        return response.stream().map(r-> toGame(r.getEvent())).filter(Objects::nonNull).collect(toList());
     }
 
     private Game toGame(Event event){
         String[] split = event.getName().split(" v ");
         if(split.length == 2) {
+            Game game = new Game();
             String homeTeam = split[0], visitorTeam = split[1];
-            System.out.println("home : "+ homeTeam + " visitor: "+visitorTeam);
+            System.out.println("home : "+ homeTeam + " visitor: "+visitorTeam + " date : "+event.getOpenDate());
             final String countryCode = event.getCountryCode();
             teamService.findTeamByCountryAlpha2Code(homeTeam, countryCode).ifPresent(s -> {
                 System.out.println(" team is found " + s.getTitle());
+                game.setHomeTeam(s);
             });
             teamService.findTeamByCountryAlpha2Code(visitorTeam, countryCode).ifPresent(s -> {
                 System.out.println(" team is found " + s.getTitle());
+                game.setVisitorTeam(s);
             });
+            game.setPlayAt(event.getOpenDate());
+            return game;
         }
         return null;
     }

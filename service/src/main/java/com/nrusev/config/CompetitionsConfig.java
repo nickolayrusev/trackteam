@@ -9,8 +9,9 @@ import java.util.List;
  * Created by nikolayrusev on 2/15/17.
  */
 
-@ConfigurationProperties(locations = "classpath:betfair-competitions-application.yml")
+
 @Configuration
+@ConfigurationProperties(locations = "classpath:betfair-competitions-application.yml")
 public class CompetitionsConfig {
 
     private List<Competition> competitions;

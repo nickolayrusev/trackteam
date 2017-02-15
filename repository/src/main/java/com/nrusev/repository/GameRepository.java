@@ -2,9 +2,12 @@ package com.nrusev.repository;
 
 import com.nrusev.domain.Game;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.Temporal;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
+import javax.persistence.TemporalType;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -54,5 +57,13 @@ public interface GameRepository extends CrudRepository<Game, Long> {
     @Query("select g from Game g join fetch g.homeTeam join fetch g.visitorTeam join fetch g.round r " +
             "where g.winner is not null and (g.homeTeam.id = :teamId or g.visitorTeam.id = :teamId) order by g.playAt desc")
     List<Game> findAllGamesByTeam(@Param("teamId") Long teamId);
+
+    @Query("select g from Game g " +
+            "join fetch g.homeTeam " +
+            "join fetch g.visitorTeam " +
+            "join fetch g.round r " +
+            "where g.playAt between :from and :to order by g.playAt desc")
+    List<Game> findAllGamesByDate(@Temporal(TemporalType.DATE) @Param("from") Date from, @Temporal(TemporalType.DATE) @Param("to")Date to);
+
 }
 
