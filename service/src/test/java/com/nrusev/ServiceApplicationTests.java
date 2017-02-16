@@ -55,6 +55,9 @@ public class ServiceApplicationTests {
 	@Autowired @Qualifier("betfairExchanger")
 	DataExchanger dataExchanger;
 
+	@Autowired @Qualifier("xmlSoccerExchanger")
+	DataExchanger xmlSoccerExchanger;
+
 	@Test
 	public void findItalianTeams() {
 		List<String> italy = matchesService.findAllTeams("italy");
@@ -161,5 +164,10 @@ public class ServiceApplicationTests {
 	@Test
 	public void testBetfairClient(){
 		dataExchanger.findTodayGames().forEach(System.out::println);
+	}
+
+	@Test
+	public void testXmlSoccerClient(){
+		xmlSoccerExchanger.findTodayGames();
 	}
 }
