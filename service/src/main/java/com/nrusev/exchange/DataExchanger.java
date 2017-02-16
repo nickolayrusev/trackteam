@@ -1,12 +1,17 @@
 package com.nrusev.exchange;
 
 import com.nrusev.domain.Game;
+import com.nrusev.domain.Team;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Nikolay Rusev on 9.2.2017 г..
  */
 public interface DataExchanger {
     List<Game> findTodayGames();
+    List<Game> findGameByDate(Date from, Date to);
+    Set<Team> todaysTeams();
 }

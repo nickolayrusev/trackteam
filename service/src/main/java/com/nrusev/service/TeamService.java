@@ -52,17 +52,18 @@ public class TeamService {
     }
 
     public Optional<Team> findTeam(String name, String... countries) {
-        if(countries.length != 0) {
-            List<Team> byCountryName = findByCountries(countries);
-            return byCountryName.stream().filter(t -> isTeamSame(name, t)).findAny();
-        }else{
-            List<Team> byTitleIgnoreCase = findByTitleIgnoreCase(name);
-            return byTitleIgnoreCase.stream().filter(t -> isTeamSame(name, t)).findAny();
-        }
+        if (!areVarArgsEmpty(countries))
+            return findByCountries(countries).stream().filter(t -> isTeamSame(name, t)).findAny();
+
+        List<Team> teams = findByTitleIgnoreCase(name).stream().filter(t -> isTeamSame(name, t)).collect(toList());
+        if(!teams.isEmpty())
+            return teams.stream().findAny();
+
+        return findAllClubTeams().stream().filter(t -> isTeamSame(name, t)).findAny();
     }
 
     public Optional<Team> findTeamByCountryAlpha2Code(String name, String ...codes){
-        if(codes.length == 1 && codes[0] != null  ){
+        if(!areVarArgsEmpty(codes)){
             List<Team> byCountryAlpha2Code = this.teamRepository.findByCountryAlpha2Code(codes);
             return byCountryAlpha2Code.stream().filter(t -> isTeamSame(name,t)).findAny();
         }
@@ -97,5 +98,9 @@ public class TeamService {
         if(collect.size() == 1)
             return Optional.of(collect.get(0));
         return Optional.empty();
+    }
+
+    private boolean areVarArgsEmpty(String ... values){
+        return values.length == 0 || (values.length == 1 && values[0] == null);
     }
 }

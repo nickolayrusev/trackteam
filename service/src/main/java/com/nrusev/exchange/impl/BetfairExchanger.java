@@ -8,6 +8,7 @@ import com.jbetfairng.entities.TimeRange;
 import com.nrusev.config.CompetitionsConfig;
 import com.nrusev.config.ExchangeConfig;
 import com.nrusev.domain.Game;
+import com.nrusev.domain.Team;
 import com.nrusev.exchange.DataExchanger;
 import com.nrusev.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,6 +69,16 @@ public class BetfairExchanger implements DataExchanger {
         filter.setMarketStartTime(range);
         List<EventResult> response = client.listEvents(filter).getResponse();
         return response.stream().map(r-> toGame(r.getEvent())).filter(Objects::nonNull).collect(toList());
+    }
+
+    @Override
+    public List<Game> findGameByDate(Date from, Date to) {
+        return null;
+    }
+
+    @Override
+    public Set<Team> todaysTeams() {
+        return null;
     }
 
     private Game toGame(Event event){
