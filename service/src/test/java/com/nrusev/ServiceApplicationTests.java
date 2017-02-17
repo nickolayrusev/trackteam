@@ -170,4 +170,11 @@ public class ServiceApplicationTests {
 	public void testXmlSoccerClient(){
 		xmlSoccerExchanger.findTodayGames();
 	}
+
+	@Test
+	public void testPagingAndSortingTeams(){
+		teamService.findAll(0,10).forEach(System.out::println);
+		System.out.println("--------------------------------------------");
+		teamService.findAll(1,10).forEach(System.out::println);
+	}
 }

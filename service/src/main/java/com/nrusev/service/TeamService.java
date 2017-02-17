@@ -4,6 +4,10 @@ import com.nrusev.domain.Team;
 import com.nrusev.repository.TeamRepository;
 import info.debatty.java.stringsimilarity.JaroWinkler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaContext;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +33,12 @@ public class TeamService {
 
     public List<Team> findAll() {
         return teamRepository.findAll();
+    }
+
+    public List<Team> findAll(int page, int size) {
+        PageRequest request = new PageRequest(page,size, Sort.Direction.ASC,"title");
+        Page<Team> all = teamRepository.findAll(request);
+        return all.getContent();
     }
 
     public List<Team> findAllClubTeams() {

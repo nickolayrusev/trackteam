@@ -4,6 +4,7 @@ import com.nrusev.domain.Team;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * Created by nikolayrusev on 2/22/16.
  */
-public interface TeamRepository  extends CrudRepository<Team,Long>{
+public interface TeamRepository  extends PagingAndSortingRepository<Team,Long> {
     List<Team> findByTitle(String title);
     List<Team> findByTitleIgnoreCase(String title);
     List<Team> findByCountryNameAndClubIsTrueOrderByTitle(String name);
