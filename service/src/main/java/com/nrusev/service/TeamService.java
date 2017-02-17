@@ -61,13 +61,22 @@ public class TeamService {
         return teamRepository.save(team);
     }
 
+    /**
+     * Base method for finding teams
+     * @param name
+     * @param countries
+     * @return
+     */
     public Optional<Team> findTeam(String name, String... countries) {
-        if (!areVarArgsEmpty(countries))
-            return findByCountries(countries).stream().filter(t -> isTeamSame(name, t)).findAny();
+        if (!areVarArgsEmpty(countries)) {
+            List<Team> byCountries = findByCountries(countries);
+            if(!byCountries.isEmpty())
+                return Optional.of(byCountries.get(0));
+        }
 
-        List<Team> teams = findByTitleIgnoreCase(name).stream().filter(t -> isTeamSame(name, t)).collect(toList());
+        List<Team> teams = findByTitleIgnoreCase(name);
         if(!teams.isEmpty())
-            return teams.stream().findAny();
+            return Optional.of(teams.get(0));
 
         return findAllClubTeams().stream().filter(t -> isTeamSame(name, t)).findAny();
     }
@@ -75,11 +84,22 @@ public class TeamService {
     public Optional<Team> findTeamByCountryAlpha2Code(String name, String ...codes){
         if(!areVarArgsEmpty(codes)){
             List<Team> byCountryAlpha2Code = this.teamRepository.findByCountryAlpha2Code(codes);
-            return byCountryAlpha2Code.stream().filter(t -> isTeamSame(name,t)).findAny();
+            if(!byCountryAlpha2Code.isEmpty())
+                return byCountryAlpha2Code.stream().filter(t -> isTeamSame(name,t)).findAny();
         }
         return findTeam(name);
     }
 
+    public Optional<Team> findTeamByCountryAlpha3Code(String name, String ...codes){
+        if(!areVarArgsEmpty(codes)){
+            List<Team> byCountryAlpha3Code = this.teamRepository.findByCountryAlpha3Code(codes);
+            if(!byCountryAlpha3Code.isEmpty())
+                return byCountryAlpha3Code.stream().filter(t -> isTeamSame(name,t)).findAny();
+        }
+        return findTeam(name);
+    }
+
+    //TODO: move this method to Team
     public boolean isTeamSame(String candidate, Team original) {
         if(original.getTitle().equalsIgnoreCase(candidate))
             return true;

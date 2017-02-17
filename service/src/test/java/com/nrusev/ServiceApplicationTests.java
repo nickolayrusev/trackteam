@@ -1,10 +1,7 @@
 package com.nrusev;
 
-import com.nrusev.config.ExchangeConfig;
-import com.nrusev.config.ServiceConfig;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.Team;
-import com.nrusev.domain.TeamPool;
 import com.nrusev.domain.User;
 import com.nrusev.exchange.DataExchanger;
 import com.nrusev.service.*;
@@ -13,25 +10,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.test.annotation.Rollback;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {ServiceApplication.class})
@@ -168,7 +155,7 @@ public class ServiceApplicationTests {
 
 	@Test
 	public void testXmlSoccerClient(){
-		xmlSoccerExchanger.findTodayGames();
+		xmlSoccerExchanger.findTodayGames().forEach(System.out::println);
 	}
 
 	@Test

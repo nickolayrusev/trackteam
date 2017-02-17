@@ -1,0 +1,5 @@
+competitions:
+  - id: 3
+    name: Scottish Premier League
+    region: SCO
+    supported: true

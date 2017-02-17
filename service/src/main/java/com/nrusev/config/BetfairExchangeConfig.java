@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
-import java.io.IOException;
 import java.util.Set;
 
 import static java.util.stream.Collectors.toSet;
@@ -19,7 +18,7 @@ import static java.util.stream.Collectors.toSet;
  */
 @Configuration
 @PropertySource({"betfair-exchange.properties"})
-public class ExchangeConfig {
+public class BetfairExchangeConfig {
 
     @Value("${betfair.appKey}")
     private String betfairAppKey;
@@ -37,7 +36,7 @@ public class ExchangeConfig {
     private String betfairCertificateLocation;
 
     @Autowired
-    private CompetitionsConfig competitionsConfig;
+    private BetfairCompetitionsConfig betfairCompetitionsConfig;
 
 
     @Bean
@@ -48,12 +47,12 @@ public class ExchangeConfig {
     }
 
     @Bean("competitions")
-    public Set<CompetitionsConfig.Competition> getCompetitions()  {
-        return competitionsConfig.getCompetitions().stream().collect(toSet());
+    public Set<BetfairCompetitionsConfig.Competition> getCompetitions()  {
+        return betfairCompetitionsConfig.getCompetitions().stream().collect(toSet());
     }
 
     @Bean("supportedCompetitions")
-    public Set<CompetitionsConfig.Competition> getSupportedCompetitions(){
+    public Set<BetfairCompetitionsConfig.Competition> getSupportedCompetitions(){
         return getCompetitions().stream().filter(s->s.isSupported()).collect(toSet());
     }
 }

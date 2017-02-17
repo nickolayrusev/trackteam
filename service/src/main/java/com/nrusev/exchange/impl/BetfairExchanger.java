@@ -5,8 +5,7 @@ import com.jbetfairng.entities.Event;
 import com.jbetfairng.entities.EventResult;
 import com.jbetfairng.entities.MarketFilter;
 import com.jbetfairng.entities.TimeRange;
-import com.nrusev.config.CompetitionsConfig;
-import com.nrusev.config.ExchangeConfig;
+import com.nrusev.config.BetfairCompetitionsConfig;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.Team;
 import com.nrusev.exchange.DataExchanger;
@@ -19,9 +18,7 @@ import java.time.Duration;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toSet;
@@ -33,8 +30,8 @@ import static java.util.stream.Collectors.toSet;
 public class BetfairExchanger implements DataExchanger {
 
     private final BetfairClient client;
-    private final Set<CompetitionsConfig.Competition> competitions;
-    private final Set<CompetitionsConfig.Competition> supportedCompetitions;
+    private final Set<BetfairCompetitionsConfig.Competition> competitions;
+    private final Set<BetfairCompetitionsConfig.Competition> supportedCompetitions;
     private final TeamService teamService;
 
 
@@ -42,8 +39,8 @@ public class BetfairExchanger implements DataExchanger {
 
     @Autowired
     public BetfairExchanger(BetfairClient client,
-                            @Qualifier("competitions") Set<CompetitionsConfig.Competition> competitions,
-                            @Qualifier("supportedCompetitions") Set<CompetitionsConfig.Competition> supportedCompetitions,
+                            @Qualifier("competitions") Set<BetfairCompetitionsConfig.Competition> competitions,
+                            @Qualifier("supportedCompetitions") Set<BetfairCompetitionsConfig.Competition> supportedCompetitions,
                             TeamService teamService) {
         this.client = client;
         this.competitions = competitions;

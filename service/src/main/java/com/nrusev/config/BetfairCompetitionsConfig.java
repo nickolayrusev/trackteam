@@ -11,15 +11,15 @@ import java.util.List;
 
 
 @Configuration
-@ConfigurationProperties(locations = "classpath:betfair-competitions-application.yml")
-public class CompetitionsConfig {
+@ConfigurationProperties(locations = "classpath:betfair-competitions.yml")
+public class BetfairCompetitionsConfig {
 
     private List<Competition> competitions;
 
-    public CompetitionsConfig() {
+    public BetfairCompetitionsConfig() {
     }
 
-    public CompetitionsConfig(List<Competition> competitions) {
+    public BetfairCompetitionsConfig(List<Competition> competitions) {
         this.competitions = competitions;
     }
 

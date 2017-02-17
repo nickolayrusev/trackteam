@@ -48,4 +48,7 @@ public interface TeamRepository  extends PagingAndSortingRepository<Team,Long> {
 
     @Query("select t from Team t join fetch t.country c where t.club = true and t.national = false and c.alpha2 in :codes order by t.title")
     List<Team> findByCountryAlpha2Code(@Param("codes")String ... codes);
+
+    @Query("select t from Team t join fetch t.country c where t.club = true and t.national = false and c.alpha3 in :codes order by t.title")
+    List<Team> findByCountryAlpha3Code(@Param("codes")String ... codes);
 }
