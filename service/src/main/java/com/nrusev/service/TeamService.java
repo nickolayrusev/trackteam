@@ -37,8 +37,12 @@ public class TeamService {
 
     public List<Team> findAll(int page, int size) {
         PageRequest request = new PageRequest(page,size, Sort.Direction.ASC,"title");
-        Page<Team> all = teamRepository.findAll(request);
-        return all.getContent();
+        return teamRepository.findAll(request).getContent();
+    }
+
+
+    public void delete(Team team){
+       this.teamRepository.delete(team);
     }
 
     public List<Team> findAllClubTeams() {
@@ -71,12 +75,13 @@ public class TeamService {
         if (!areVarArgsEmpty(countries)) {
             List<Team> byCountries = findByCountries(countries);
             if(!byCountries.isEmpty())
-                return Optional.of(byCountries.get(0));
+                return byCountries.stream().filter(t -> isTeamSame(name,t)).findAny();
         }
 
         List<Team> teams = findByTitleIgnoreCase(name);
         if(!teams.isEmpty())
-            return Optional.of(teams.get(0));
+            return teams.stream().filter(t -> isTeamSame(name,t)).findAny();
+
 
         return findAllClubTeams().stream().filter(t -> isTeamSame(name, t)).findAny();
     }

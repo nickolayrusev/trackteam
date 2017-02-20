@@ -1,5 +1,6 @@
 package com.nrusev;
 
+import com.nrusev.domain.Country;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.Team;
 import com.nrusev.domain.User;
@@ -38,6 +39,9 @@ public class ServiceApplicationTests {
 
 	@Autowired
 	GameService gameService;
+
+	@Autowired
+	CountryService countryService;
 
 	@Autowired @Qualifier("betfairExchanger")
 	DataExchanger dataExchanger;
@@ -155,7 +159,11 @@ public class ServiceApplicationTests {
 
 	@Test
 	public void testXmlSoccerClient(){
-		xmlSoccerExchanger.findTodayGames().forEach(System.out::println);
+		List<Game> todayGames = xmlSoccerExchanger.findTodayGames();
+		todayGames.forEach(System.out::println);
+		todayGames.forEach(game->{
+			this.gameService.
+		});
 	}
 
 	@Test
@@ -163,5 +171,29 @@ public class ServiceApplicationTests {
 		teamService.findAll(0,10).forEach(System.out::println);
 		System.out.println("--------------------------------------------");
 		teamService.findAll(1,10).forEach(System.out::println);
+	}
+
+	@Test
+	@Rollback(false)
+	public void testSaveTeam() {
+		Country scotland = this.countryService.findByName("Scotland").get(0);
+		String name = "Rangers";
+		Team newTeam = new Team();
+		newTeam.setCountry(scotland);
+		newTeam.setClub(true);
+		newTeam.setTitle(name);
+		newTeam.setKey(name.toLowerCase());
+		newTeam.setNational(false);
+		newTeam.setCode(name.substring(0, 3).toUpperCase());
+		teamService.save(newTeam);
+	}
+
+
+	@Test
+	@Rollback(false)
+	public void testDeleteTeam(){
+	    this.teamService.findTeam("Rangers","Scotland").ifPresent(t->{
+	    	this.teamService.delete(t);
+		});
 	}
 }
