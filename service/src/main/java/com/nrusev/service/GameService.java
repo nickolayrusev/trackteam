@@ -1,6 +1,6 @@
 package com.nrusev.service;
 
-import com.nrusev.domain.Game;
+import com.nrusev.domain.*;
 import com.nrusev.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,5 +48,10 @@ public class GameService {
         ZonedDateTime from = ZonedDateTime.of(now.getYear(),now.getMonthValue(),now.getDayOfMonth(),0,0,0,0,ZoneOffset.UTC);
         ZonedDateTime to = from.plus(Duration.ofHours(23).toMinutes() + 59, ChronoUnit.MINUTES);
         return this.gameRepository.findAllGamesByDate(Date.from(from.toInstant()), Date.from(to.toInstant()));
+    }
+
+    public Game save(Game game, Round round, Event event, Season season, League league){
+
+        return this.gameRepository.save(game);
     }
 }

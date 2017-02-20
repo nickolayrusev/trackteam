@@ -161,9 +161,6 @@ public class ServiceApplicationTests {
 	public void testXmlSoccerClient(){
 		List<Game> todayGames = xmlSoccerExchanger.findTodayGames();
 		todayGames.forEach(System.out::println);
-		todayGames.forEach(game->{
-			this.gameService.
-		});
 	}
 
 	@Test

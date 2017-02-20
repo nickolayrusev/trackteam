@@ -36,6 +36,7 @@ public class XmlSoccerExchanger implements DataExchanger {
     @Override
     public List<Game> findTodayGames() {
 //         client.getAllLeagues().forEach(System.out::println);
+        client.getFixturesByLeagueAndSeason("Scottish Premier League","1617").forEach(System.out::println);
         return client.getFixturesByDateInterval("2017-02-16","2017-02-28").stream().map(this::toGame).collect(toList());
     }
 
