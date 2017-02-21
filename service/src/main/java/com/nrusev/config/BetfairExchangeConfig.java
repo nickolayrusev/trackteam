@@ -3,6 +3,7 @@ package com.nrusev.config;
 import com.jbetfairng.BetfairClient;
 import com.jbetfairng.enums.Exchange;
 import com.jbetfairng.exceptions.LoginException;
+import com.nrusev.exchange.impl.Competition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -47,12 +48,12 @@ public class BetfairExchangeConfig {
     }
 
     @Bean("competitions")
-    public Set<BetfairCompetitionsConfig.Competition> getCompetitions()  {
+    public Set<Competition> getCompetitions()  {
         return betfairCompetitionsConfig.getCompetitions().stream().collect(toSet());
     }
 
     @Bean("supportedCompetitions")
-    public Set<BetfairCompetitionsConfig.Competition> getSupportedCompetitions(){
+    public Set<Competition> getSupportedCompetitions(){
         return getCompetitions().stream().filter(s->s.isSupported()).collect(toSet());
     }
 }

@@ -30,8 +30,8 @@ import static java.util.stream.Collectors.toSet;
 public class BetfairExchanger implements DataExchanger {
 
     private final BetfairClient client;
-    private final Set<BetfairCompetitionsConfig.Competition> competitions;
-    private final Set<BetfairCompetitionsConfig.Competition> supportedCompetitions;
+    private final Set<Competition> competitions;
+    private final Set<Competition> supportedCompetitions;
     private final TeamService teamService;
 
 
@@ -39,8 +39,8 @@ public class BetfairExchanger implements DataExchanger {
 
     @Autowired
     public BetfairExchanger(BetfairClient client,
-                            @Qualifier("competitions") Set<BetfairCompetitionsConfig.Competition> competitions,
-                            @Qualifier("supportedCompetitions") Set<BetfairCompetitionsConfig.Competition> supportedCompetitions,
+                            @Qualifier("competitions") Set<Competition> competitions,
+                            @Qualifier("supportedCompetitions") Set<Competition> supportedCompetitions,
                             TeamService teamService) {
         this.client = client;
         this.competitions = competitions;

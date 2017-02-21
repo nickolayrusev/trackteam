@@ -24,10 +24,10 @@ import static java.util.stream.Collectors.toList;
 public class XmlSoccerExchanger implements DataExchanger {
     private final XmlSoccerService client;
     private final TeamService teamService;
-    private final List<XmlSoccerCompetitionsConfig.Competition> supportedCompetitions;
+    private final List<Competition> supportedCompetitions;
 
     @Autowired
-    public XmlSoccerExchanger(XmlSoccerService client, TeamService teamService, List<XmlSoccerCompetitionsConfig.Competition> supportedCompetitions) {
+    public XmlSoccerExchanger(XmlSoccerService client, TeamService teamService, List<Competition> supportedCompetitions) {
         this.client = client;
         this.teamService = teamService;
         this.supportedCompetitions = supportedCompetitions;

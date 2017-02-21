@@ -50,8 +50,4 @@ public class GameService {
         return this.gameRepository.findAllGamesByDate(Date.from(from.toInstant()), Date.from(to.toInstant()));
     }
 
-    public Game save(Game game, Round round, Event event, Season season, League league){
-
-        return this.gameRepository.save(game);
-    }
 }

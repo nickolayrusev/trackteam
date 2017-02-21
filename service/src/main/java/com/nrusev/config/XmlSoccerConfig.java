@@ -2,6 +2,7 @@ package com.nrusev.config;
 
 import com.github.pabloo99.xmlsoccer.api.service.XmlSoccerService;
 import com.github.pabloo99.xmlsoccer.client.XmlSoccerServiceImpl;
+import com.nrusev.exchange.impl.Competition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -48,7 +49,7 @@ public class XmlSoccerConfig {
     }
 
     @Bean("xmlSoccerSupportedCompetitions")
-    public List<XmlSoccerCompetitionsConfig.Competition> getSupportedCompetitions(){
+    public List<Competition> getSupportedCompetitions(){
         return competitionsConfig.getCompetitions().stream().filter(s->s.isSupported()).collect(toList());
     }
 }
