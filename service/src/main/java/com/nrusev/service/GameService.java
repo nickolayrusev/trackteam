@@ -6,6 +6,7 @@ import com.nrusev.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import java.sql.Date;
 import java.time.Duration;
@@ -61,23 +62,37 @@ public class GameService {
     }
 
     @Transactional
-    public Game save(Game game, String round, SeasonKeys season, String league  ){
-//        Assert.notNull(game);
-//        Assert.notNull(round);
-//        Assert.notNull(season);
-//        Assert.notNull(league);
+    public Game save(Game game, Long round, SeasonKeys season, String league  ){
+        Assert.notNull(game);
+        Assert.notNull(round);
+        Assert.notNull(season);
+        Assert.notNull(league);
+        Assert.notNull(game.getHomeTeam());
+        Assert.notNull(game.getVisitorTeam());
+        Assert.notNull(game.getPlayAt());
 
         List<League> byLeagueTitle = leagueService.findByLeagueTitle(league);
         List<Season> byTitle = seasonService.findByTitle(season);
 
         byLeagueTitle.stream().findFirst().ifPresent(l->{
             byTitle.stream().findFirst().ifPresent(s->{
-                List<Event> byLeagueAndSeason = this.eventService.findByLeagueAndSeason(l, s);
+                this.eventService.findByLeagueAndSeason(l, s).stream().findFirst().ifPresent(e->{
+                    Round round1 = this.roundService.findByEventAndPosition(e, round).stream().findFirst()
+                            .orElse(buildNew(e, round));
+                    game.setRound(round1);
+                });
             });
         });
-//        Set<Event> events = byLeagueTitle.get(0).getEvents().stream().filter(s->)
 
-        return null;
+        return this.gameRepository.save(game);
+    }
+
+    private Round buildNew(Event event, Long position){
+        Round r = new Round();
+        r.setEvent(event);
+        r.setPos(position);
+        r.setKnockout(false);
+        return this.roundService.save(r);
     }
 
 }

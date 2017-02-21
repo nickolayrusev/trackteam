@@ -4,6 +4,7 @@ import com.github.pabloo99.xmlsoccer.api.dto.GetFixturesResultDto;
 import com.github.pabloo99.xmlsoccer.api.service.XmlSoccerService;
 import com.nrusev.config.XmlSoccerCompetitionsConfig;
 import com.nrusev.domain.Game;
+import com.nrusev.domain.Round;
 import com.nrusev.domain.Team;
 import com.nrusev.enums.SeasonKeys;
 import com.nrusev.exchange.DataExchanger;
@@ -58,16 +59,19 @@ public class XmlSoccerExchanger implements DataExchanger {
 
     private Game toGame(GetFixturesResultDto result){
         Game game = new Game();
+        Round r = new Round();
         supportedCompetitions.stream().filter(c-> result.getLeague().equalsIgnoreCase(c.getName())).findFirst().ifPresent(c->{
             teamService.findTeamByCountryAlpha3Code(result.getHomeTeam(), c.getRegion()).ifPresent(game::setHomeTeam);
             teamService.findTeamByCountryAlpha3Code(result.getAwayTeam(), c.getRegion()).ifPresent(game::setVisitorTeam);
-            System.out.println("t1 : " + result.getHomeTeam() + " t2 : " +result.getAwayTeam());
+//            System.out.println("t1 : " + result.getHomeTeam() + " t2 : " +result.getAwayTeam());
         });
         game.setPlayAt(result.getDate());
         if(result.getHomeGoals() != null && result.getAwayGoals()!=null) {
             game.setScore1(result.getHomeGoals().longValue());
             game.setScore2(result.getAwayGoals().longValue());
         }
+        r.setPos(Long.valueOf(result.getRound()));
+        game.setRound(r);
         return game;
     }
 }

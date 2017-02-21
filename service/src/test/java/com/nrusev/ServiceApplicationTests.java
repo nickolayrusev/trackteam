@@ -197,7 +197,11 @@ public class ServiceApplicationTests {
 
 	@Test
 	public void saveGame(){
-		Game g = new Game();
-		this.gameService.save(g,null, SeasonKeys.SEASON_2016_2017,"Scottish Premier League");
+
+		List<Game> todayGames = xmlSoccerExchanger.getFixturesByLeagueAndSeason("Scottish Premier League", SeasonKeys.SEASON_2016_2017);
+
+		todayGames.stream().filter(g->g.getRound().getPos().equals(1L)).forEach(g->{
+			this.gameService.save(g,g.getRound().getPos(), SeasonKeys.SEASON_2016_2017,"Scottish Premier League");
+		});
 	}
 }
