@@ -112,4 +112,15 @@ public class Season {
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Season{" +
+                "id=" + id +
+                ", key='" + key + '\'' +
+                ", title='" + title + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
+    }
 }

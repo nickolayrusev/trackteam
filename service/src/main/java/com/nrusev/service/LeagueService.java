@@ -17,7 +17,10 @@ public class LeagueService {
 	}
 	
 	public List<League> findAllClubLeagues(){
-		List<League> findByClubTrue = leagueRepository.findByClubTrue();
-		return findByClubTrue;
+		return leagueRepository.findByClubTrue();
+	}
+
+	public List<League> findByLeagueTitle(String title){
+		return this.leagueRepository.findByTitle(title);
 	}
 }

@@ -4,6 +4,7 @@ import com.nrusev.domain.Country;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.Team;
 import com.nrusev.domain.User;
+import com.nrusev.enums.SeasonKeys;
 import com.nrusev.exchange.DataExchanger;
 import com.nrusev.service.*;
 import info.debatty.java.stringsimilarity.NormalizedLevenshtein;
@@ -192,5 +193,11 @@ public class ServiceApplicationTests {
 	    this.teamService.findTeam("Rangers","Scotland").ifPresent(t->{
 	    	this.teamService.delete(t);
 		});
+	}
+
+	@Test
+	public void saveGame(){
+		Game g = new Game();
+		this.gameService.save(g,null, SeasonKeys.SEASON_2016_2017,"Scottish Premier League");
 	}
 }

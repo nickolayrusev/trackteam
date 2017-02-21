@@ -5,15 +5,13 @@ import com.github.pabloo99.xmlsoccer.api.service.XmlSoccerService;
 import com.nrusev.config.XmlSoccerCompetitionsConfig;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.Team;
+import com.nrusev.enums.SeasonKeys;
 import com.nrusev.exchange.DataExchanger;
 import com.nrusev.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -35,8 +33,8 @@ public class XmlSoccerExchanger implements DataExchanger {
 
     @Override
     public List<Game> findTodayGames() {
-//         client.getAllLeagues().forEach(System.out::println);
-        client.getFixturesByLeagueAndSeason("Scottish Premier League","1617").forEach(System.out::println);
+         client.getAllLeagues().forEach(System.out::println);
+//        client.getFixturesByLeagueAndSeason("Scottish Premier League","1617").forEach(System.out::println);
         return client.getFixturesByDateInterval("2017-02-16","2017-02-28").stream().map(this::toGame).collect(toList());
     }
 
@@ -44,6 +42,14 @@ public class XmlSoccerExchanger implements DataExchanger {
     public List<Game> findGameByDate(Date from, Date to) {
         return null;
     }
+
+    @Override
+    public List<Game> getFixturesByLeagueAndSeason(String league, SeasonKeys season) {
+        String seasonString = Arrays.stream(season.getKey().split("/")).reduce("", (s, t) -> s + t.substring(2,4));
+        return client.getFixturesByLeagueAndSeason(league,seasonString).stream().map(this::toGame).collect(toList());
+
+    }
+
 
     @Override
     public Set<Team> todaysTeams() {

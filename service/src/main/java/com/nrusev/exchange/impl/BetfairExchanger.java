@@ -8,6 +8,7 @@ import com.jbetfairng.entities.TimeRange;
 import com.nrusev.config.BetfairCompetitionsConfig;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.Team;
+import com.nrusev.enums.SeasonKeys;
 import com.nrusev.exchange.DataExchanger;
 import com.nrusev.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,6 +71,11 @@ public class BetfairExchanger implements DataExchanger {
 
     @Override
     public List<Game> findGameByDate(Date from, Date to) {
+        return null;
+    }
+
+    @Override
+    public List<Game> getFixturesByLeagueAndSeason(String league, SeasonKeys season) {
         return null;
     }
 

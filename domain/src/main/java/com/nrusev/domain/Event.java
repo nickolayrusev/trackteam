@@ -177,4 +177,19 @@ public class Event {
         result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "id=" + id +
+                ", key='" + key + '\'' +
+                ", league=" + league +
+                ", season=" + season +
+                ", startAt=" + startAt +
+                ", endAt=" + endAt +
+                ", team3=" + team3 +
+                ", sources='" + sources + '\'' +
+                ", config='" + config + '\'' +
+                '}';
+    }
 }

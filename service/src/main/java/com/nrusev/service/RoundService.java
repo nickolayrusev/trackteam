@@ -1,5 +1,6 @@
 package com.nrusev.service;
 
+import com.nrusev.domain.Round;
 import com.nrusev.repository.RoundRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,4 +17,8 @@ public class RoundService {
         this.roundRepository = roundRepository;
     }
 
+
+    public Round save(Round round){
+        return this.roundRepository.save(round);
+    }
 }
