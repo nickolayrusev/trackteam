@@ -17,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringView;
 
+import java.time.LocalDate;
+
 
 @SuppressWarnings("serial")
 @SpringView(name = "home")
@@ -55,7 +57,7 @@ public class HomePresenter extends MvpPresenter<HomeView> {
     }
 
     private void loadTodaysGames() {
-        getView().displayTodaysGames(gameService.findTodaysGames());
+        getView().displayTodaysGames(gameService.findGamesByDate(LocalDate.of(2017,2,4)));
     }
 
 

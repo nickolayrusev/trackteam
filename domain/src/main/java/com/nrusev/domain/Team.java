@@ -19,7 +19,6 @@ import com.nrusev.support.ListToStringConveter;
 @JsonIgnoreProperties(ignoreUnknown = true, value = "country")
 @NamedEntityGraph(name = "team.country",
         attributeNodes = @NamedAttributeNode("country"))
-@TableGenerator(name="seq", initialValue=1434, allocationSize=1)
 public class Team extends AbstractAuditableEntity{
 
     private Long id;
@@ -39,7 +38,7 @@ public class Team extends AbstractAuditableEntity{
     private Set<Event> events = new HashSet<>(0);
 
     @Id
-    @GeneratedValue(generator = "seq")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     public Long getId() {
         return id;

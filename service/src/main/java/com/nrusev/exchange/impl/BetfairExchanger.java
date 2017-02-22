@@ -5,9 +5,7 @@ import com.jbetfairng.entities.Event;
 import com.jbetfairng.entities.EventResult;
 import com.jbetfairng.entities.MarketFilter;
 import com.jbetfairng.entities.TimeRange;
-import com.nrusev.config.BetfairCompetitionsConfig;
 import com.nrusev.domain.Game;
-import com.nrusev.domain.Team;
 import com.nrusev.enums.SeasonKeys;
 import com.nrusev.exchange.DataExchanger;
 import com.nrusev.service.TeamService;
@@ -50,7 +48,7 @@ public class BetfairExchanger implements DataExchanger {
     }
 
     @Override
-    public List<Game> findTodayGames() {
+    public List<GameDto> findTodayGames() {
         MarketFilter filter = new MarketFilter();
         filter.setCompetitionIds(supportedCompetitions.stream().map(c->String.valueOf(c.getId())).collect(toSet()));
 
@@ -70,37 +68,24 @@ public class BetfairExchanger implements DataExchanger {
     }
 
     @Override
-    public List<Game> findGameByDate(Date from, Date to) {
+    public List<GameDto> findGameByDate(Date from, Date to) {
         return null;
     }
 
     @Override
-    public List<Game> getFixturesByLeagueAndSeason(String league, SeasonKeys season) {
+    public List<GameDto> getFixturesByLeagueAndSeason(String league, SeasonKeys season) {
         return null;
     }
 
-    @Override
-    public Set<Team> todaysTeams() {
-        return null;
-    }
-
-    private Game toGame(Event event){
+    private GameDto toGame(Event event){
         String[] split = event.getName().split(" v ");
         if(split.length == 2) {
-            Game game = new Game();
             String homeTeam = split[0], visitorTeam = split[1];
-            System.out.println("home : "+ homeTeam + " visitor: "+visitorTeam + " date : "+event.getOpenDate());
-            final String countryCode = event.getCountryCode();
-            teamService.findTeamByCountryAlpha2Code(homeTeam, countryCode).ifPresent(s -> {
-                System.out.println(" team is found " + s.getTitle());
-                game.setHomeTeam(s);
-            });
-            teamService.findTeamByCountryAlpha2Code(visitorTeam, countryCode).ifPresent(s -> {
-                System.out.println(" team is found " + s.getTitle());
-                game.setVisitorTeam(s);
-            });
-            game.setPlayAt(event.getOpenDate());
-            return game;
+            GameDto gameDto = new GameDto();
+            gameDto.setHomeTeam(homeTeam);
+            gameDto.setVisitorTeam(visitorTeam);
+            gameDto.setPlayAt(event.getOpenDate());
+            return gameDto;
         }
         return null;
     }

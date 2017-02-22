@@ -2,18 +2,18 @@ package com.nrusev.service;
 
 import com.nrusev.domain.*;
 import com.nrusev.enums.SeasonKeys;
+import com.nrusev.exchange.impl.Competition;
 import com.nrusev.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
-import java.sql.Date;
-import java.time.Duration;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by Nikolay Rusev on 27.10.2016 г..
@@ -25,15 +25,20 @@ public class GameService {
     private final SeasonService seasonService;
     private final RoundService roundService;
     private final EventService eventService;
+    private final TeamService teamService;
+    private List<Competition> supportedCompetitions;
 
     @Autowired
     public GameService(GameRepository gameRepository, LeagueService leagueService,
-                       SeasonService seasonService, RoundService roundService, EventService eventService) {
+                       SeasonService seasonService, RoundService roundService, EventService eventService,
+                       TeamService teamService, List<Competition> supportedCompetitions) {
         this.gameRepository = gameRepository;
         this.leagueService = leagueService;
         this.seasonService = seasonService;
         this.roundService = roundService;
         this.eventService = eventService;
+        this.teamService = teamService;
+        this.supportedCompetitions = supportedCompetitions;
     }
 
     public Game findById(Long id){
@@ -54,45 +59,73 @@ public class GameService {
 
     //TODO: ugly writtern needs refactoring. Do not get todays games from exchanger. Get them from db
     public List<Game> findTodaysGames(){
-//        return this.gameRepository.findAllClub("2014/15","en","England").stream().filter(g->g.getRound().getTitle().equalsIgnoreCase("Matchday 38")).collect(toList());
-        ZonedDateTime now = ZonedDateTime.now(ZoneOffset.UTC);
-        ZonedDateTime from = ZonedDateTime.of(now.getYear(),now.getMonthValue(),now.getDayOfMonth(),0,0,0,0,ZoneOffset.UTC);
-        ZonedDateTime to = from.plus(Duration.ofHours(23).toMinutes() + 59, ChronoUnit.MINUTES);
-        return this.gameRepository.findAllGamesByDate(Date.from(from.toInstant()), Date.from(to.toInstant()));
+        LocalDate now = LocalDate.now(ZoneOffset.UTC);
+        Instant from = now.atStartOfDay().toInstant(ZoneOffset.UTC);
+        Instant to = now.atStartOfDay().plus(23,ChronoUnit.HOURS).plus(59,ChronoUnit.MINUTES).toInstant(ZoneOffset.UTC);
+        System.out.println("from : " + from + " to : " + to);
+        return this.gameRepository.findAllGamesByDate(Date.from(from), Date.from(to));
+    }
+
+    public List<Game> findGamesByDate(LocalDate date){
+        Instant from = date.atStartOfDay().toInstant(ZoneOffset.UTC);
+        Instant to = date.atStartOfDay().plus(23,ChronoUnit.HOURS).plus(59,ChronoUnit.MINUTES).toInstant(ZoneOffset.UTC);
+       return this.gameRepository.findAllGamesByDate(Date.from(from),Date.from(to));
     }
 
     @Transactional
-    public Game save(Game game, Long round, SeasonKeys season, String league  ){
-        Assert.notNull(game);
+    public Game save(Long round, SeasonKeys season, String league,
+                     String homeTeam, String visitorTeam, Long homeTeamGoals,
+                        Long awayTeamGoals, Date playAt, Long pos ){
         Assert.notNull(round);
         Assert.notNull(season);
         Assert.notNull(league);
-        Assert.notNull(game.getHomeTeam());
-        Assert.notNull(game.getVisitorTeam());
-        Assert.notNull(game.getPlayAt());
 
-        List<League> byLeagueTitle = leagueService.findByLeagueTitle(league);
-        List<Season> byTitle = seasonService.findByTitle(season);
-
-        byLeagueTitle.stream().findFirst().ifPresent(l->{
-            byTitle.stream().findFirst().ifPresent(s->{
-                this.eventService.findByLeagueAndSeason(l, s).stream().findFirst().ifPresent(e->{
-                    Round round1 = this.roundService.findByEventAndPosition(e, round).stream().findFirst()
-                            .orElse(buildNew(e, round));
-                    game.setRound(round1);
-                });
-            });
+        Game game = new Game();
+        leagueService.findByLeagueTitle(league).stream().findFirst().ifPresent(l->{
+           seasonService.findByTitle(season).stream().findFirst().ifPresent(s->{
+              eventService.findByLeagueAndSeason(l,s).stream().findFirst().ifPresent(e->{
+                    game.setRound(roundService.findByEventAndPosition(e,round).stream().findFirst().orElse(addNewRound(e,round)));
+              });
+           });
         });
-
-        return this.gameRepository.save(game);
+        game.setPlayAt(playAt);
+        findCompetition(league).ifPresent(c->{
+            teamService.findTeamByCountryAlpha2Code(homeTeam,c.getRegion()).ifPresent(game::setHomeTeam);
+            teamService.findTeamByCountryAlpha2Code(visitorTeam,c.getRegion()).ifPresent(game::setVisitorTeam);
+        });
+       game.setScore1(homeTeamGoals);
+       game.setScore2(awayTeamGoals);
+       game.setKnockout(false);
+       game.setHome(true);
+       game.setWinner(winner(homeTeamGoals,awayTeamGoals));
+       game.setWinner90(winner(homeTeamGoals,awayTeamGoals));
+       game.setPos(pos);
+       game.setPostponed(false);
+       return this.gameRepository.save(game);
     }
 
-    private Round buildNew(Event event, Long position){
-        Round r = new Round();
-        r.setEvent(event);
-        r.setPos(position);
-        r.setKnockout(false);
-        return this.roundService.save(r);
+    private Optional<Competition> findCompetition(String leagueName){
+       return supportedCompetitions.stream().filter(c->c.getName().equals(leagueName)).findFirst();
+    }
+
+    private Round addNewRound(Event event, Long position){
+        Round round = new Round();
+        round.setEvent(event);
+        round.setPos(position);
+        round.setKnockout(false);
+        round.setAuto(false);
+        round.setStartAt(event.getStartAt());
+        round.setEndAt(event.getEndAt());
+        round.setTitle("Matchday " + position);
+        return this.roundService.save(round);
+    }
+
+    private Long winner(Long home, Long away){
+        if(home == null || away == null)
+            return null;
+        if(away.equals(home))
+            return 0L;
+       return  (home > away) ? 1L : 2L;
     }
 
 }

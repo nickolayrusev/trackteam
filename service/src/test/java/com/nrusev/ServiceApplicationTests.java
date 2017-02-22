@@ -1,11 +1,13 @@
 package com.nrusev;
 
+import antlr.collections.impl.IntRange;
 import com.nrusev.domain.Country;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.Team;
 import com.nrusev.domain.User;
 import com.nrusev.enums.SeasonKeys;
 import com.nrusev.exchange.DataExchanger;
+import com.nrusev.exchange.impl.GameDto;
 import com.nrusev.service.*;
 import info.debatty.java.stringsimilarity.NormalizedLevenshtein;
 import org.junit.Test;
@@ -20,7 +22,11 @@ import org.springframework.util.Assert;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = {ServiceApplication.class})
@@ -160,7 +166,7 @@ public class ServiceApplicationTests {
 
 	@Test
 	public void testXmlSoccerClient(){
-		List<Game> todayGames = xmlSoccerExchanger.findTodayGames();
+		List<GameDto> todayGames = xmlSoccerExchanger.findTodayGames();
 		todayGames.forEach(System.out::println);
 	}
 
@@ -198,10 +204,18 @@ public class ServiceApplicationTests {
 	@Test
 	public void saveGame(){
 
-		List<Game> todayGames = xmlSoccerExchanger.getFixturesByLeagueAndSeason("Scottish Premier League", SeasonKeys.SEASON_2016_2017);
+		List<GameDto> todayGames = xmlSoccerExchanger.getFixturesByLeagueAndSeason("Scottish Premier League", SeasonKeys.SEASON_2016_2017);
+		Map<Long, List<GameDto>> collect = todayGames.stream().collect(Collectors.groupingBy(GameDto::getRound));
+		collect.forEach((r, q) -> {
+				IntStream.range(0,q.size()).forEach(i->{
+				    final GameDto gameDto = q.get(i);
+					this.gameService.save(gameDto.getRound(), SeasonKeys.SEASON_2016_2017,
+							"Scottish Premier League", gameDto.getHomeTeam(), gameDto.getVisitorTeam(),
+							gameDto.getHomeTeamGoals(), gameDto.getVisitorTeamGoals(), gameDto.getPlayAt(), (long) i + 1);
+				});
 
-		todayGames.stream().filter(g->g.getRound().getPos().equals(1L)).forEach(g->{
-			this.gameService.save(g,g.getRound().getPos(), SeasonKeys.SEASON_2016_2017,"Scottish Premier League");
 		});
 	}
+
+
 }

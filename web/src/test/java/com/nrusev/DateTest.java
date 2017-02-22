@@ -11,6 +11,9 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by Nikolay Rusev on 10.2.2017 г..
@@ -51,5 +54,43 @@ public class DateTest {
                 return s+t;
         });
         System.out.println(seasonString);
+    }
+    @Test
+    public void testGrouping(){
+        List<Foo> foos = Arrays.asList(new Foo(1,"foo"), new Foo(1,"bar"),new Foo(2,"bazz"));
+
+        Map<Integer, List<Foo>> collect = foos.stream().collect(Collectors.groupingBy(Foo::getRound));
+        collect.forEach((s,q)->{
+            System.out.println("Round : " + s);
+            q.forEach(System.out::println);
+        });
+    }
+    private static class Foo{
+        int round;
+        String name;
+
+        public Foo(int round, String name) {
+            this.round = round;
+            this.name = name;
+        }
+
+        public int getRound() {
+            return round;
+        }
+
+        public void setRound(int round) {
+            this.round = round;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+
+
     }
 }
