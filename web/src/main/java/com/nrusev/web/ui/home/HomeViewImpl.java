@@ -34,7 +34,7 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 
-	private VerticalLayout layout;
+	private HorizontalLayout layout;
 
 	private final EventBus eventBus;
 
@@ -60,7 +60,7 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 	}
 
 	private void buildLayout() {
-		layout = new VerticalLayout();
+		layout = new HorizontalLayout();
 		layout.setWidth("100%");
 		layout.setMargin(true);
 		layout.setSpacing(true);
@@ -126,7 +126,6 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 			table.setReadOnly(true);
 			table.setColumnCollapsingAllowed(false);
 			table.setColumnReorderingAllowed(false);
-			table.setColumnWidth("Time",30);
 			layout.addComponent(table);
 		});
 	}

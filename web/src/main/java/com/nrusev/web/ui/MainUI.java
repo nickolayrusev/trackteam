@@ -30,7 +30,7 @@ import java.util.Locale;
 
 
 @SpringUI(path = "")
-@Theme("valo")
+@Theme("my-theme")
 @SuppressWarnings("serial")
 //@Widgetset("AppWidgetset")
 public class MainUI extends UI {
