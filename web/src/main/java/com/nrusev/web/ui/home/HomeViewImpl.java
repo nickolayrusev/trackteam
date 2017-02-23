@@ -34,7 +34,7 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
 
-	private HorizontalLayout layout;
+	private VerticalLayout layout;
 
 	private final EventBus eventBus;
 
@@ -46,7 +46,7 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 	@PostConstruct
 	public void postConstruct() {
 		LOG.info("Creating new MainView");
-		setSizeFull();
+//		setSizeFull();
 	}
 
 	@PreDestroy
@@ -60,7 +60,7 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 	}
 
 	private void buildLayout() {
-		layout = new HorizontalLayout();
+		layout = new VerticalLayout();
 		layout.setWidth("100%");
 		layout.setMargin(true);
 		layout.setSpacing(true);
