@@ -4,6 +4,7 @@ package com.nrusev.web.ui.components;
 import com.nrusev.domain.Country;
 import com.nrusev.domain.Team;
 import com.nrusev.domain.TeamPool;
+import com.nrusev.web.ui.match.MatchView;
 import com.vaadin.data.Item;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.server.*;

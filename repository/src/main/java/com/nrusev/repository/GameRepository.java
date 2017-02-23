@@ -62,7 +62,10 @@ public interface GameRepository extends CrudRepository<Game, Long> {
             "join fetch g.homeTeam " +
             "join fetch g.visitorTeam " +
             "join fetch g.round r " +
-            "where g.playAt between :from and :to order by g.playAt desc")
+            "join fetch r.event e " +
+            "join fetch e.season s " +
+            "join fetch e.league l " +
+            "where g.playAt between :from and :to order by g.playAt asc")
     List<Game> findAllGamesByDate(@Temporal(TemporalType.DATE) @Param("from") Date from, @Temporal(TemporalType.DATE) @Param("to")Date to);
 
 }

@@ -1,14 +1,19 @@
 package com.nrusev.web.ui.home;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import com.google.common.eventbus.EventBus;
 import com.nrusev.domain.Game;
+import com.nrusev.domain.League;
 import com.nrusev.web.ui.components.MyComponent;
+import com.nrusev.web.ui.components.PoolComponent;
 import com.vaadin.ui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,14 +31,14 @@ import static com.nrusev.support.TextUtils.getGameCaption;
 @SpringComponent
 @ViewScope
 public class HomeViewImpl extends CssLayout implements HomeView {
-	
+
 	private final Logger LOG = LoggerFactory.getLogger(getClass());
-	
+
 	private VerticalLayout layout;
 
 	private final EventBus eventBus;
 
-    @Autowired
+	@Autowired
 	public HomeViewImpl(EventBus eventBus) {
 		this.eventBus = eventBus;
 	}
@@ -53,21 +58,17 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 	public void initLayout() {
 		buildLayout();
 	}
-	
+
 	private void buildLayout() {
 		layout = new VerticalLayout();
 		layout.setWidth("100%");
 		layout.setMargin(true);
 		layout.setSpacing(true);
 		addComponent(layout);
-		
+
 		Label caption = new Label(FontAwesome.HOME.getHtml() + " Welcome to my awesome App", ContentMode.HTML);
 		caption.addStyleName(ValoTheme.LABEL_H1);
 		layout.addComponent(caption);
-		
-		Label subCaption = new Label("These are my games: ", ContentMode.HTML);
-		subCaption.addStyleName(ValoTheme.LABEL_LIGHT);
-		layout.addComponent(subCaption);
 
 //		Button b = new Button("caption");
 //		b.addClickListener(l->{
@@ -88,15 +89,45 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 
 	@Override
 	public void displayTodaysGames(List<Game> todaysGames) {
-		todaysGames.forEach(game->{
-			final Button btnGame = new Button();
-			btnGame.addStyleName(ValoTheme.BUTTON_LINK);
-			btnGame.setData(game);
-			btnGame.setCaption(getGameCaption(game, UI.getCurrent().getLocale()));
-			btnGame.addClickListener(l->{
-				this.eventBus.post(new GameClickedEvent((Game) l.getButton().getData()));
+
+		Map<League, List<Game>> collect = todaysGames.stream().collect(Collectors.groupingBy(g -> g.getRound().getEvent().getLeague()));
+		collect.forEach((league, games) -> {
+			Table table = new Table(league.getTitle());
+			table.addContainerProperty("Time",String.class,null);
+			table.addContainerProperty("Home",Button.class,null);
+			table.addContainerProperty("Away",Button.class,null);
+			table.addContainerProperty("Result",String.class,null);
+
+			games.forEach(game -> {
+				SimpleDateFormat format = new SimpleDateFormat("HH:mm");
+
+				final Button btnHome= new Button();
+				btnHome.setCaption(game.getHomeTeam().getTitle());
+				btnHome.addStyleName(ValoTheme.BUTTON_LINK);
+				btnHome.addClickListener(l-> this.eventBus.post(new TeamClickedEvent(game.getHomeTeam())));
+
+				final Button btnAway = new Button();
+				btnAway.setCaption(game.getVisitorTeam().getTitle());
+				btnAway.addStyleName(ValoTheme.BUTTON_LINK);
+				btnAway.addClickListener(l->  this.eventBus.post(new TeamClickedEvent(game.getVisitorTeam())));
+
+				table.addItem(new Object[]{
+								format.format(game.getPlayAt()),
+								btnHome,
+								btnAway,
+								game.getScore1() +" : " +game.getScore2()
+						},
+						game.getId());
+				table.setPageLength(games.size());
 			});
-			layout.addComponent(btnGame);
+			table.addItemClickListener(s-> games.stream().filter(game-> game.getId().equals(s.getItemId())).findFirst().ifPresent(r->{
+				this.eventBus.post(new GameClickedEvent(r));
+			}));
+			table.setReadOnly(true);
+			table.setColumnCollapsingAllowed(false);
+			table.setColumnReorderingAllowed(false);
+			table.setColumnWidth("Time",30);
+			layout.addComponent(table);
 		});
 	}
 

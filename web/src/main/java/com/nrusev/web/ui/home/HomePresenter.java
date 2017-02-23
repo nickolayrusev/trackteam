@@ -62,6 +62,11 @@ public class HomePresenter extends MvpPresenter<HomeView> {
 
 
     @Subscribe
+    public void handleTeamClicked(HomeView.TeamClickedEvent event){
+        navigator.navigateTo("team" + "/" + event.getTeam().getId());
+    }
+
+    @Subscribe
     public void handleGameChange(HomeView.GameClickedEvent event) {
         System.out.println("navigating...." + event.getGame().getId());
         navigator.navigateTo("match" + "/" + event.getGame().getId());

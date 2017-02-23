@@ -1,6 +1,7 @@
 package com.nrusev.web.ui.home;
 
 import com.nrusev.domain.Game;
+import com.nrusev.domain.Team;
 import com.nrusev.web.ui.mvp.MvpView;
 
 import java.util.List;
@@ -16,7 +17,6 @@ public interface HomeView extends MvpView {
 	 */
 //	List<Button> getMatchButtons();
 	class GameClickedEvent {
-
 		private Game game;
 
 		public GameClickedEvent(Game data) {
@@ -28,4 +28,15 @@ public interface HomeView extends MvpView {
 		}
 	}
 
+	class TeamClickedEvent{
+		private Team team;
+
+		public TeamClickedEvent(Team team) {
+			this.team = team;
+		}
+
+		public Team getTeam() {
+			return team;
+		}
+	}
 }

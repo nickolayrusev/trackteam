@@ -12,11 +12,11 @@ public final class TextUtils {
     private TextUtils(){}
 
     public static String getGameCaption(Game game, Locale locale){
-        SimpleDateFormat format = new SimpleDateFormat("yyyy/MMMM/dd", locale);
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm", locale);
         StringBuilder builder = new StringBuilder();
-        builder.append(game.getRound().getTitle() )
-                .append(" ")
-                .append(format.format(game.getPlayAt()))
+//        builder.append(game.getRound().getTitle() )
+//                .append(" ")
+                builder.append(format.format(game.getPlayAt()))
                 .append(" ")
                 .append(game.getHomeTeam().getTitle())
                 .append(" vs. ")
