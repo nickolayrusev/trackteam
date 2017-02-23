@@ -44,7 +44,6 @@ public class HomePresenter extends MvpPresenter<HomeView> {
     @PreDestroy
     public void preDestroy() {
         System.out.println("destroying ..." + this.getClass().getSimpleName());
-        this.getEventBus().unregister(this);
     }
 
     @Override
@@ -72,8 +71,8 @@ public class HomePresenter extends MvpPresenter<HomeView> {
         navigator.navigateTo("match" + "/" + event.getGame().getId());
     }
 
-    @Subscribe
-    public void handleOkClick(String ok) {
-        System.out.println("from parent component ..." + ok);
-    }
+//    @Subscribe
+//    public void handleOkClick(String ok) {
+//        System.out.println("from parent component ..." + ok);
+//    }
 }

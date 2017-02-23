@@ -19,11 +19,7 @@ import java.util.List;
 public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
     private HorizontalLayout layout;
-
-
     private final EventBus eventBus;
-
-
 
     @Autowired
     public UserPoolsViewImpl(EventBus eventBus) {
