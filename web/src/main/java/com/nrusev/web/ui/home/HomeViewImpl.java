@@ -101,15 +101,11 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 			games.forEach(game -> {
 				SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
-				final Button btnHome= new Button();
-				btnHome.setCaption(game.getHomeTeam().getTitle());
+				final Button btnHome= new Button(game.getHomeTeam().getTitle(),l-> this.eventBus.post(new TeamClickedEvent(game.getHomeTeam())));
 				btnHome.addStyleName(ValoTheme.BUTTON_LINK);
-				btnHome.addClickListener(l-> this.eventBus.post(new TeamClickedEvent(game.getHomeTeam())));
 
-				final Button btnAway = new Button();
-				btnAway.setCaption(game.getVisitorTeam().getTitle());
+				final Button btnAway = new Button(game.getVisitorTeam().getTitle(),l-> new TeamClickedEvent(game.getVisitorTeam()));
 				btnAway.addStyleName(ValoTheme.BUTTON_LINK);
-				btnAway.addClickListener(l->  this.eventBus.post(new TeamClickedEvent(game.getVisitorTeam())));
 
 				table.addItem(new Object[]{
 								format.format(game.getPlayAt()),

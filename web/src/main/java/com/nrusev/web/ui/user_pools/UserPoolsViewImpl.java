@@ -10,6 +10,7 @@ import com.vaadin.ui.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 /**
  * Created by Nikolay Rusev on 26.10.2016 г..
@@ -60,7 +61,7 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
     @Override
     public void reloadPool(TeamPool pool, List<Team> teams){
-        for(int i = 0;i<layout.getComponentCount();i++){
+        IntStream.range(0,layout.getComponentCount()).forEach(i->{
             Component c = layout.getComponent(i);
             if(c instanceof PoolComponent){
                 PoolComponent poolComponent = (PoolComponent) c;
@@ -68,7 +69,7 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
                     layout.replaceComponent(poolComponent, createPoolComponent(pool,teams));
                 }
             }
-        }
+        });
     }
 
     @Override
@@ -78,14 +79,17 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
     @Override
     public void removePool(TeamPool pool) {
-        layout.forEach(c->{
+        int count = layout.getComponentCount();
+        for(int i=0;i<count;i++){
+            Component c = layout.getComponent(i);
             if(c instanceof PoolComponent){
                 PoolComponent poolComponent = (PoolComponent) c;
                 if(pool.getId().equals(poolComponent.getPool().getId())){
                     layout.removeComponent(poolComponent);
+                    count--;
                 }
             }
-        });
+        };
     }
 
     private void buildLayout() {
@@ -94,6 +98,7 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
         layout.setSpacing(true);
         addComponent(layout);
     }
+
 
     private PoolComponent createPoolComponent(TeamPool pool, List<Team> teams){
         PoolComponent poolComponent = new PoolComponent(pool, teams);
