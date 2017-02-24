@@ -60,14 +60,15 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
     @Override
     public void reloadPool(TeamPool pool, List<Team> teams){
-        layout.forEach(c-> {
+        for(int i = 0;i<layout.getComponentCount();i++){
+            Component c = layout.getComponent(i);
             if(c instanceof PoolComponent){
                 PoolComponent poolComponent = (PoolComponent) c;
                 if(pool.getId().equals(poolComponent.getPool().getId())){
                     layout.replaceComponent(poolComponent, createPoolComponent(pool,teams));
                 }
             }
-        });
+        }
     }
 
     @Override

@@ -93,6 +93,7 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
     @Subscribe
     public void addPool(TeamPool pool){
         teamPoolService.save(pool);
+        System.out.println("adding new pool..." + pool.getId());
         getView().addPool(pool, teams);
     }
 
