@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -104,14 +105,14 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 				final Button btnHome= new Button(game.getHomeTeam().getTitle(),l-> this.eventBus.post(new TeamClickedEvent(game.getHomeTeam())));
 				btnHome.addStyleName(ValoTheme.BUTTON_LINK);
 
-				final Button btnAway = new Button(game.getVisitorTeam().getTitle(),l-> new TeamClickedEvent(game.getVisitorTeam()));
+				final Button btnAway = new Button(game.getVisitorTeam().getTitle(),l-> this.eventBus.post( new TeamClickedEvent(game.getVisitorTeam())));
 				btnAway.addStyleName(ValoTheme.BUTTON_LINK);
 
 				table.addItem(new Object[]{
 								format.format(game.getPlayAt()),
 								btnHome,
 								btnAway,
-								game.getScore1() +" : " +game.getScore2()
+								questionIfNull(game.getScore1() ) +" : " + questionIfNull(game.getScore2() )
 						},
 						game.getId());
 				table.setPageLength(games.size());
@@ -126,5 +127,10 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 		});
 	}
 
+	private String questionIfNull(Long score){
+		if(Objects.isNull(score))
+			return "?";
+		return String.valueOf(score);
+	}
 
 }

@@ -65,10 +65,10 @@ public class GameService {
         return this.gameRepository.findAllGamesByDate(Date.from(from), Date.from(to));
     }
 
-    public List<Game> findGamesByDate(LocalDate date){
+    public List<Game> findGamesByDate(LocalDate date) {
         Instant from = date.atStartOfDay().toInstant(ZoneOffset.UTC);
-        Instant to = date.atStartOfDay().plus(23,ChronoUnit.HOURS).plus(59,ChronoUnit.MINUTES).toInstant(ZoneOffset.UTC);
-       return this.gameRepository.findAllGamesByDate(Date.from(from),Date.from(to));
+        Instant to = date.atStartOfDay().plus(23, ChronoUnit.HOURS).plus(59, ChronoUnit.MINUTES).toInstant(ZoneOffset.UTC);
+        return this.gameRepository.findAllGamesByDate(Date.from(from), Date.from(to));
     }
 
     @Transactional

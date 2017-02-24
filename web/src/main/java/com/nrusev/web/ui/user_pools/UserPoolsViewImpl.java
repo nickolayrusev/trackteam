@@ -89,7 +89,7 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
                     count--;
                 }
             }
-        };
+        }
     }
 
     private void buildLayout() {

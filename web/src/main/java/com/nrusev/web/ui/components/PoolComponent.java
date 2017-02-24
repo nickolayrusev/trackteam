@@ -138,6 +138,7 @@ public class PoolComponent extends CustomComponent {
         pool.getTeams().stream().sorted((q,p) ->{ return q.getTitle().compareToIgnoreCase(p.getTitle());}).forEach(team -> {
 
             Button button = new Button(team.getTitle(), clickEvent -> this.fireEvent(new TeamClickedEvent(this, team, pool)));
+            button.addStyleName(ValoTheme.BUTTON_SMALL);
             panelContent.addComponent(button);
         });
     }

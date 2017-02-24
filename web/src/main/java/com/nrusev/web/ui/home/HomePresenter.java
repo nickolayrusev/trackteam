@@ -24,14 +24,12 @@ import java.time.LocalDate;
 @SpringView(name = "home")
 public class HomePresenter extends MvpPresenter<HomeView> {
 
-    private final CountryService countryService;
     private final GameService gameService;
     private Navigator navigator;
 
     @Autowired
-    public HomePresenter(HomeView view, EventBus eventBus, CountryService countryService, GameService gameService) {
+    public HomePresenter(HomeView view, EventBus eventBus, GameService gameService) {
         super(view, eventBus);
-        this.countryService = countryService;
         this.gameService = gameService;
     }
 
@@ -56,7 +54,8 @@ public class HomePresenter extends MvpPresenter<HomeView> {
     }
 
     private void loadTodaysGames() {
-        getView().displayTodaysGames(gameService.findGamesByDate(LocalDate.of(2011,11,11)));
+//        getView().displayTodaysGames(gameService.findGamesByDate(LocalDate.of(2011,11,11)));
+        getView().displayTodaysGames(gameService.findTodaysGames());
     }
 
 
