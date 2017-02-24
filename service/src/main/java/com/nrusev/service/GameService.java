@@ -57,7 +57,6 @@ public class GameService {
         return this.gameRepository.findAllGamesByTeam(id);
     }
 
-    //TODO: ugly writtern needs refactoring. Do not get todays games from exchanger. Get them from db
     public List<Game> findTodaysGames(){
         LocalDate now = LocalDate.now(ZoneOffset.UTC);
         Instant from = now.atStartOfDay().toInstant(ZoneOffset.UTC);
