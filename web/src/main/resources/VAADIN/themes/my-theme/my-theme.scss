@@ -1,0 +1,9 @@
+@import "../valo/valo.scss";
+@mixin my-theme {
+  @include valo;
+
+  .v-table-resizer {
+    display: none;
+  }
+}
+@include my-theme;
