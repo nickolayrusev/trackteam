@@ -5,6 +5,7 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.ui.UI;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -17,9 +18,8 @@ public abstract class MvpPresenter<T extends MvpView> implements View {
 	private final EventBus eventBus;
 
 	public MvpPresenter(final T view, final EventBus eventBus) {
-		this.view = view;
 		this.eventBus = eventBus;
-		this.eventBus.register(this);
+		this.view = view;
 	}
 	
 	public T getView() {
@@ -32,6 +32,7 @@ public abstract class MvpPresenter<T extends MvpView> implements View {
 
 	@PostConstruct
 	private void init(){
+		this.eventBus.register(this);
 	}
 
 	@PreDestroy
