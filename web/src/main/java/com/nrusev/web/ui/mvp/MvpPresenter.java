@@ -19,6 +19,7 @@ public abstract class MvpPresenter<T extends MvpView> implements View {
 	public MvpPresenter(final T view, final EventBus eventBus) {
 		this.view = view;
 		this.eventBus = eventBus;
+		this.eventBus.register(this);
 	}
 	
 	public T getView() {
@@ -31,7 +32,6 @@ public abstract class MvpPresenter<T extends MvpView> implements View {
 
 	@PostConstruct
 	private void init(){
-		this.eventBus.register(this);
 	}
 
 	@PreDestroy
