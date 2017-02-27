@@ -3,7 +3,9 @@ package com.nrusev.web.ui;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.nrusev.web.ui.mvp.MvpPresenter;
+import com.nrusev.web.ui.mvp.MvpView;
 import com.vaadin.annotations.Widgetset;
+import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -64,7 +66,6 @@ public class MainUI extends UI {
 		@Override
 		public void showView(View view) {
 			root.removeAllComponents();
-
 			if (view instanceof MvpPresenter) {
 				Component component = (Component) ((MvpPresenter) view).getView();
 				root.setLocale(Locale.ENGLISH);
@@ -189,6 +190,17 @@ public class MainUI extends UI {
         menuItemsLayout.addComponent(pools);
 
 		//
+		// pools view
+		Button dashboard = new Button("Dashboard", event -> {
+			navigator.navigateTo("dashboard");
+		});
+
+		dashboard.setHtmlContentAllowed(true);
+		dashboard.setPrimaryStyleName(ValoTheme.MENU_ITEM);
+		dashboard.setIcon(FontAwesome.ARCHIVE);
+		menuItemsLayout.addComponent(dashboard);
+
+		//
 		// Shutdown application
 		Button shutdown = new Button("Shutdown", event -> {
 			getUI().getSession().close();
@@ -203,6 +215,8 @@ public class MainUI extends UI {
 		menuItemsLayout.addComponent(shutdown);
 
 	}
+
+
 
 
 	@Subscribe

@@ -46,6 +46,7 @@ public class HomePresenter extends MvpPresenter<HomeView> {
 
     @Override
     public void enter(ViewChangeEvent event) {
+        super.enter(event);
         navigator = UI.getCurrent().getNavigator();
     }
 
