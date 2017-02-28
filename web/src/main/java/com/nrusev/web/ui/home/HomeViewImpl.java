@@ -15,12 +15,12 @@ import com.nrusev.domain.Game;
 import com.nrusev.domain.League;
 import com.nrusev.web.ui.components.MyComponent;
 import com.nrusev.web.ui.components.PoolComponent;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.vaadin.server.FontAwesome;
-import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.themes.ValoTheme;

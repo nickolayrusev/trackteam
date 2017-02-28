@@ -2,18 +2,19 @@ package com.nrusev.web.ui;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
+import com.nrusev.support.MyOwnNavigator;
 import com.nrusev.web.ui.mvp.MvpPresenter;
 import com.nrusev.web.ui.mvp.MvpView;
 import com.vaadin.annotations.Widgetset;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.*;
+import com.vaadin.shared.ui.label.ContentMode;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewDisplay;
-import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringUI;
 import com.vaadin.spring.navigator.SpringViewProvider;
 import com.vaadin.ui.Alignment;
@@ -89,7 +90,7 @@ public class MainUI extends UI {
         this.getSession().setLocale( locale ); // Affects only future UI instances, not current one because of bug. See workaround in line above.
 
 		MvpViewDisplay mvpViewDisplay = new MvpViewDisplay(root.getContentContainer());
-		navigator = new Navigator(this, mvpViewDisplay);
+		navigator = new MyOwnNavigator(this, mvpViewDisplay);
 		navigator.addProvider(viewProvider);
 
 		root.addMenu(menu);
