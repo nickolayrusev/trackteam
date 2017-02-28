@@ -32,19 +32,17 @@ public abstract class MvpPresenter<T extends MvpView> implements View {
 
 	@PostConstruct
 	private void init(){
-		this.eventBus.register(this);
+//		this.eventBus.register(this);
 	}
 
 	@PreDestroy
 	private void preDestroy(){
-		this.eventBus.unregister(this);
+//		this.eventBus.unregister(this);
 		System.out.println("pre destroy on abstract class...");
 	}
 
 	@Override
 	public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
-		if(viewChangeEvent.getNewView().equals(viewChangeEvent.getOldView())){
-			this.getEventBus().unregister(viewChangeEvent.getOldView());
-		}
+
 	}
 }

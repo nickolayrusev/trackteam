@@ -2,17 +2,14 @@ package com.nrusev.web.ui;
 
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
-import com.nrusev.support.MyOwnNavigator;
 import com.nrusev.web.ui.mvp.MvpPresenter;
-import com.nrusev.web.ui.mvp.MvpView;
-import com.vaadin.annotations.Widgetset;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.*;
 import com.vaadin.shared.ui.label.ContentMode;
+import com.vaadin.spring.navigator.SpringNavigator;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.annotations.Theme;
-import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewDisplay;
 import com.vaadin.spring.annotation.SpringUI;
@@ -42,7 +39,8 @@ public class MainUI extends UI {
 
 	private CssLayout menu = new CssLayout();
 
-	private Navigator navigator;
+	@Autowired
+	private SpringNavigator navigator;
 
 	private CssLayout menuItemsLayout = new CssLayout();
 
@@ -78,8 +76,6 @@ public class MainUI extends UI {
 
 	@Override
 	protected void init(VaadinRequest request) {
-
-
 		Responsive.makeResponsive(this);
 		this.getPage().setTitle("Valo Theme Test");
 		this.setContent(root);
@@ -90,8 +86,24 @@ public class MainUI extends UI {
         this.getSession().setLocale( locale ); // Affects only future UI instances, not current one because of bug. See workaround in line above.
 
 		MvpViewDisplay mvpViewDisplay = new MvpViewDisplay(root.getContentContainer());
-		navigator = new MyOwnNavigator(this, mvpViewDisplay);
-		navigator.addProvider(viewProvider);
+		navigator.init(this,mvpViewDisplay);
+		navigator.addViewChangeListener(new ViewChangeListener() {
+			@Override
+			public boolean beforeViewChange(ViewChangeEvent viewChangeEvent) {
+				System.out.println("before view change " + viewChangeEvent);
+				if(viewChangeEvent.getOldView()!=null)
+					eventBus.unregister(viewChangeEvent.getOldView());
+
+				if(viewChangeEvent.getNewView()!=null)
+					eventBus.register(viewChangeEvent.getNewView());
+				return true;
+			}
+
+			@Override
+			public void afterViewChange(ViewChangeEvent viewChangeEvent) {
+				System.out.println("after view change " + viewChangeEvent);
+			}
+		});
 
 		root.addMenu(menu);
 		menuItemsLayout.setPrimaryStyleName("valo-menuitems");

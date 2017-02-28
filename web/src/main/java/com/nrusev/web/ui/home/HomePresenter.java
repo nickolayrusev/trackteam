@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.navigator.ViewChangeListener.ViewChangeEvent;
 import com.vaadin.spring.annotation.SpringView;
+import org.springframework.context.annotation.Scope;
 
 import java.time.LocalDate;
 
@@ -37,6 +38,7 @@ public class HomePresenter extends MvpPresenter<HomeView> {
     public void postConstruct() {
         initLayout();
         loadTodaysGames();
+        System.out.println("initializing ... " + this.getClass().getSimpleName());
     }
 
     @PreDestroy
@@ -46,7 +48,6 @@ public class HomePresenter extends MvpPresenter<HomeView> {
 
     @Override
     public void enter(ViewChangeEvent event) {
-        super.enter(event);
         navigator = UI.getCurrent().getNavigator();
     }
 
