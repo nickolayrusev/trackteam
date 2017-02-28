@@ -27,6 +27,7 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.themes.ValoTheme;
 
 import java.util.Locale;
+import java.util.Objects;
 
 
 @SpringUI(path = "")
@@ -91,10 +92,10 @@ public class MainUI extends UI {
 			@Override
 			public boolean beforeViewChange(ViewChangeEvent viewChangeEvent) {
 				System.out.println("before view change " + viewChangeEvent);
-				if(viewChangeEvent.getOldView()!=null)
+				if(!Objects.isNull(viewChangeEvent.getOldView()))
 					eventBus.unregister(viewChangeEvent.getOldView());
 
-				if(viewChangeEvent.getNewView()!=null)
+				if(!Objects.isNull(viewChangeEvent.getNewView()))
 					eventBus.register(viewChangeEvent.getNewView());
 				return true;
 			}
