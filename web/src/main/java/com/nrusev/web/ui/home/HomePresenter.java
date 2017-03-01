@@ -56,7 +56,7 @@ public class HomePresenter extends MvpPresenter<HomeView> {
     }
 
     private void loadTodaysGames() {
-//        getView().displayTodaysGames(gameService.findGamesByDate(LocalDate.of(2011,11,11)));
+//        getView().displayTodaysGames(gameService.findGamesByDate(LocalDate.of(2015,12,12)));
         getView().displayTodaysGames(gameService.findTodaysGames());
     }
 

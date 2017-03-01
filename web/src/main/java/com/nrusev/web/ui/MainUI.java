@@ -211,7 +211,7 @@ public class MainUI extends UI {
 
 		dashboard.setHtmlContentAllowed(true);
 		dashboard.setPrimaryStyleName(ValoTheme.MENU_ITEM);
-		dashboard.setIcon(FontAwesome.ARCHIVE);
+		dashboard.setIcon(FontAwesome.ANGELLIST);
 		menuItemsLayout.addComponent(dashboard);
 
 		//

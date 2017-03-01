@@ -63,7 +63,7 @@ public class GameService {
         Instant to = now.atStartOfDay().plus(23,ChronoUnit.HOURS).plus(59,ChronoUnit.MINUTES).toInstant(ZoneOffset.UTC);
         System.out.println("from : " + from + " to : " + to);
 //        return this.gameRepository.findAllGamesByDate(Date.from(from), Date.from(to));
-        return this.findGamesByDate(LocalDate.of(2017,4,15));
+        return this.findGamesByDate(LocalDate.of(2015,12,12));
     }
 
     public List<Game> findGamesByDate(LocalDate date) {

@@ -58,8 +58,10 @@ public class ServiceApplicationTests {
 
 	@Test
 	public void findItalianTeams() {
-		List<String> italy = matchesService.findAllTeams("italy");
+		List<String> italy = matchesService.findAllTeams("france");
 		System.out.println(italy.size());
+		italy.forEach(System.out::println);
+
 	}
 
 	@Test

@@ -72,20 +72,6 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 		caption.addStyleName(ValoTheme.LABEL_H1);
 		layout.addComponent(caption);
 
-//		Button b = new Button("caption");
-//		b.addClickListener(l->{
-//			this.eventBus.post("caption click listener");
-//		});
-//		layout.addComponent(b);
-
-//		for(int i = 0; i<3;i++) {
-//			MyComponent myComponent = new MyComponent("oh my component " + i);
-//
-//            myComponent.addAllIsOkListener(event ->{
-//				System.out.println("really everything is ok...");
-//			});
-//			layout.addComponent(myComponent);
-//		}
 	}
 
 
@@ -103,7 +89,7 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 			games.forEach(game -> {
 				SimpleDateFormat format = new SimpleDateFormat("HH:mm");
 
-				final Button btnHome= new Button(game.getHomeTeam().getTitle(),l-> this.eventBus.post(new TeamClickedEvent(game.getHomeTeam())));
+				final Button btnHome = new Button(game.getHomeTeam().getTitle(),l-> this.eventBus.post(new TeamClickedEvent(game.getHomeTeam())));
 				btnHome.addStyleName(ValoTheme.BUTTON_LINK);
 
 				final Button btnAway = new Button(game.getVisitorTeam().getTitle(),l-> this.eventBus.post( new TeamClickedEvent(game.getVisitorTeam())));
@@ -113,7 +99,7 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 								format.format(game.getPlayAt()),
 								btnHome,
 								btnAway,
-								questionIfNull(game.getScore1() ) +" : " + questionIfNull(game.getScore2() )
+								questionIfNull(game.getScore1() ) + " : " + questionIfNull(game.getScore2() )
 						},
 						game.getId());
 				table.setPageLength(games.size());
