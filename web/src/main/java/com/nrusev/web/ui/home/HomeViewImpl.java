@@ -40,6 +40,8 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 
 	private final EventBus eventBus;
 
+	private Table table;
+
 	@Autowired
 	public HomeViewImpl(EventBus eventBus) {
 		this.eventBus = eventBus;
@@ -80,7 +82,8 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 
 		Map<League, List<Game>> collect = todaysGames.stream().collect(Collectors.groupingBy(g -> g.getRound().getEvent().getLeague()));
 		collect.forEach((league, games) -> {
-			Table table = new Table(league.getTitle());
+			table = new Table(league.getTitle());
+			table.setWidth(600,Unit.PIXELS);
 			table.addContainerProperty("Time",String.class,null);
 			table.addContainerProperty("Home",Button.class,null);
 			table.addContainerProperty("Away",Button.class,null);
