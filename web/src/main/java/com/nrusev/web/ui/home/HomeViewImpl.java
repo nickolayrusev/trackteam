@@ -1,6 +1,9 @@
 package com.nrusev.web.ui.home;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,8 +14,10 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import com.google.common.eventbus.EventBus;
+import com.nrusev.domain.Event;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.League;
+import com.nrusev.domain.Round;
 import com.nrusev.web.ui.components.MyComponent;
 import com.nrusev.web.ui.components.PoolComponent;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -80,9 +85,13 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 	@Override
 	public void displayTodaysGames(List<Game> todaysGames) {
 
-		Map<League, List<Game>> collect = todaysGames.stream().collect(Collectors.groupingBy(g -> g.getRound().getEvent().getLeague()));
-		collect.forEach((league, games) -> {
-			table = new Table(league.getTitle());
+		Map<Round, List<Game>> collect = todaysGames.stream().collect(Collectors.groupingBy(Game::getRound));
+		collect.forEach((round, games) -> {
+
+			table = new Table(round.getEvent().getLeague().getCountry().getName()
+					+ " " + round.getEvent().getLeague().getTitle()
+					+ " " + round.getEvent().getSeason().getTitle()
+					+ " " + round.getTitle() + " " + LocalDate.now(ZoneOffset.UTC).toString());
 			table.setWidth(600,Unit.PIXELS);
 			table.addContainerProperty("Time",String.class,null);
 			table.addContainerProperty("Home",Button.class,null);

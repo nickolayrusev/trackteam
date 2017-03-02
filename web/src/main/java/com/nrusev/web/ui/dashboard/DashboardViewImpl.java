@@ -1,17 +1,16 @@
 package com.nrusev.web.ui.dashboard;
 
+import com.google.common.eventbus.EventBus;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.TeamPool;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.*;
 import com.vaadin.ui.themes.ValoTheme;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
-
-import static java.util.stream.Collectors.toList;
 
 /**
  * Created by Nikolay Rusev on 26.10.2016 г..
@@ -22,6 +21,13 @@ public class DashboardViewImpl extends CssLayout implements DashboardView {
 
     private VerticalLayout layout;
     private Table table;
+
+    private final EventBus eventBus;
+
+    @Autowired
+    public DashboardViewImpl(EventBus eventBus) {
+        this.eventBus = eventBus;
+    }
 
     @Override
     public void initData(Map<Game, Collection<TeamPool>> userGames) {
@@ -37,6 +43,7 @@ public class DashboardViewImpl extends CssLayout implements DashboardView {
             v.stream().map(p -> {
                 Button button = new Button(p.getName());
                 button.addStyleName(ValoTheme.BUTTON_LINK);
+                button.addClickListener(l-> eventBus.post(new String("a")));
                 return button;
             }).forEach(form::addComponent);
 

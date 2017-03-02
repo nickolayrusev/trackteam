@@ -24,6 +24,7 @@ public class Season {
     private Long id;
     private String key;
     private String title;
+    private Integer ordinal;
     private Date createdAt;
     private Date updatedAt;
     private Set<Event> events = new HashSet<>(0);
@@ -87,6 +88,16 @@ public class Season {
 		this.events = events;
 	}
 
+
+	@Basic
+    @Column(name = "ordinal", nullable = true)
+    public Integer getOrdinal() {
+        return ordinal;
+    }
+
+    public void setOrdinal(Integer ordinal) {
+        this.ordinal = ordinal;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -123,4 +134,5 @@ public class Season {
                 ", updatedAt=" + updatedAt +
                 '}';
     }
+
 }
