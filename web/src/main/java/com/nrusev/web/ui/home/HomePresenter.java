@@ -72,8 +72,4 @@ public class HomePresenter extends MvpPresenter<HomeView> {
         navigator.navigateTo("match" + "/" + event.getGame().getId());
     }
 
-//    @Subscribe
-//    public void handleOkClick(String ok) {
-//        System.out.println("from parent component ..." + ok);
-//    }
 }

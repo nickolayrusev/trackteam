@@ -35,8 +35,8 @@ public class DashboardViewImpl extends CssLayout implements DashboardView {
 
         table = new Table("My Games");
         table.setWidth(800, Unit.PIXELS);
-        table.addContainerProperty("game", String.class, null);
-        table.addContainerProperty("pools", HorizontalLayout.class, null);
+        table.addContainerProperty("Game", String.class, null);
+        table.addContainerProperty("Pools", HorizontalLayout.class, null);
         userGames.forEach((k, v) -> {
             HorizontalLayout form = new HorizontalLayout();
 //            form.setHeight(60, Unit.PIXELS);

@@ -1,6 +1,7 @@
 package com.nrusev.web.ui.team;
 
 import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.Team;
 import com.nrusev.service.GameService;
@@ -40,11 +41,6 @@ public class TeamPresenter extends MvpPresenter<TeamView> {
     @PostConstruct
     public void postConstruct() {
         initLayout();
-        attachEventHandlers();
-    }
-
-    private void attachEventHandlers() {
-
     }
 
     private void initLayout() {
@@ -59,13 +55,13 @@ public class TeamPresenter extends MvpPresenter<TeamView> {
         getView().loadData(getTeam());
         getView().loadFormOfLastGames(getFormOfLastGames(previousGames,team));
         getView().loadPreviousGames(getPreviousGames());
-        getView().getPreviosGamesButtons().forEach(button->{
-            button.addClickListener(l->{
-                Game game =(Game)button.getData();
-                System.out.println(" Game is clicked ..." + game);
-                UI.getCurrent().getNavigator().navigateTo("match" + "/" + game.getId());
-            });
-        });
+//        getView().getPreviosGamesButtons().forEach(button->{
+//            button.addClickListener(l->{
+//                Game game =(Game)button.getData();
+//                System.out.println(" Game is clicked ..." + game);
+//                UI.getCurrent().getNavigator().navigateTo("match" + "/" + game.getId());
+//            });
+//        });
     }
 
     public Team getTeam() {
@@ -92,4 +88,9 @@ public class TeamPresenter extends MvpPresenter<TeamView> {
         return previousGames;
     }
 
+    @Subscribe
+    public void handleGameClicked(TeamView.GameClickedEvent event){
+        System.out.println("game clicked...." + event.getGame());
+        UI.getCurrent().getNavigator().navigateTo("match" + "/" + event.getGame().getId());
+    }
 }

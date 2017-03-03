@@ -36,12 +36,6 @@ public class DashboardPresenter extends MvpPresenter<DashboardView> {
     @Override
     public void enter(ViewChangeEvent viewChangeEvent) {
         Map<Game, Collection<TeamPool>> userGames = teamPoolService.findUserGames();
-
-        userGames.forEach((k,v)->{
-            System.out.println("Game: " + k.getHomeTeam() + k.getVisitorTeam()  );
-            v.forEach(System.out::println);
-        });
-
         getView().initData(userGames);
     }
 }
