@@ -54,7 +54,14 @@ public interface GameRepository extends CrudRepository<Game, Long> {
             "or ( g.visitorTeam.title =:firstTeam AND g.homeTeam.title = :secondTeam) ) order by g.playAt desc" )
     List<Game> findAllHeadToHead(@Param("firstTeam") String firstTeam, @Param("secondTeam") String secondTeam);
 
-    @Query("select g from Game g join fetch g.homeTeam join fetch g.visitorTeam join fetch g.round r " +
+    @Query("select g from Game g " +
+            "join fetch g.homeTeam " +
+            "join fetch g.visitorTeam " +
+            "join fetch g.round r " +
+            "join fetch r.event e " +
+            "join fetch e.season s " +
+            "join fetch e.league l " +
+            "join fetch l.country c " +
             "where g.winner is not null and (g.homeTeam.id = :teamId or g.visitorTeam.id = :teamId) order by g.playAt desc")
     List<Game> findAllGamesByTeam(@Param("teamId") Long teamId);
 

@@ -33,6 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 
 import static com.nrusev.support.TextUtils.getGameCaption;
+import static com.nrusev.support.TextUtils.score;
 
 @SuppressWarnings("serial")
 @SpringComponent
@@ -72,7 +73,7 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 		layout = new VerticalLayout();
 		layout.setWidth("100%");
 		layout.setMargin(true);
-		layout.setSpacing(true);
+//		layout.setSpacing(true);
 		addComponent(layout);
 
 		Label caption = new Label(FontAwesome.HOME.getHtml() + " Welcome to my awesome App", ContentMode.HTML);
@@ -95,8 +96,8 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 			table.setWidth(600,Unit.PIXELS);
 			table.addContainerProperty("Time",String.class,null);
 			table.addContainerProperty("Home",Button.class,null);
-			table.addContainerProperty("Away",Button.class,null);
 			table.addContainerProperty("Result",String.class,null);
+			table.addContainerProperty("Away",Button.class,null);
 
 			games.forEach(game -> {
 				SimpleDateFormat format = new SimpleDateFormat("HH:mm");
@@ -110,8 +111,8 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 				table.addItem(new Object[]{
 								format.format(game.getPlayAt()),
 								btnHome,
-								btnAway,
-								questionIfNull(game.getScore1() ) + " : " + questionIfNull(game.getScore2() )
+								score(game),
+								btnAway
 						},
 						game.getId());
 				table.setPageLength(games.size());
@@ -126,10 +127,5 @@ public class HomeViewImpl extends CssLayout implements HomeView {
 		});
 	}
 
-	private String questionIfNull(Long score){
-		if(Objects.isNull(score))
-			return "?";
-		return String.valueOf(score);
-	}
 
 }

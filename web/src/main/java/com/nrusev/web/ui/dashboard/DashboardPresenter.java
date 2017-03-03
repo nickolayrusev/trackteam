@@ -22,15 +22,11 @@ import java.util.Map;
 public class DashboardPresenter extends MvpPresenter<DashboardView> {
 
     private final TeamPoolService teamPoolService;
-    private final UserService userService;
-    private final GameService gameService;
 
     @Autowired
-    public DashboardPresenter(DashboardView view, EventBus eventBus, TeamPoolService teamPoolService, UserService userService, GameService gameService) {
+    public DashboardPresenter(DashboardView view, EventBus eventBus, TeamPoolService teamPoolService) {
         super(view, eventBus);
         this.teamPoolService = teamPoolService;
-        this.userService = userService;
-        this.gameService = gameService;
     }
 
     @Override

@@ -3,6 +3,9 @@ package com.nrusev.web.ui.team;
 import com.google.common.eventbus.EventBus;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.Team;
+import com.vaadin.data.Buffered;
+import com.vaadin.data.Property;
+import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -15,9 +18,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import static com.nrusev.support.TextUtils.getGameCaption;
+import static com.nrusev.support.TextUtils.score;
 import static java.util.stream.Collectors.joining;
 
 /**
@@ -31,6 +38,8 @@ public class TeamViewImpl extends CssLayout implements TeamView {
 
     private VerticalLayout layout;
 
+    private Table grid;
+
     private final EventBus eventBus;
 
     @Autowired
@@ -40,7 +49,7 @@ public class TeamViewImpl extends CssLayout implements TeamView {
 
 
     @PostConstruct
-    public void postContruct() {
+    public void postConstruct() {
         LOG.info("Creating new TeamView");
 //        setSizeFull();
     }
@@ -77,15 +86,39 @@ public class TeamViewImpl extends CssLayout implements TeamView {
         subCaption.addStyleName(ValoTheme.LABEL_LIGHT);
         layout.addComponent(subCaption);
 
-        games.forEach(g->{
-            final Button button = new Button();
-            button.setCaption(getGameCaption(g, UI.getCurrent().getLocale()));
-            button.setStyleName(ValoTheme.BUTTON_LINK);
-//            button.setData(g);
-//            previousGamesButtons.add(button);
-            button.addClickListener(l-> eventBus.post(new GameClickedEvent(g)));
-            layout.addComponent(button);
+        grid = new Table(){
+            @Override
+            protected String formatPropertyValue(Object rowId,
+                                                 Object colId, Property property) {
+                // Format by property type
+                if (property.getType() == Date.class) {
+                    SimpleDateFormat df =
+                            new SimpleDateFormat("dd MMM,yyyy");
+                    return df.format((Date)property.getValue());
+                }
+
+                return super.formatPropertyValue(rowId, colId, property);
+            }
+        };
+        grid.addContainerProperty("Date", Date.class, null);
+        grid.addContainerProperty("League", String.class, null);
+        grid.addContainerProperty("Home", String.class, null);
+        grid.addContainerProperty("Result", Button.class, null);
+        grid.addContainerProperty("Away", String.class, null);
+
+        games.forEach(g -> {
+            final Button btnScore = new Button(score(g),l->eventBus.post(new GameClickedEvent(g)));
+            btnScore.addStyleName(ValoTheme.BUTTON_LINK);
+
+            grid.addItem(new Object[]{g.getPlayAt(),
+                    g.getRound().getEvent().getLeague().getTitle(),
+                    g.getHomeTeam().getTitle(),
+                    btnScore,
+                    g.getVisitorTeam().getTitle()
+            }, g.getId());
         });
+        layout.addComponent(grid);
+
     }
 
     @Override

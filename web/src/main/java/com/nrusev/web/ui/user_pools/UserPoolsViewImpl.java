@@ -96,6 +96,7 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
         layout = new HorizontalLayout();
         layout.setMargin(true);
         layout.setSpacing(true);
+//        layout.setWidth(80,Unit.PERCENTAGE);
         addComponent(layout);
     }
 

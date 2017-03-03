@@ -154,7 +154,7 @@ public class MainUI extends UI {
 		MenuBar settings = new MenuBar();
 		settings.addStyleName("user-menu");
 
-		MenuItem settingsItem = settings.addItem("Adriana Martinovic", new ExternalResource("/user-avatar.jpg"), null);
+		MenuItem settingsItem = settings.addItem("Nikolay Rusev", new ExternalResource("/user-avatar.jpg"), null);
 		settingsItem.addItem("Edit Profile", null);
 		settingsItem.addItem("Preferences", null);
 		settingsItem.addSeparator();

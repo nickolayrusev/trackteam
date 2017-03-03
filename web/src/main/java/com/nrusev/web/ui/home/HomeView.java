@@ -11,11 +11,7 @@ public interface HomeView extends MvpView {
 	void initLayout();
 
 	void displayTodaysGames(List<Game> todaysGames);
-	/**
-	 * get buttons to register click handlers
-	 * @return
-	 */
-//	List<Button> getMatchButtons();
+
 	class GameClickedEvent {
 		private Game game;
 
