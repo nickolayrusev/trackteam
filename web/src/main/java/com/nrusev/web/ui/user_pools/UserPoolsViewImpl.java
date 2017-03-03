@@ -4,12 +4,16 @@ import com.google.common.eventbus.EventBus;
 import com.nrusev.domain.Team;
 import com.nrusev.domain.TeamPool;
 import com.nrusev.web.ui.components.PoolComponent;
+import com.vaadin.server.FontAwesome;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.*;
+import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Vector;
 import java.util.stream.IntStream;
 
 /**
@@ -19,6 +23,7 @@ import java.util.stream.IntStream;
 @ViewScope
 public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
+    private VerticalLayout mainLayout;
     private HorizontalLayout layout;
     private final EventBus eventBus;
 
@@ -94,10 +99,19 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
     private void buildLayout() {
         layout = new HorizontalLayout();
-        layout.setMargin(true);
-        layout.setSpacing(true);
-//        layout.setWidth(80,Unit.PERCENTAGE);
-        addComponent(layout);
+//        layout.setMargin(true);
+//        layout.setSpacing(true);
+
+        mainLayout = new VerticalLayout();
+        mainLayout.setMargin(true);
+        mainLayout.setSpacing(true);
+
+        Label caption = new Label(FontAwesome.HOME.getHtml() + " " + "My Pools", ContentMode.HTML);
+        caption.addStyleName(ValoTheme.LABEL_H1);
+
+        mainLayout.addComponent(caption);
+        mainLayout.addComponent(layout);
+        addComponent(mainLayout);
     }
 
 

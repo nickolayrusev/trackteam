@@ -75,7 +75,7 @@ public class TeamViewImpl extends CssLayout implements TeamView {
 
     @Override
     public void loadData(Team team) {
-        Label caption = new Label(FontAwesome.HOME.getHtml() + team.getTitle(), ContentMode.HTML);
+        Label caption = new Label(FontAwesome.HOME.getHtml() + " " + team.getTitle(), ContentMode.HTML);
         caption.addStyleName(ValoTheme.LABEL_H1);
         layout.addComponent(caption);
     }
