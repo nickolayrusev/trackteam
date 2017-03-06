@@ -24,7 +24,7 @@ import java.util.stream.IntStream;
 public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
     private VerticalLayout mainLayout;
-    private HorizontalLayout layout;
+    private CssLayout layout;
     private final EventBus eventBus;
 
     @Autowired
@@ -98,9 +98,9 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
     }
 
     private void buildLayout() {
-        layout = new HorizontalLayout();
-//        layout.setMargin(true);
-//        layout.setSpacing(true);
+        layout = new CssLayout();
+        layout.setWidth(90,Unit.PERCENTAGE);
+
 
         mainLayout = new VerticalLayout();
         mainLayout.setMargin(true);

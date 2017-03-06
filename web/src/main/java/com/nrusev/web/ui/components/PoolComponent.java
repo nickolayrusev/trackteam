@@ -122,6 +122,7 @@ public class PoolComponent extends CustomComponent {
         panelContent.setMargin(true); // Very useful
         panelContent.setSpacing(true);
         panelContent.setResponsive(true);
+        panelContent.setWidth(200,Unit.PIXELS);
         panel.setContent(panelContent);
 
         // Set the size as undefined at all levels

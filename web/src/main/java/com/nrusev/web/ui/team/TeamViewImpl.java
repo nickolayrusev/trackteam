@@ -22,6 +22,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static com.nrusev.support.TextUtils.getGameCaption;
 import static com.nrusev.support.TextUtils.score;
@@ -93,7 +94,7 @@ public class TeamViewImpl extends CssLayout implements TeamView {
                 // Format by property type
                 if (property.getType() == Date.class) {
                     SimpleDateFormat df =
-                            new SimpleDateFormat("dd MMM,yyyy");
+                            new SimpleDateFormat("dd MMM,yyyy", Locale.ENGLISH);
                     return df.format((Date)property.getValue());
                 }
 
