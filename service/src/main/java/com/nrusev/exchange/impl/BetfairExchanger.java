@@ -6,6 +6,7 @@ import com.jbetfairng.entities.EventResult;
 import com.jbetfairng.entities.MarketFilter;
 import com.jbetfairng.entities.TimeRange;
 import com.nrusev.domain.Game;
+import com.nrusev.enums.LeagueKeys;
 import com.nrusev.enums.SeasonKeys;
 import com.nrusev.exchange.DataExchanger;
 import com.nrusev.service.TeamService;
@@ -73,7 +74,7 @@ public class BetfairExchanger implements DataExchanger {
     }
 
     @Override
-    public List<GameDto> getFixturesByLeagueAndSeason(String league, SeasonKeys season) {
+    public List<GameDto> getFixturesByLeagueAndSeason(LeagueKeys league, SeasonKeys season) {
         return null;
     }
 

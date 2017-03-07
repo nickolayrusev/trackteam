@@ -5,6 +5,7 @@ import com.nrusev.domain.Team;
 import com.nrusev.domain.TeamPool;
 import com.nrusev.web.ui.components.PoolComponent;
 import com.vaadin.server.FontAwesome;
+import com.vaadin.shared.ui.MarginInfo;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
@@ -41,26 +42,6 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
     public void loadData(List<TeamPool> pools, List<Team> teams) {
         pools.forEach(teamPool -> layout.addComponent(createPoolComponent(teamPool,teams)));
 
-        layout.addComponent(new Button("Add pool",l->{
-            final Window window = new Window("Add new pool");
-            window.setWidth(300.0f, Unit.PIXELS);
-            window.center();
-            final FormLayout content = new FormLayout();
-            content.setSpacing(true);
-            content.setMargin(true);
-
-            TextField name = new TextField("name");
-            content.addComponent(name);
-            TextField description = new TextField("description");
-            content.addComponent(description);
-            content.addComponent(new Button("Add", q -> {
-                this.eventBus.post(new TeamPool(name.getValue(), description.getValue(), false));
-                window.close();
-            }));
-
-            window.setContent(content);
-            UI.getCurrent().addWindow(window);
-        }));
     }
 
 
@@ -79,7 +60,7 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
     @Override
     public void addPool(TeamPool pool, List<Team> teams) {
-        layout.addComponent(createPoolComponent(pool,teams), layout.getComponentCount()-1);
+        layout.addComponent(createPoolComponent(pool,teams), layout.getComponentCount());
     }
 
     @Override
@@ -99,17 +80,43 @@ public class UserPoolsViewImpl extends CssLayout implements UserPoolsView {
 
     private void buildLayout() {
         layout = new CssLayout();
-        layout.setWidth(90,Unit.PERCENTAGE);
+//        layout.setWidth(90,Unit.PERCENTAGE);
 
 
         mainLayout = new VerticalLayout();
         mainLayout.setMargin(true);
         mainLayout.setSpacing(true);
 
+        HorizontalLayout captionLayout = new HorizontalLayout();
         Label caption = new Label(FontAwesome.HOME.getHtml() + " " + "My Pools", ContentMode.HTML);
         caption.addStyleName(ValoTheme.LABEL_H1);
 
-        mainLayout.addComponent(caption);
+        captionLayout.addComponent(caption);
+        Button button = new Button("Add pool", l -> {
+            final Window window = new Window("Add new pool");
+            window.setWidth(300.0f, Unit.PIXELS);
+            window.center();
+            final FormLayout content = new FormLayout();
+            content.setSpacing(true);
+            content.setMargin(true);
+
+            TextField name = new TextField("name");
+            content.addComponent(name);
+            TextField description = new TextField("description");
+            content.addComponent(description);
+            content.addComponent(new Button("Add", q -> {
+                this.eventBus.post(new TeamPool(name.getValue(), description.getValue(), false));
+                window.close();
+            }));
+
+            window.setContent(content);
+            UI.getCurrent().addWindow(window);
+        });
+        button.addStyleName(ValoTheme.BUTTON_LINK);
+        captionLayout.addComponent(button);
+        captionLayout.setComponentAlignment(button,Alignment.MIDDLE_CENTER);
+
+        mainLayout.addComponent(captionLayout);
         mainLayout.addComponent(layout);
         addComponent(mainLayout);
     }

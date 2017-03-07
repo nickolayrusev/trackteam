@@ -103,6 +103,7 @@ public class TeamViewImpl extends CssLayout implements TeamView {
         };
         grid.addContainerProperty("Date", Date.class, null);
         grid.addContainerProperty("League", String.class, null);
+        grid.addContainerProperty("Round", String.class, null);
         grid.addContainerProperty("Home", String.class, null);
         grid.addContainerProperty("Result", Button.class, null);
         grid.addContainerProperty("Away", String.class, null);
@@ -111,7 +112,7 @@ public class TeamViewImpl extends CssLayout implements TeamView {
             final Button btnScore = new Button(score(g),l->eventBus.post(new GameClickedEvent(g)));
             btnScore.addStyleName(ValoTheme.BUTTON_LINK);
 
-            grid.addItem(new Object[]{g.getPlayAt(),
+            grid.addItem(new Object[]{g.getPlayAt(), g.getRound().getTitle(),
                     g.getRound().getEvent().getLeague().getTitle(),
                     g.getHomeTeam().getTitle(),
                     btnScore,

@@ -5,6 +5,7 @@ import com.nrusev.domain.Country;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.Team;
 import com.nrusev.domain.User;
+import com.nrusev.enums.LeagueKeys;
 import com.nrusev.enums.SeasonKeys;
 import com.nrusev.exchange.DataExchanger;
 import com.nrusev.exchange.impl.GameDto;
@@ -206,13 +207,13 @@ public class ServiceApplicationTests {
 	@Test
 	public void saveGame(){
 
-		List<GameDto> todayGames = xmlSoccerExchanger.getFixturesByLeagueAndSeason("Scottish Premier League", SeasonKeys.SEASON_2016_2017);
+		List<GameDto> todayGames = xmlSoccerExchanger.getFixturesByLeagueAndSeason(LeagueKeys.SCOTTISH_PREMIER_LEAGUE, SeasonKeys.SEASON_2016_2017);
 		Map<Long, List<GameDto>> collect = todayGames.stream().collect(Collectors.groupingBy(GameDto::getRound));
 		collect.forEach((r, q) -> {
 				IntStream.range(0,q.size()).forEach(i->{
 				    final GameDto gameDto = q.get(i);
 					this.gameService.save(gameDto.getRound(), SeasonKeys.SEASON_2016_2017,
-							"Scottish Premier League", gameDto.getHomeTeam(), gameDto.getVisitorTeam(),
+							LeagueKeys.SCOTTISH_PREMIER_LEAGUE, gameDto.getHomeTeam(), gameDto.getVisitorTeam(),
 							gameDto.getHomeTeamGoals(), gameDto.getVisitorTeamGoals(), gameDto.getPlayAt(), (long) i + 1);
 				});
 

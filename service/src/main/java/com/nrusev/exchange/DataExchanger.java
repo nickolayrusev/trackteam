@@ -1,5 +1,6 @@
 package com.nrusev.exchange;
 
+import com.nrusev.enums.LeagueKeys;
 import com.nrusev.enums.SeasonKeys;
 import com.nrusev.exchange.impl.GameDto;
 
@@ -12,5 +13,5 @@ import java.util.List;
 public interface DataExchanger {
     List<GameDto> findTodayGames();
     List<GameDto> findGameByDate(Date from, Date to);
-    List<GameDto> getFixturesByLeagueAndSeason(String league, SeasonKeys season);
+    List<GameDto> getFixturesByLeagueAndSeason(LeagueKeys league, SeasonKeys season);
 }

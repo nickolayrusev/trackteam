@@ -1,6 +1,7 @@
 package com.nrusev.service;
 
 import com.nrusev.domain.*;
+import com.nrusev.enums.LeagueKeys;
 import com.nrusev.enums.SeasonKeys;
 import com.nrusev.exchange.impl.Competition;
 import com.nrusev.repository.GameRepository;
@@ -73,7 +74,7 @@ public class GameService {
     }
 
     @Transactional
-    public Game save(Long round, SeasonKeys season, String league,
+    public Game save(Long round, SeasonKeys season, LeagueKeys league,
                      String homeTeam, String visitorTeam, Long homeTeamGoals,
                         Long awayTeamGoals, Date playAt, Long pos ){
         Assert.notNull(round);
@@ -104,8 +105,8 @@ public class GameService {
        return this.gameRepository.save(game);
     }
 
-    private Optional<Competition> findCompetition(String leagueName){
-       return supportedCompetitions.stream().filter(c->c.getName().equals(leagueName)).findFirst();
+    private Optional<Competition> findCompetition(LeagueKeys leagueName){
+       return supportedCompetitions.stream().filter(c->c.getName().equals(leagueName.getParam())).findFirst();
     }
 
     private Round addNewRound(Event event, Long position){

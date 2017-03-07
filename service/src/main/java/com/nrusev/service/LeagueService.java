@@ -1,6 +1,7 @@
 package com.nrusev.service;
 
 import com.nrusev.domain.League;
+import com.nrusev.enums.LeagueKeys;
 import com.nrusev.repository.LeagueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class LeagueService {
 		return leagueRepository.findByClubTrue();
 	}
 
-	public List<League> findByLeagueTitle(String title){
-		return this.leagueRepository.findByTitle(title);
+	public List<League> findByLeagueTitle(LeagueKeys league){
+		return this.leagueRepository.findByTitle(league.getParam());
 	}
 }

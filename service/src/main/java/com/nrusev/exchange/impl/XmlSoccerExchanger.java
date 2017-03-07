@@ -5,6 +5,7 @@ import com.github.pabloo99.xmlsoccer.api.service.XmlSoccerService;
 import com.github.pabloo99.xmlsoccer.model.enums.Leagues;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.Round;
+import com.nrusev.enums.LeagueKeys;
 import com.nrusev.enums.SeasonKeys;
 import com.nrusev.exchange.DataExchanger;
 import com.nrusev.service.TeamService;
@@ -40,10 +41,10 @@ public class XmlSoccerExchanger implements DataExchanger {
     }
 
     @Override
-    public List<GameDto> getFixturesByLeagueAndSeason(String league, SeasonKeys season) {
+    public List<GameDto> getFixturesByLeagueAndSeason(LeagueKeys league, SeasonKeys season) {
         //xmlsoccer wants season 2016/2017 as 1617. Next line do that thing
         String seasonString = Arrays.stream(season.getKey().split("/")).reduce("", (s, t) -> s + t.substring(2,4));
-        return client.getFixturesByLeagueAndSeason(league,seasonString).stream().map(g->toGame(g,season)).collect(toList());
+        return client.getFixturesByLeagueAndSeason(league.getParam(), seasonString).stream().map(g->toGame(g,season)).collect(toList());
     }
 
 

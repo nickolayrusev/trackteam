@@ -122,7 +122,7 @@ public class PoolComponent extends CustomComponent {
         panelContent.setMargin(true); // Very useful
         panelContent.setSpacing(true);
         panelContent.setResponsive(true);
-        panelContent.setWidth(200,Unit.PIXELS);
+        panelContent.setWidth(250,Unit.PIXELS);
         panel.setContent(panelContent);
 
         // Set the size as undefined at all levels
@@ -137,7 +137,6 @@ public class PoolComponent extends CustomComponent {
     private void loadInitialPools() {
         panel.setCaption(pool.getName() + " " + pool.getDescription());
         pool.getTeams().stream().sorted((q,p) ->{ return q.getTitle().compareToIgnoreCase(p.getTitle());}).forEach(team -> {
-
             Button button = new Button(team.getTitle(), clickEvent -> this.fireEvent(new TeamClickedEvent(this, team, pool)));
             button.addStyleName(ValoTheme.BUTTON_SMALL);
             panelContent.addComponent(button);
