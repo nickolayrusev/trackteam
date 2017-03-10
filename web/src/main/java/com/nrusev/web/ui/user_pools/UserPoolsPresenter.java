@@ -11,6 +11,7 @@ import com.nrusev.web.ui.components.PoolComponent;
 import com.nrusev.web.ui.mvp.MvpPresenter;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.ui.UI;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
@@ -97,6 +98,9 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
         getView().addPool(pool, teams);
     }
 
-
+    @Subscribe
+    public void editTeamPool(PoolComponent.EditTeamPoolEvent event){
+        UI.getCurrent().getNavigator().navigateTo("pool" + "/" + event.getTeamPool().getId());
+    }
 
 }

@@ -8,7 +8,7 @@ import java.util.Set;
  * Created by Nikolay Rusev on 24.10.2016 г..
  */
 @Entity
-public class TeamPool {
+public class TeamPool extends BaseEntity {
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Long id;

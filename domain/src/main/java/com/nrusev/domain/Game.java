@@ -8,7 +8,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "games")
-public class Game {
+public class Game extends BaseEntity {
     private Long id;
     private String key;
     private Round round;
@@ -38,8 +38,6 @@ public class Game {
     private Long prevGameId;
     private Long winner;
     private Long winner90;
-    private Date createdAt;
-    private Date updatedAt;
 
     @Id
     @Column(name = "id", nullable = false)
@@ -312,26 +310,6 @@ public class Game {
         this.winner90 = winner90;
     }
 
-    @Basic
-    @Column(name = "created_at", nullable = true)
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    @Basic
-    @Column(name = "updated_at", nullable = true)
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     @ManyToOne(fetch=FetchType.EAGER)
     @JoinColumn(name="team1_id")
     public Team getHomeTeam() {
@@ -385,9 +363,6 @@ public class Game {
         if (prevGameId != null ? !prevGameId.equals(game.prevGameId) : game.prevGameId != null) return false;
         if (winner != null ? !winner.equals(game.winner) : game.winner != null) return false;
         if (winner90 != null ? !winner90.equals(game.winner90) : game.winner90 != null) return false;
-        if (createdAt != null ? !createdAt.equals(game.createdAt) : game.createdAt != null) return false;
-        if (updatedAt != null ? !updatedAt.equals(game.updatedAt) : game.updatedAt != null) return false;
-
         return true;
     }
 
@@ -419,8 +394,6 @@ public class Game {
         result = 31 * result + (prevGameId != null ? prevGameId.hashCode() : 0);
         result = 31 * result + (winner != null ? winner.hashCode() : 0);
         result = 31 * result + (winner90 != null ? winner90.hashCode() : 0);
-        result = 31 * result + (createdAt != null ? createdAt.hashCode() : 0);
-        result = 31 * result + (updatedAt != null ? updatedAt.hashCode() : 0);
         return result;
     }
 

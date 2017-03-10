@@ -102,10 +102,29 @@ public class PoolComponent extends CustomComponent {
         }
     }
 
+    public interface EditTeamPoolListener extends Serializable{
+        Method EDIT_METHOD = ReflectTools.findMethod(EditTeamPoolListener.class, "edit", new Class[]{EditTeamPoolEvent.class});
+        void edit(EditTeamPoolEvent editTeamPoolEvent);
+    }
+
+    public static class EditTeamPoolEvent extends Event{
+        private TeamPool teamPool;
+
+        public EditTeamPoolEvent(Component source, TeamPool pool) {
+            super(source);
+            this.teamPool = pool;
+        }
+
+        public TeamPool getTeamPool() {
+            return teamPool;
+        }
+    }
+
     private TeamPool pool;
     private List<Team> teams;
     private Panel panel;
     private VerticalLayout panelContent;
+    private HorizontalLayout buttonHolderLayout;
 
     public PoolComponent(TeamPool pool, List<Team> teamList) {
         this.pool = pool;
@@ -113,8 +132,11 @@ public class PoolComponent extends CustomComponent {
         initLayout();
         loadInitialPools();
         loadAutocompleteData();
+        initButtonHolderLayout();
         loadDeleteButton();
+        loadEditButton();
     }
+
 
     private void initLayout() {
         panel = new Panel();
@@ -123,8 +145,8 @@ public class PoolComponent extends CustomComponent {
         panelContent.setSpacing(true);
         panelContent.setResponsive(true);
         panelContent.setWidth(250,Unit.PIXELS);
-        panel.setContent(panelContent);
 
+        panel.setContent(panelContent);
         // Set the size as undefined at all levels
         panelContent.setSizeUndefined();
         panel.setSizeUndefined();
@@ -132,6 +154,11 @@ public class PoolComponent extends CustomComponent {
 
         // The composition root MUST be set
         setCompositionRoot(panel);
+    }
+
+    private void initButtonHolderLayout() {
+        buttonHolderLayout = new HorizontalLayout();
+        panelContent.addComponent(buttonHolderLayout);
     }
 
     private void loadInitialPools() {
@@ -185,8 +212,15 @@ public class PoolComponent extends CustomComponent {
 
     private void loadDeleteButton(){
         Button delete = new Button("delete", l -> this.fireEvent(new DeleteTeamPoolEvent(this, pool)));
-        delete.addStyleName(ValoTheme.BUTTON_DANGER);
-        panelContent.addComponent(delete);
+        delete.addStyleName(ValoTheme.BUTTON_LINK);
+        buttonHolderLayout.addComponent(delete);
+    }
+
+    private void loadEditButton(){
+        Button edit = new Button("edit", l -> this.fireEvent(new EditTeamPoolEvent(this, pool)));
+        edit.addStyleName(ValoTheme.BUTTON_LINK);
+        buttonHolderLayout.addComponent(edit);
+
     }
 
     public void addTeamClickedListener(TeamClickListener okListener) {
@@ -199,6 +233,10 @@ public class PoolComponent extends CustomComponent {
 
     public void addDeleteTeamPoolListener(DeleteTeamPoolListener deleteTeamPoolListener){
         this.addListener(DeleteTeamPoolEvent.class,deleteTeamPoolListener,DeleteTeamPoolListener.DELETE_METHOD);
+    }
+
+    public void addEditTeamPoolListener(EditTeamPoolListener editTeamPoolListener){
+        this.addListener(EditTeamPoolEvent.class,editTeamPoolListener, EditTeamPoolListener.EDIT_METHOD);
     }
 
 

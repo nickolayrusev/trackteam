@@ -112,7 +112,8 @@ public class TeamViewImpl extends CssLayout implements TeamView {
             final Button btnScore = new Button(score(g),l->eventBus.post(new GameClickedEvent(g)));
             btnScore.addStyleName(ValoTheme.BUTTON_LINK);
 
-            grid.addItem(new Object[]{g.getPlayAt(), g.getRound().getTitle(),
+            grid.addItem(new Object[]{g.getPlayAt(),
+                    g.getRound().getTitle(),
                     g.getRound().getEvent().getLeague().getTitle(),
                     g.getHomeTeam().getTitle(),
                     btnScore,

@@ -12,6 +12,6 @@ import java.util.List;
  */
 public interface TeamPoolRepository extends CrudRepository<TeamPool,Long>{
 
-    @Query("select p from TeamPool p inner join  p.user u where u.userName = :userName")
+    @Query("select p from TeamPool p inner join  p.user u where u.userName = :userName order by p.createdAt")
     List<TeamPool> findAllByUserName(@Param("userName") String userName);
 }
