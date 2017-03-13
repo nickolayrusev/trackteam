@@ -21,6 +21,11 @@ import static java.util.stream.Collectors.toList;
  */
 public class TeamSelectComponent extends ComboBox {
 
+    public TeamSelectComponent(Resource icon, List<Team> teams){
+        this(teams);
+        this.setIcon(icon);
+    }
+
     public TeamSelectComponent(List<Team> teams){
         IndexedContainer container = new IndexedContainer();
         container.addContainerProperty("title", String.class,
@@ -56,6 +61,7 @@ public class TeamSelectComponent extends ComboBox {
 
         // Disallow null selections
         this.setNullSelectionAllowed(false);
+
 
     }
 

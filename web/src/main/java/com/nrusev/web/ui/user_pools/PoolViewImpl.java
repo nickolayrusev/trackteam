@@ -35,6 +35,10 @@ import static java.util.stream.Collectors.toList;
 public class PoolViewImpl extends FormLayout implements PoolView{
     private final EventBus eventBus;
     private TeamPool pool;
+    private TextField tf1;
+    private TextField tf2;
+    private ComboBox select;
+    private Table table;
 
     @Autowired
     public PoolViewImpl(EventBus eventBus) {
@@ -54,29 +58,49 @@ public class PoolViewImpl extends FormLayout implements PoolView{
 
         addComponent(caption);
 
-        TextField tf1 = new TextField("Name");
+        tf1 = new TextField("Name");
         tf1.setIcon(FontAwesome.USER);
         tf1.setRequired(true);
         tf1.setValue(pool.getName());
 
         addComponent(tf1);
 
-        TextField tf2 = new TextField("Description");
+        tf2 = new TextField("Description");
         tf2.setIcon(FontAwesome.BOOK);
         tf2.setRequired(true);
         tf2.setValue(pool.getDescription());
 
         addComponent(tf2);
 
-        TeamSelectComponent select = new TeamSelectComponent(allTeams);
+        select = new TeamSelectComponent(FontAwesome.MALE,allTeams);
 
         select.addValueChangeListener(l-> this.eventBus.post(new PoolComponent.AddTeamEvent(this, (Team) l.getProperty().getValue(), pool)));
         addComponent(select);
+
+        table = new Table("Teams in pool");
+
+        // Define two columns for the built-in container
+        table.addContainerProperty("Name", String.class, null);
+        table.addContainerProperty("Country",  String.class, null);
+        table.addContainerProperty("Delete", Button.class, null);
+
+        pool.getTeams().forEach(t->{
+           table.addItem(new Object[]{ t.getTitle() , "", new Button("Delete",l->this.eventBus.post(new PoolComponent.TeamClickedEvent(this,t,pool)))},t.getId());
+        });
+
+        table.setPageLength(pool.getTeams().size());
+
+        addComponent(table);
     }
 
     private void initLayout(){
         setSpacing(true);
         setMargin(true);
+    }
+
+    public void addTeam(Team team){
+        this.table.addItem(new Object[]{team.getTitle(),""}, team.getId());
+        table.setPageLength(table.getPageLength()+1);
     }
 
 }
