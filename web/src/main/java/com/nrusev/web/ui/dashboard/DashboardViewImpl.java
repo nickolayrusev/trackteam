@@ -3,6 +3,7 @@ package com.nrusev.web.ui.dashboard;
 import com.google.common.eventbus.EventBus;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.TeamPool;
+import com.nrusev.web.ui.components.PoolComponent;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.*;
@@ -43,7 +44,7 @@ public class DashboardViewImpl extends CssLayout implements DashboardView {
             v.stream().map(p -> {
                 Button button = new Button(p.getName());
                 button.addStyleName(ValoTheme.BUTTON_LINK);
-                button.addClickListener(l-> eventBus.post(new String("a")));
+                button.addClickListener(l-> eventBus.post(new PoolComponent.EditTeamPoolEvent(table,p)));
                 return button;
             }).forEach(form::addComponent);
 

@@ -2,24 +2,17 @@ package com.nrusev.web.ui.home;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
 import com.google.common.eventbus.EventBus;
-import com.nrusev.domain.Event;
 import com.nrusev.domain.Game;
-import com.nrusev.domain.League;
 import com.nrusev.domain.Round;
-import com.nrusev.web.ui.components.MyComponent;
-import com.nrusev.web.ui.components.PoolComponent;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.ui.*;
 import org.slf4j.Logger;
@@ -30,9 +23,7 @@ import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.themes.ValoTheme;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
 
-import static com.nrusev.support.TextUtils.getGameCaption;
 import static com.nrusev.support.TextUtils.score;
 
 @SuppressWarnings("serial")

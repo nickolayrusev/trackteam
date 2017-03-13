@@ -7,6 +7,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 /**
  * Created by Nikolay Rusev on 10.3.2017 г..
@@ -36,5 +41,15 @@ public class BaseEntity {
 
     public void setModifiedAt(Long modifiedAt) {
         this.modifiedAt = modifiedAt;
+    }
+
+    @Transient
+    public LocalDateTime getCreatedAtAsLocalDateTime(){
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(this.createdAt), ZoneOffset.UTC);
+    }
+
+    @Transient
+    public LocalDateTime getModifiedAtAsLocalDateTime(){
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(this.modifiedAt), ZoneOffset.UTC);
     }
 }
