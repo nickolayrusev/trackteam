@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by Nikolay Rusev on 3.1.2017 г..
  */
-@Component
+//@Component
 public class InitialDataRunner implements ApplicationRunner {
 
     private final TeamPoolRepository teamPoolRepository;
