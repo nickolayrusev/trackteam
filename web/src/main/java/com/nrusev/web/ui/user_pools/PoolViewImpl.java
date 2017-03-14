@@ -103,4 +103,7 @@ public class PoolViewImpl extends FormLayout implements PoolView{
         table.setPageLength(table.getPageLength()+1);
     }
 
+    public void removeTeam(Team team){
+
+    }
 }
