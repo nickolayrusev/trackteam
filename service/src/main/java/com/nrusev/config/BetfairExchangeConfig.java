@@ -17,8 +17,8 @@ import static java.util.stream.Collectors.toSet;
 /**
  * Created by Nikolay Rusev on 13.2.2017 г..
  */
-@Configuration
-@PropertySource({"betfair-exchange.properties"})
+//@Configuration
+//@PropertySource({"betfair-exchange.properties"})
 public class BetfairExchangeConfig {
 
     @Value("${betfair.appKey}")

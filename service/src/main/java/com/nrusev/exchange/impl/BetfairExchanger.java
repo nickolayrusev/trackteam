@@ -26,7 +26,7 @@ import static java.util.stream.Collectors.toSet;
 /**
  * Created by Nikolay Rusev on 9.2.2017 г..
  */
-@Component
+//@Component
 public class BetfairExchanger implements DataExchanger {
 
     private final BetfairClient client;

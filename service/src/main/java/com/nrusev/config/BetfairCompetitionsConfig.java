@@ -11,8 +11,8 @@ import java.util.List;
  */
 
 
-@Configuration
-@ConfigurationProperties(locations = "classpath:betfair-competitions.yml")
+//@Configuration
+//@ConfigurationProperties(locations = "classpath:betfair-competitions.yml")
 public class BetfairCompetitionsConfig {
 
     private List<Competition> competitions;
