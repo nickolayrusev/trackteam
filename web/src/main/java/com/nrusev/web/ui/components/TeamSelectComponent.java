@@ -3,6 +3,7 @@ package com.nrusev.web.ui.components;
 import com.nrusev.domain.Country;
 import com.nrusev.domain.Team;
 import com.vaadin.data.Item;
+import com.vaadin.data.Property;
 import com.vaadin.data.util.IndexedContainer;
 import com.vaadin.server.ClassResource;
 import com.vaadin.server.Resource;
@@ -60,7 +61,7 @@ public class TeamSelectComponent extends ComboBox {
 
 
         // Disallow null selections
-        this.setNullSelectionAllowed(false);
+//        this.setNullSelectionAllowed(false);
 
 
     }
@@ -95,4 +96,5 @@ public class TeamSelectComponent extends ComboBox {
             return country.getAlpha2().toLowerCase();
         }).map(s->prefix + s +suffix).orElse(prefix + "default" + suffix);
     }
+
 }

@@ -35,6 +35,14 @@ public class PoolViewPresenter extends MvpPresenter<PoolViewImpl> {
     @Subscribe
     public void handleTeamSelected(PoolComponent.AddTeamEvent event){
         System.out.println("team selected " + event.getTeam());
+        pool.getTeams().add(event.getTeam());
         getView().addTeam(event.getTeam());
+    }
+
+    @Subscribe
+    public void handleDeleteTeam(PoolComponent.TeamClickedEvent event){
+        System.out.println("team clicked ..." + event);
+        pool.getTeams().remove(event.getTeam());
+        getView().removeTeam(event.getTeam());
     }
 }

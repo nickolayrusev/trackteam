@@ -77,6 +77,7 @@ public class PoolComponent extends CustomComponent {
             super(source);
         }
 
+
         public TeamEvent(Component source, Team team, TeamPool pool) {
             super(source);
             this.team = team;
@@ -89,6 +90,14 @@ public class PoolComponent extends CustomComponent {
 
         public TeamPool getPool() {
             return pool;
+        }
+
+        @Override
+        public String toString() {
+            return "TeamEvent{" +
+                    "team=" + team +
+                    ", pool=" + pool +
+                    '}';
         }
     }
 

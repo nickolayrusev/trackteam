@@ -11,4 +11,6 @@ import java.util.List;
  */
 public interface PoolView extends MvpView {
     void init(TeamPool pool, List<Team> allTeams);
+    void addTeam(Team team);
+    void removeTeam(Team team);
 }
