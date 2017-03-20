@@ -45,4 +45,8 @@ public abstract class MvpPresenter<T extends MvpView> implements View {
 	public void enter(ViewChangeListener.ViewChangeEvent viewChangeEvent) {
 
 	}
+
+	protected void navigate(String path){
+		UI.getCurrent().getNavigator().navigateTo(path);
+	}
 }

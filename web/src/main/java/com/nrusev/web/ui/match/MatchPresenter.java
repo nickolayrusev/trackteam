@@ -62,13 +62,13 @@ public class MatchPresenter extends MvpPresenter<MatchView>{
     @Subscribe
     public void handleGameClicked(MatchView.GameClickedEvent event){
         System.out.println("navigating to game...." +event.getGame());
-        UI.getCurrent().getNavigator().navigateTo("match" + "/" + event.getGame().getId() );
+        navigate("match" + "/" + event.getGame().getId() );
     }
 
     @Subscribe
     public void handleTeamClicked(MatchView.TeamClickedEvent event){
         System.out.println("navigating to team...." +event.getTeam());
-        UI.getCurrent().getNavigator().navigateTo("team" + "/" + event.getTeam().getId());
+        navigate("team" + "/" + event.getTeam().getId());
     }
     private Team getHomeTeam(){
         return game.getHomeTeam();

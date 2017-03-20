@@ -8,7 +8,6 @@ import com.nrusev.service.TeamService;
 import com.nrusev.web.ui.mvp.MvpPresenter;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
-import com.vaadin.ui.UI;
 
 /**
  * Created by Nikolay Rusev on 10.3.2017 г..
@@ -50,11 +49,11 @@ public class PoolViewPresenter extends MvpPresenter<PoolViewImpl> {
     public void saveTeamPool(PoolView.SaveTeamPoolEvent event){
         System.out.println(pool.getTeams());
         teamPoolService.save(pool);
-        UI.getCurrent().getNavigator().navigateTo("user-pools");
+        navigate("user-pools");
     }
 
     @Subscribe
     public void cancelTeamPool(PoolView.CancelTeamPoolEvent event){
-        UI.getCurrent().getNavigator().navigateTo("user-pools");
+        navigate("user-pools");
     }
 }

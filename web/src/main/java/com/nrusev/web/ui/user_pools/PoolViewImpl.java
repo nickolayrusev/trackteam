@@ -85,7 +85,7 @@ public class PoolViewImpl extends CssLayout implements PoolView{
 
         formLayout.addComponent(table);
 
-        saveButton = new Button("Save", l->this.eventBus.post(new PoolView.SaveTeamPoolEvent(this)));
+        saveButton = new Button("Save", l->this.eventBus.post(new PoolView.SaveTeamPoolEvent(this, pool)));
         cancelButton = new Button("Cancel",  l-> this.eventBus.post(new PoolView.CancelTeamPoolEvent(this)));
 
         formLayout.addComponent(saveButton);

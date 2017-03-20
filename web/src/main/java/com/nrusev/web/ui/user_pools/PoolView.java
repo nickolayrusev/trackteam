@@ -63,8 +63,15 @@ public interface PoolView extends MvpView {
 
     class SaveTeamPoolEvent extends Component.Event{
 
-        public SaveTeamPoolEvent(Component source) {
+        private TeamPool pool;
+
+        public SaveTeamPoolEvent(Component source, TeamPool pool) {
             super(source);
+            this.pool = pool;
+        }
+
+        public TeamPool getPool() {
+            return pool;
         }
     }
 

@@ -100,7 +100,7 @@ public class UserPoolsPresenter extends MvpPresenter<UserPoolsView> {
 
     @Subscribe
     public void editTeamPool(PoolComponent.EditTeamPoolEvent event){
-        UI.getCurrent().getNavigator().navigateTo("pool" + "/" + event.getTeamPool().getId());
+        navigate("pool" + "/" + event.getTeamPool().getId());
     }
 
 }
