@@ -162,7 +162,7 @@ public class PoolComponent extends CustomComponent {
 
     private void loadInitialPools() {
         panel.setCaption(pool.getName() + " " + pool.getDescription());
-        pool.getTeams().stream().sorted((q,p) ->{ return q.getTitle().compareToIgnoreCase(p.getTitle());}).forEach(team -> {
+        pool.getTeams().forEach(team -> {
             Button button = new Button(team.getTitle(), clickEvent -> this.fireEvent(new TeamClickedEvent(this, team, pool)));
             button.addStyleName(ValoTheme.BUTTON_SMALL);
             panelContent.addComponent(button);

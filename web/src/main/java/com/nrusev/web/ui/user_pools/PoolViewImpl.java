@@ -3,7 +3,6 @@ package com.nrusev.web.ui.user_pools;
 import com.google.common.eventbus.EventBus;
 import com.nrusev.domain.Team;
 import com.nrusev.domain.TeamPool;
-import com.nrusev.web.ui.components.PoolComponent;
 import com.nrusev.web.ui.components.TeamSelectComponent;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -23,8 +22,6 @@ import java.util.List;
 @ViewScope
 public class PoolViewImpl extends CssLayout implements PoolView{
     private final EventBus eventBus;
-
-//    private TeamPool pool;
 
     private TextField tf1;
     private TextField tf2;
@@ -47,8 +44,6 @@ public class PoolViewImpl extends CssLayout implements PoolView{
 
     @Override
     public void init(TeamPool pool, List<Team> allTeams) {
-//        this.pool = pool;
-
         tf1 = new TextField("Name");
         tf1.setIcon(FontAwesome.USER);
         tf1.setRequired(true);
@@ -67,7 +62,7 @@ public class PoolViewImpl extends CssLayout implements PoolView{
 
         select.addValueChangeListener(l-> {
             if(l.getProperty().getValue()!=null) {
-                this.eventBus.post(new PoolComponent.AddTeamEvent(this, (Team) l.getProperty().getValue(), pool));
+                this.eventBus.post(new PoolView.AddTeamEvent(this, (Team) l.getProperty().getValue()));
             }
             select.setValue(null);
         });
@@ -75,6 +70,7 @@ public class PoolViewImpl extends CssLayout implements PoolView{
         formLayout.addComponent(select);
 
         table = new Table("Teams in pool");
+        table.setIcon(FontAwesome.BINOCULARS);
 
         // Define two columns for the built-in container
         table.addContainerProperty("Name", String.class, null);
@@ -82,15 +78,15 @@ public class PoolViewImpl extends CssLayout implements PoolView{
         table.addContainerProperty("Delete", Button.class, null);
 
         pool.getTeams().forEach(t->{
-           table.addItem(new Object[]{ t.getTitle() , "", new Button("Delete",l->this.eventBus.post(new PoolComponent.TeamClickedEvent(this,t,pool)))},t.getId());
+           table.addItem(new Object[]{ t.getTitle() , "", new Button("Delete",l->this.eventBus.post(new PoolView.DeleteTeamEvent(this,t)))},t.getId());
         });
 
         table.setPageLength(pool.getTeams().size());
 
         formLayout.addComponent(table);
 
-        saveButton = new Button("Save");
-        cancelButton = new Button("Cancel");
+        saveButton = new Button("Save", l->this.eventBus.post(new PoolView.SaveTeamPoolEvent(this)));
+        cancelButton = new Button("Cancel",  l-> this.eventBus.post(new PoolView.CancelTeamPoolEvent(this)));
 
         formLayout.addComponent(saveButton);
         formLayout.addComponent(cancelButton);
@@ -111,7 +107,7 @@ public class PoolViewImpl extends CssLayout implements PoolView{
     }
 
     public void addTeam(Team team){
-        this.table.addItem(new Object[]{team.getTitle(),"", new Button("Delete",l->this.eventBus.post(new PoolComponent.TeamClickedEvent(this,team, null)))}, team.getId());
+        this.table.addItem(new Object[]{team.getTitle(),"", new Button("Delete",l->this.eventBus.post(new PoolView.DeleteTeamEvent(this,team)))}, team.getId());
         this.table.setPageLength(table.getPageLength()+1);
     }
 

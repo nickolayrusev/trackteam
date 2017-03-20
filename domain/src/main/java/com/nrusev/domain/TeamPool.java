@@ -30,6 +30,7 @@ public class TeamPool extends BaseEntity {
            inverseJoinColumns = {
               @JoinColumn(name = "team_id",
                    nullable = false, updatable = false) })
+   @OrderBy("title")
    private Set<Team> teams = new HashSet<Team>(0);
 
    public TeamPool() {

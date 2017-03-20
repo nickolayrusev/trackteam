@@ -5,10 +5,10 @@ import com.google.common.eventbus.Subscribe;
 import com.nrusev.domain.TeamPool;
 import com.nrusev.service.TeamPoolService;
 import com.nrusev.service.TeamService;
-import com.nrusev.web.ui.components.PoolComponent;
 import com.nrusev.web.ui.mvp.MvpPresenter;
 import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.spring.annotation.SpringView;
+import com.vaadin.ui.UI;
 
 /**
  * Created by Nikolay Rusev on 10.3.2017 г..
@@ -33,16 +33,28 @@ public class PoolViewPresenter extends MvpPresenter<PoolViewImpl> {
     }
 
     @Subscribe
-    public void handleTeamSelected(PoolComponent.AddTeamEvent event){
+    public void handleTeamSelected(PoolView.AddTeamEvent event){
         System.out.println("team selected " + event.getTeam());
         pool.getTeams().add(event.getTeam());
         getView().addTeam(event.getTeam());
     }
 
     @Subscribe
-    public void handleDeleteTeam(PoolComponent.TeamClickedEvent event){
+    public void handleDeleteTeam(PoolView.DeleteTeamEvent event){
         System.out.println("team clicked ..." + event);
         pool.getTeams().remove(event.getTeam());
         getView().removeTeam(event.getTeam());
+    }
+
+    @Subscribe
+    public void saveTeamPool(PoolView.SaveTeamPoolEvent event){
+        System.out.println(pool.getTeams());
+        teamPoolService.save(pool);
+        UI.getCurrent().getNavigator().navigateTo("user-pools");
+    }
+
+    @Subscribe
+    public void cancelTeamPool(PoolView.CancelTeamPoolEvent event){
+        UI.getCurrent().getNavigator().navigateTo("user-pools");
     }
 }
