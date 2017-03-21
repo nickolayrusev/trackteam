@@ -55,9 +55,7 @@ public class MatchPresenter extends MvpPresenter<MatchView>{
         game = gameService.findById(Long.valueOf(viewChangeEvent.getParameters()));
         getView().loadInitialData(game);
         getView().displayPreviousMeetings(gameService.findAllHeadToHead(getHomeTeam().getTitle(), getVisitorTeam().getTitle()));
-
     }
-
 
     @Subscribe
     public void handleGameClicked(MatchView.GameClickedEvent event){
@@ -67,7 +65,7 @@ public class MatchPresenter extends MvpPresenter<MatchView>{
 
     @Subscribe
     public void handleTeamClicked(MatchView.TeamClickedEvent event){
-        System.out.println("navigating to team...." +event.getTeam());
+        LOG.debug("navigating to team...." +event.getTeam());
         navigate("team" + "/" + event.getTeam().getId());
     }
     private Team getHomeTeam(){

@@ -3,6 +3,7 @@ package com.nrusev.web.ui.team;
 import com.google.common.eventbus.EventBus;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.Team;
+import com.nrusev.web.ui.components.PagedTableComponent;
 import com.vaadin.data.Property;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.label.ContentMode;
@@ -35,7 +36,7 @@ public class TeamViewImpl extends CssLayout implements TeamView {
 
     private VerticalLayout layout;
 
-    private Table grid;
+    private PagedTableComponent grid;
 
     private final EventBus eventBus;
 
@@ -84,20 +85,9 @@ public class TeamViewImpl extends CssLayout implements TeamView {
         subCaption.addStyleName(ValoTheme.LABEL_LIGHT);
         layout.addComponent(subCaption);
 
-        grid = new Table(){
-            @Override
-            protected String formatPropertyValue(Object rowId,
-                                                 Object colId, Property property) {
-                // Format by property type
-                if (property.getType() == Date.class) {
-                    SimpleDateFormat df =
-                            new SimpleDateFormat("dd MMM,yyyy", Locale.ENGLISH);
-                    return df.format((Date)property.getValue());
-                }
+        grid = new PagedTableComponent();
 
-                return super.formatPropertyValue(rowId, colId, property);
-            }
-        };
+
 
         grid.addContainerProperty("Date", Date.class, null);
         grid.addContainerProperty("League", String.class, null);
