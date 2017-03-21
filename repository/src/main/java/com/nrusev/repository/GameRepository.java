@@ -1,9 +1,11 @@
 package com.nrusev.repository;
 
 import com.nrusev.domain.Game;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.Temporal;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 
 import javax.persistence.TemporalType;
@@ -13,7 +15,7 @@ import java.util.List;
 /**
  * Created by Nikolay Rusev on 27.10.2016 г..
  */
-public interface GameRepository extends CrudRepository<Game, Long> {
+public interface GameRepository extends PagingAndSortingRepository<Game, Long> {
 //    SELECT g.id,
 //    t.title,
 //    t2.title,
@@ -64,6 +66,18 @@ public interface GameRepository extends CrudRepository<Game, Long> {
             "join fetch l.country c " +
             "where g.winner is not null and (g.homeTeam.id = :teamId or g.visitorTeam.id = :teamId) order by g.playAt desc")
     List<Game> findAllGamesByTeam(@Param("teamId") Long teamId);
+
+    @Query(value = "select g from Game g " +
+            "join fetch g.homeTeam " +
+            "join fetch g.visitorTeam " +
+            "join fetch g.round r " +
+            "join fetch r.event e " +
+            "join fetch e.season s " +
+            "join fetch e.league l " +
+            "join fetch l.country c " +
+            "where g.winner is not null and (g.homeTeam.id = :teamId or g.visitorTeam.id = :teamId) order by g.playAt desc")
+    List<Game> findAllGamesByTeam(@Param("teamId") Long teamId, Pageable page);
+
 
     @Query("select g from Game g " +
             "join fetch g.homeTeam " +

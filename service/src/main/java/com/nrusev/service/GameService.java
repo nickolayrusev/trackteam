@@ -6,6 +6,7 @@ import com.nrusev.enums.SeasonKeys;
 import com.nrusev.exchange.impl.Competition;
 import com.nrusev.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -52,6 +53,12 @@ public class GameService {
 
     public List<Game> findAllHeadToHead(String firstTeam, String secondTeam){
         return this.gameRepository.findAllHeadToHead(firstTeam,secondTeam);
+    }
+
+    public List<Game> findGamesByTeam(Long id, int page, int size){
+        PageRequest request = new PageRequest(page,size);
+        return this.gameRepository.findAllGamesByTeam(id,request);
+
     }
 
     public List<Game> findGamesByTeam(Long id){

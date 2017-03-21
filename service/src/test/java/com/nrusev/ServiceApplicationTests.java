@@ -51,8 +51,8 @@ public class ServiceApplicationTests {
 	@Autowired
 	CountryService countryService;
 
-	@Autowired @Qualifier("betfairExchanger")
-	DataExchanger dataExchanger;
+//	@Autowired @Qualifier("betfairExchanger")
+//	DataExchanger dataExchanger;
 
 	@Autowired @Qualifier("xmlSoccerExchanger")
 	DataExchanger xmlSoccerExchanger;
@@ -162,10 +162,10 @@ public class ServiceApplicationTests {
 		System.out.println(new String(japanparam.getBytes("ISO-8859-1"), "UTF-8"));
 	}
 
-	@Test
-	public void testBetfairClient(){
-		dataExchanger.findTodayGames().forEach(System.out::println);
-	}
+//	@Test
+//	public void testBetfairClient(){
+//		dataExchanger.findTodayGames().forEach(System.out::println);
+//	}
 
 	@Test
 	public void testXmlSoccerClient(){
@@ -178,6 +178,11 @@ public class ServiceApplicationTests {
 		teamService.findAll(0,10).forEach(System.out::println);
 		System.out.println("--------------------------------------------");
 		teamService.findAll(1,10).forEach(System.out::println);
+	}
+
+	@Test
+	public void testPagingAndSortingGames(){
+		gameService.findGamesByTeam(1006L,0,10).forEach(System.out::println);
 	}
 
 	@Test
