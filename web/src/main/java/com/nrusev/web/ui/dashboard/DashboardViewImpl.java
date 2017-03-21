@@ -4,6 +4,8 @@ import com.google.common.eventbus.EventBus;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.TeamPool;
 import com.nrusev.web.ui.components.PoolComponent;
+import com.vaadin.server.FontAwesome;
+import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
 import com.vaadin.spring.annotation.ViewScope;
 import com.vaadin.ui.*;
@@ -60,5 +62,9 @@ public class DashboardViewImpl extends CssLayout implements DashboardView {
         layout.setWidth("100%");
         layout.setMargin(true);
         layout.setSpacing(true);
+
+        Label caption = new Label(FontAwesome.HOME.getHtml() + " Dashboard view", ContentMode.HTML);
+        caption.addStyleName(ValoTheme.LABEL_H1);
+        layout.addComponent(caption);
     }
 }

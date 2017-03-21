@@ -3,9 +3,7 @@ package com.nrusev.web.ui.team;
 import com.google.common.eventbus.EventBus;
 import com.nrusev.domain.Game;
 import com.nrusev.domain.Team;
-import com.vaadin.data.Buffered;
 import com.vaadin.data.Property;
-import com.vaadin.data.util.BeanItemContainer;
 import com.vaadin.server.FontAwesome;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.annotation.SpringComponent;
@@ -19,12 +17,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import static com.nrusev.support.TextUtils.getGameCaption;
 import static com.nrusev.support.TextUtils.score;
 import static java.util.stream.Collectors.joining;
 
@@ -69,6 +65,7 @@ public class TeamViewImpl extends CssLayout implements TeamView {
     private void buildLayout() {
         layout = new VerticalLayout();
         layout.setWidth("100%");
+        layout.setSizeUndefined();
         layout.setMargin(true);
         layout.setSpacing(true);
         addComponent(layout);
@@ -101,6 +98,7 @@ public class TeamViewImpl extends CssLayout implements TeamView {
                 return super.formatPropertyValue(rowId, colId, property);
             }
         };
+
         grid.addContainerProperty("Date", Date.class, null);
         grid.addContainerProperty("League", String.class, null);
         grid.addContainerProperty("Round", String.class, null);
@@ -113,13 +111,14 @@ public class TeamViewImpl extends CssLayout implements TeamView {
             btnScore.addStyleName(ValoTheme.BUTTON_LINK);
 
             grid.addItem(new Object[]{g.getPlayAt(),
-                    g.getRound().getTitle(),
                     g.getRound().getEvent().getLeague().getTitle(),
+                    g.getRound().getTitle(),
                     g.getHomeTeam().getTitle(),
                     btnScore,
                     g.getVisitorTeam().getTitle()
             }, g.getId());
         });
+        grid.setPageLength(15);
         layout.addComponent(grid);
 
     }

@@ -47,7 +47,7 @@ public class PoolViewPresenter extends MvpPresenter<PoolViewImpl> {
 
     @Subscribe
     public void saveTeamPool(PoolView.SaveTeamPoolEvent event){
-        System.out.println(pool.getTeams());
+        System.out.println(event.getPool() + " "+ pool.getTeams());
         teamPoolService.save(pool);
         navigate("user-pools");
     }

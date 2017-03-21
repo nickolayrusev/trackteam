@@ -7,6 +7,8 @@ import com.vaadin.navigator.ViewChangeListener;
 import com.vaadin.server.*;
 import com.vaadin.shared.ui.label.ContentMode;
 import com.vaadin.spring.navigator.SpringNavigator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.vaadin.annotations.Theme;
@@ -40,13 +42,12 @@ public class MainUI extends UI {
 
 	private CssLayout menu = new CssLayout();
 
+	private final Logger LOG = LoggerFactory.getLogger(getClass());
+
 	@Autowired
 	private SpringNavigator navigator;
 
 	private CssLayout menuItemsLayout = new CssLayout();
-
-	@Autowired
-	private SpringViewProvider viewProvider;
 
 	@Autowired
 	private EventBus eventBus;
@@ -91,18 +92,18 @@ public class MainUI extends UI {
 		navigator.addViewChangeListener(new ViewChangeListener() {
 			@Override
 			public boolean beforeViewChange(ViewChangeEvent viewChangeEvent) {
-				System.out.println("before view change " + viewChangeEvent);
-				if(!Objects.isNull(viewChangeEvent.getOldView()))
+				LOG.debug("before view change " + viewChangeEvent);
+				if(Objects.nonNull(viewChangeEvent.getOldView()))
 					eventBus.unregister(viewChangeEvent.getOldView());
 
-				if(!Objects.isNull(viewChangeEvent.getNewView()))
+				if(Objects.nonNull(viewChangeEvent.getNewView()))
 					eventBus.register(viewChangeEvent.getNewView());
 				return true;
 			}
 
 			@Override
 			public void afterViewChange(ViewChangeEvent viewChangeEvent) {
-				System.out.println("after view change " + viewChangeEvent);
+				LOG.debug("after view change " + viewChangeEvent);
 			}
 		});
 
